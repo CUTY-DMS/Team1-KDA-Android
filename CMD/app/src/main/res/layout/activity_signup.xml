@@ -28,16 +28,16 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <EditText
-        android:id="@+id/edittext_signup_id"
+        android:id="@+id/edittext_signup_email"
         android:layout_width="260dp"
         android:layout_height="50dp"
-        android:hint="아이디"
+        android:hint="이메일"
         android:paddingLeft="20dp"
         android:backgroundTint="@color/white_gray"
         android:textColorHint="@color/gray"
         android:layout_marginTop="140dp"
         android:background="@drawable/radious"
-        android:inputType="textPassword"
+        android:inputType="textEmailAddress"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_signup_login"/>
@@ -53,9 +53,9 @@
         android:inputType="textPassword"
         android:layout_marginTop="30dp"
         android:paddingLeft="20dp"
-        app:layout_constraintLeft_toLeftOf="@id/edittext_signup_id"
-        app:layout_constraintRight_toRightOf="@id/edittext_signup_id"
-        app:layout_constraintTop_toBottomOf="@id/edittext_signup_id"/>
+        app:layout_constraintLeft_toLeftOf="@id/edittext_signup_email"
+        app:layout_constraintRight_toRightOf="@id/edittext_signup_email"
+        app:layout_constraintTop_toBottomOf="@id/edittext_signup_email"/>
 
     <EditText
         android:id="@+id/edittext_signup_passwordCheck"
@@ -72,9 +72,20 @@
         app:layout_constraintRight_toRightOf="@id/edittext_signup_password"
         app:layout_constraintTop_toBottomOf="@id/edittext_signup_password"/>
 
+    <TextView
+        android:id="@+id/textview_signup_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="비밀번호가 일치하지 않습니다"
+        android:visibility="invisible"
+        android:textColor="@color/red"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintLeft_toLeftOf="@id/edittext_signup_passwordCheck"
+        app:layout_constraintTop_toBottomOf="@id/edittext_signup_passwordCheck"/>
+
 
     <Button
-        android:id="@+id/button_signup_login"
+        android:id="@+id/button_signup_signup"
         android:layout_width="260dp"
         android:layout_height="50dp"
         android:layout_marginTop="30dp"
@@ -92,8 +103,8 @@
         android:text="계정이 없으시다면?"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="5dp"
-        app:layout_constraintLeft_toLeftOf="@id/button_signup_login"
-        app:layout_constraintTop_toBottomOf="@id/button_signup_login"/>
+        app:layout_constraintLeft_toLeftOf="@id/button_signup_signup"
+        app:layout_constraintTop_toBottomOf="@id/button_signup_signup"/>
 
     <TextView
         android:id="@+id/textview_goto_login"
@@ -104,6 +115,6 @@
         android:layout_marginLeft="5dp"
         android:textColor="@color/black"
         app:layout_constraintLeft_toRightOf="@id/textview_signup_qestion"
-        app:layout_constraintTop_toBottomOf="@id/button_signup_login"/>
+        app:layout_constraintTop_toBottomOf="@id/button_signup_signup"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
