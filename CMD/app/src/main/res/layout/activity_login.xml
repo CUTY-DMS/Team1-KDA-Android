@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.LoginActivity"
+    android:background="@color/back_white">
+
+    <ImageView
+        android:layout_width="600dp"
+        android:layout_height="600dp"
+        android:src="@drawable/img_circle"
+        tools:layout_editor_absoluteX="-279dp"
+        tools:layout_editor_absoluteY="-345dp" />
+
+    <TextView
+        android:id="@+id/textview_login_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="로그인"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="50dp"
+        android:textColor="@color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText
+        android:id="@+id/edittext_login_id"
+        android:layout_width="260dp"
+        android:layout_height="50dp"
+        android:hint="아이디"
+        android:paddingLeft="20dp"
+        android:backgroundTint="@color/white_gray"
+        android:textColorHint="@color/gray"
+        android:layout_marginTop="140dp"
+        android:background="@drawable/radious"
+        android:inputType="textPassword"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textview_login_login"/>
+
+    <EditText
+        android:id="@+id/edittext_login_password"
+        android:layout_width="260dp"
+        android:layout_height="50dp"
+        android:hint="비밀번호"
+        android:background="@drawable/radious"
+        android:textColorHint="@color/gray"
+        android:backgroundTint="@color/white_gray"
+        android:inputType="textPassword"
+        android:layout_marginTop="50dp"
+        android:paddingLeft="20dp"
+        app:layout_constraintLeft_toLeftOf="@id/edittext_login_id"
+        app:layout_constraintRight_toRightOf="@id/edittext_login_id"
+        app:layout_constraintTop_toBottomOf="@id/edittext_login_id"/>
+    
+    
+    <Button
+        android:id="@+id/button_login_login"
+        android:layout_width="260dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:text="로그인"
+        android:backgroundTint="@color/green3"
+        app:layout_constraintLeft_toLeftOf="@id/edittext_login_password"
+        app:layout_constraintRight_toRightOf="@id/edittext_login_password"
+        app:layout_constraintTop_toBottomOf="@id/edittext_login_password"/>
+
+    <TextView
+        android:id="@+id/textview_login_qestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="계정이 없으시다면?"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintLeft_toLeftOf="@id/button_login_login"
+        app:layout_constraintTop_toBottomOf="@id/button_login_login"/>
+
+    <TextView
+        android:id="@+id/textview_goto_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="회원가입 하기"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintLeft_toRightOf="@id/textview_login_qestion"
+        app:layout_constraintTop_toBottomOf="@id/button_login_login"/>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
