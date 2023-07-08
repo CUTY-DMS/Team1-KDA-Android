@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_calendar"
+        android:icon="@drawable/baseline_calendar_today_24"
+        android:title="달력" />
+
+    <item
+        android:id="@+id/menu_schedule"
+        android:icon="@drawable/baseline_list_alt_24"
+        android:title="시간표"/>
+
+    <item
+        android:id="@+id/alarm"
+        android:icon="@drawable/baseline_notifications_none_24"
+        android:title="알림"/>
+
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/baseline_person_outline_24"
+        android:title="프로필"/>
+
+</menu>
