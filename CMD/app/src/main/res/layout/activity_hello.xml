@@ -6,4 +6,59 @@
     android:layout_height="match_parent"
     tools:context=".activity.HelloActivity">
 
+    <TextView
+        android:id="@+id/textVIew_hello_userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이지후"
+        android:textStyle="bold"
+        android:textSize="40sp"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="240dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="님"
+        android:textStyle="bold"
+        android:textSize="40sp"
+        android:layout_marginTop="240dp"
+        app:layout_constraintLeft_toRightOf="@id/textVIew_hello_userName"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/textView_hello_kda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="KDA"
+        android:layout_marginTop="1dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="60dp"
+        android:textColor="@color/green3"
+        android:textSize="40sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textVIew_hello_userName"/>
+
+    <TextView
+        android:id="@+id/textVIew_hello_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="에 오신 것을"
+        android:textStyle="bold"
+        android:textSize="40sp"
+        app:layout_constraintLeft_toRightOf="@id/textView_hello_kda"
+        app:layout_constraintTop_toBottomOf="@id/textVIew_hello_userName"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="환영합니다"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textVIew_hello_text"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
