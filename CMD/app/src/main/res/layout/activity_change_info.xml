@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ChangeInfoActivity">
+
+    <TextView
+        android:id="@+id/textView_change"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="회원 정보 수정"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="22dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/textView_change_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이름"
+        android:textSize="15sp"
+        android:textColor="@color/gray"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_change"/>
+    
+    <EditText
+        android:id="@+id/editText_change_userName"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/radious"
+        android:backgroundTint="@color/white_gray"
+        android:text="이지후"
+        android:paddingLeft="20dp"
+        app:layout_constraintLeft_toLeftOf="@id/textView_change_name"
+        app:layout_constraintTop_toBottomOf="@id/textView_change_name"/>
+
+    <ImageButton
+        android:id="@+id/imageBtn_change_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_cancel_24"
+        android:layout_marginRight="5dp"
+        android:backgroundTint="@color/white_gray"
+        app:layout_constraintRight_toRightOf="@id/editText_change_userName"
+        app:layout_constraintTop_toTopOf="@id/editText_change_userName"/>
+
+    <TextView
+        android:id="@+id/textView_change_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="학번"
+        android:textSize="15sp"
+        android:textColor="@color/gray"
+        android:layout_marginTop="30dp"
+        app:layout_constraintLeft_toLeftOf="@id/editText_change_userName"
+        app:layout_constraintTop_toBottomOf="@id/editText_change_userName"/>
+
+    <EditText
+        android:id="@+id/editText_change_userNumber"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/radious"
+        android:backgroundTint="@color/white_gray"
+        android:text="1103"
+        android:paddingLeft="20dp"
+        app:layout_constraintLeft_toLeftOf="@id/textView_change_number"
+        app:layout_constraintTop_toBottomOf="@id/textView_change_number"/>
+
+    <ImageButton
+        android:id="@+id/imageBtn_change_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_cancel_24"
+        android:layout_marginRight="5dp"
+        android:backgroundTint="@color/white_gray"
+        app:layout_constraintRight_toRightOf="@id/editText_change_userNumber"
+        app:layout_constraintTop_toTopOf="@id/editText_change_userNumber"/>
+
+    <TextView
+        android:id="@+id/textView_change_birth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="생년월일"
+        android:textSize="15sp"
+        android:textColor="@color/gray"
+        android:layout_marginTop="30dp"
+        app:layout_constraintLeft_toLeftOf="@id/editText_change_userNumber"
+        app:layout_constraintTop_toBottomOf="@id/editText_change_userNumber"/>
+
+    <EditText
+        android:id="@+id/editText_change_userBirth"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/radious"
+        android:backgroundTint="@color/white_gray"
+        android:text="08.02.07"
+        android:paddingLeft="20dp"
+        app:layout_constraintLeft_toLeftOf="@id/textView_change_birth"
+        app:layout_constraintTop_toBottomOf="@id/textView_change_birth"/>
+
+    <ImageButton
+        android:id="@+id/imageBtn_change_birth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_cancel_24"
+        android:layout_marginRight="5dp"
+        android:backgroundTint="@color/white_gray"
+        app:layout_constraintRight_toRightOf="@id/editText_change_userBirth"
+        app:layout_constraintTop_toTopOf="@id/editText_change_userBirth"/>
+
+    <TextView
+        android:id="@+id/textView_change_major"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="전공 분야"
+        android:textSize="15sp"
+        android:textColor="@color/gray"
+        android:layout_marginTop="30dp"
+        app:layout_constraintLeft_toLeftOf="@id/editText_change_userBirth"
+        app:layout_constraintTop_toBottomOf="@id/editText_change_userBirth"/>
+
+    <EditText
+        android:id="@+id/editText_change_userMajor"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/radious"
+        android:backgroundTint="@color/white_gray"
+        android:text="Backend"
+        android:paddingLeft="20dp"
+        app:layout_constraintLeft_toLeftOf="@id/textView_change_major"
+        app:layout_constraintTop_toBottomOf="@id/textView_change_major"/>
+
+    <ImageButton
+        android:id="@+id/imageBtn_change_major"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_cancel_24"
+        android:layout_marginRight="5dp"
+        android:backgroundTint="@color/white_gray"
+        app:layout_constraintRight_toRightOf="@id/editText_change_userMajor"
+        app:layout_constraintTop_toTopOf="@id/editText_change_userMajor"/>
+
+    <TextView
+        android:id="@+id/textView_change_club"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="전공 동아리"
+        android:textSize="15sp"
+        android:textColor="@color/gray"
+        android:layout_marginTop="30dp"
+        app:layout_constraintLeft_toLeftOf="@id/editText_change_userMajor"
+        app:layout_constraintTop_toBottomOf="@id/editText_change_userMajor"/>
+
+    <EditText
+        android:id="@+id/editText_change_userClub"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/radious"
+        android:backgroundTint="@color/white_gray"
+        android:text="정"
+        android:paddingLeft="20dp"
+        app:layout_constraintLeft_toLeftOf="@id/textView_change_club"
+        app:layout_constraintTop_toBottomOf="@id/textView_change_club"/>
+
+    <ImageButton
+        android:id="@+id/imageBtn_change_club"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_cancel_24"
+        android:layout_marginRight="5dp"
+        android:backgroundTint="@color/white_gray"
+        app:layout_constraintRight_toRightOf="@id/editText_change_userClub"
+        app:layout_constraintTop_toTopOf="@id/editText_change_userClub"/>
+    
+    <Button
+        android:id="@+id/button_change_edit"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="수정하기"
+        android:backgroundTint="@color/red"
+        android:layout_marginTop="40dp"
+        android:visibility="visible"
+        app:layout_constraintLeft_toLeftOf="@id/editText_change_userClub"
+        app:layout_constraintRight_toRightOf="@id/editText_change_userClub"
+        app:layout_constraintTop_toBottomOf="@id/editText_change_userClub"/>
+
+    <Button
+        android:id="@+id/button_change_save"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="저장하기"
+        android:backgroundTint="@color/green2"
+        android:layout_marginTop="40dp"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="@id/editText_change_userClub"
+        app:layout_constraintRight_toRightOf="@id/editText_change_userClub"
+        app:layout_constraintTop_toBottomOf="@id/editText_change_userClub"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
