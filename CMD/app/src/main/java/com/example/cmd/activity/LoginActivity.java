@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -67,12 +68,16 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(LoginActivity.this, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginActivity.this , MainActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "로그인에 실패했습니다", Toast.LENGTH_SHORT).show();
+                Log.e("TAG", "네트워크 요청 실패: "+t.getMessage());
             }
         });
     }
