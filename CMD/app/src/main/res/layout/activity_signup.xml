@@ -7,12 +7,7 @@
     tools:context=".activity.SignupActivity"
     android:background="@color/back_white">
 
-    <ImageView
-        android:layout_width="600dp"
-        android:layout_height="600dp"
-        android:src="@drawable/img_circle"
-        tools:layout_editor_absoluteX="-279dp"
-        tools:layout_editor_absoluteY="-345dp" />
+
 
 
     <ScrollView
@@ -37,9 +32,9 @@
                 android:text="회원 가입"
                 android:textSize="50sp"
                 android:textStyle="bold"
-                android:layout_marginTop="80dp"
-                android:layout_marginLeft="30dp"
-                android:textColor="@color/white"
+                android:layout_marginTop="26dp"
+                android:layout_marginLeft="27dp"
+                android:textColor="@color/black"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
@@ -53,7 +48,7 @@
                 android:textColorHint="@color/gray"
                 android:background="@drawable/radious"
                 android:inputType="textPersonName"
-                android:layout_marginTop="130dp"
+                android:layout_marginTop="100dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textview_signup_login"/>
