@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:drawable="@drawable/trashcan_icon"
+        android:width="19dp"
+        android:height="19dp"/>
+</layer-list>
