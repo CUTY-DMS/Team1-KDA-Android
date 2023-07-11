@@ -1,14 +1,243 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="4" />
+        android:id="@+id/textVIew_profile_myPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="마이페이지"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="22dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageView_profile"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/default_image_profile"
+        android:layout_marginTop="40dp"
+        app:layout_constraintLeft_toLeftOf="@id/textVIew_profile_myPage"
+        app:layout_constraintTop_toBottomOf="@id/textVIew_profile_myPage"/>
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/textVIew_profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이지후"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="30dp"
+        app:layout_constraintLeft_toRightOf="@id/imageView_profile"
+        app:layout_constraintTop_toBottomOf="@id/textVIew_profile_myPage"/>
+
+    <TextView
+        android:id="@+id/textView_profile_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hidsm@dsm.hs.kr"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="@id/textVIew_profile_name"
+        app:layout_constraintTop_toBottomOf="@id/textVIew_profile_name"/>
+
+    <ImageView
+        android:id="@+id/imageView_profile_line1"
+        android:src="@drawable/line"
+        android:layout_width="350dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView_profile"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_profile_userInfo"
+        android:layout_width="300dp"
+        android:layout_height="280dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/background"
+        app:layout_constraintLeft_toLeftOf="@id/imageView_profile_line1"
+        app:layout_constraintRight_toRightOf="@id/imageView_profile_line1"
+        app:layout_constraintTop_toBottomOf="@id/imageView_profile_line1">
+
+        <TextView
+            android:id="@+id/textView_profile_usrInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="회원 정보"
+            android:textColor="@color/black"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_edit"
+            android:background="@color/white"
+            android:layout_marginTop="22dp"
+            android:layout_marginRight="30dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/textView_profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이름"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            app:layout_constraintLeft_toLeftOf="@id/textView_profile_usrInfo"
+            app:layout_constraintTop_toBottomOf="@id/textView_profile_usrInfo"/>
+
+        <TextView
+            android:id="@+id/textView_profile_userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이지후"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="80dp"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            app:layout_constraintLeft_toRightOf="@id/textView_profile_name"
+            app:layout_constraintTop_toBottomOf="@id/textView_profile_usrInfo"/>
+
+        <TextView
+            android:id="@+id/textView_profile_classNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="학번"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            app:layout_constraintLeft_toLeftOf="@id/textView_profile_name"
+            app:layout_constraintTop_toBottomOf="@id/textView_profile_name"/>
+
+        <TextView
+            android:id="@+id/textView_profile_userClassNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1103"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            app:layout_constraintLeft_toLeftOf="@id/textView_profile_userName"
+            app:layout_constraintTop_toBottomOf="@id/textView_profile_userName"/>
+
+        <TextView
+            android:id="@+id/textView_profile_birth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="생년월일"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            app:layout_constraintLeft_toLeftOf="@id/textView_profile_classNumber"
+            app:layout_constraintTop_toBottomOf="@id/textView_profile_classNumber"/>
+
+        <TextView
+            android:id="@+id/textView_profile_userBirth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="08.02.09"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            app:layout_constraintLeft_toLeftOf="@id/textView_profile_userClassNumber"
+            app:layout_constraintTop_toBottomOf="@id/textView_profile_userClassNumber"/>
+
+        <TextView
+            android:id="@+id/textView_profile_major"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="전공 분야"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            app:layout_constraintLeft_toLeftOf="@id/textView_profile_birth"
+            app:layout_constraintTop_toBottomOf="@id/textView_profile_birth"/>
+
+        <TextView
+            android:id="@+id/textView_profile_userMajor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Backend"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            app:layout_constraintLeft_toLeftOf="@id/textView_profile_userBirth"
+            app:layout_constraintTop_toBottomOf="@id/textView_profile_userBirth"/>
+
+        <TextView
+            android:id="@+id/textView_profile_club"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="전공 동아리"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            app:layout_constraintLeft_toLeftOf="@id/textView_profile_major"
+            app:layout_constraintTop_toBottomOf="@id/textView_profile_major"/>
+
+        <TextView
+            android:id="@+id/textView_profile_userClub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Backend"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            app:layout_constraintLeft_toLeftOf="@id/textView_profile_userMajor"
+            app:layout_constraintTop_toBottomOf="@id/textView_profile_userMajor"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imageView_profile_line2"
+        android:src="@drawable/line"
+        android:layout_width="350dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintLeft_toLeftOf="@id/layout_profile_userInfo"
+        app:layout_constraintRight_toRightOf="@id/layout_profile_userInfo"
+        app:layout_constraintTop_toBottomOf="@id/layout_profile_userInfo"/>
+
+    <Button
+        android:id="@+id/button_profile_changePassowrd"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="비밀번호 변경"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/gray"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="@id/imageView_profile_line2"
+        app:layout_constraintRight_toRightOf="@id/imageView_profile_line2"
+        app:layout_constraintTop_toBottomOf="@id/imageView_profile_line2"/>
+
+    <Button
+        android:id="@+id/button_profile_logout"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="로그아웃"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/red"
+        app:layout_constraintLeft_toLeftOf="@id/button_profile_changePassowrd"
+        app:layout_constraintRight_toRightOf="@id/button_profile_changePassowrd"
+        app:layout_constraintTop_toBottomOf="@id/button_profile_changePassowrd"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
