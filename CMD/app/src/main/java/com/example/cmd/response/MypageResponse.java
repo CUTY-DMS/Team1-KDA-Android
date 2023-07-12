@@ -4,8 +4,8 @@ public class MypageResponse {
 
     private String name;
     private String email;
-    private Long classIdNumber;
-    private Long birth;
+    private String classIdNumber;
+    private String birth;
     private String majorField;
     private String clubName;
 
@@ -17,11 +17,11 @@ public class MypageResponse {
         return email;
     }
 
-    public Long getClassIdNumber() {
+    public String getClassIdNumber() {
         return classIdNumber;
     }
 
-    public Long getBirth() {
+    public String getBirth() {
         return birth;
     }
 
