@@ -1,5 +1,6 @@
 package com.example.cmd.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -8,8 +9,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.cmd.activity.ChangeInfoActivity;
 import com.example.cmd.api.ApiProvider;
 import com.example.cmd.api.SeverApi;
 import com.example.cmd.databinding.FragmentProfileBinding;
@@ -51,6 +54,15 @@ public class ProfileFragment extends Fragment {
 
         bringInfo();
 
+
+        ImageButton editBtn = binding.imageBtnProfileEdit;
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ChangeInfoActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return binding.getRoot();
     }
