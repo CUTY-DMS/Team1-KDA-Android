@@ -2,12 +2,18 @@ package com.example.cmd.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.cmd.R;
 import com.example.cmd.api.ApiProvider;
@@ -29,17 +35,29 @@ public class ChangeInfoActivity extends AppCompatActivity {
 
         binding = ActivityChangeInfoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        //Button editBtn = binding.buttonChangeEdit;
+        //EditText first = binding.editTextChangeUserName;
 
-        String name = binding.editTextChangeUserName.getText().toString();
-        String classIdNumber = binding.editTextChangeUserNumber.getText().toString();
-        String birth = binding.editTextChangeUserBirth.getText().toString();
-        String majorField = binding.editTextChangeUserMajor.getText().toString();
-        String clubName = binding.editTextChangeUserClub.getText().toString();
+        binding.buttonChangeEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //커서 포커스 맞추기
+                binding.editTextChangeUserName.requestFocus();
+                //커서 마지막 글씨에 맞추기
+                binding.editTextChangeUserName.setSelection(binding.editTextChangeUserName.getText().length());
 
-        check(name,classIdNumber,birth,majorField,clubName);
+                //키보드 올리기
+                InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                inputMethodManager.showSoftInput(binding.editTextChangeUserName, InputMethodManager.SHOW_IMPLICIT);
+                Log.d("TEST", "클릭");
+            }
+        });
+        check();
+        clear();
+
     }
 
-    private void check(String name,String classIdNumber,String birth,String majorField, String clubName) {
+    private void check() {
         EditText userName = binding.editTextChangeUserName;
         EditText userClassNumber = binding.editTextChangeUserNumber;
         EditText userBirth = binding.editTextChangeUserBirth;
@@ -87,12 +105,19 @@ public class ChangeInfoActivity extends AppCompatActivity {
         String majorField = binding.editTextChangeUserMajor.getText().toString();
         String clubName = binding.editTextChangeUserClub.getText().toString();
 
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String accessToken = sharedPreferences.getString("accessToken",null);
+
         ChangeMyInfoRequest changeMyInfoRequest = new ChangeMyInfoRequest(name,classIdNumber,birth,majorField,clubName);
         SeverApi severApi = ApiProvider.getInstance().create(SeverApi.class);
 
-        severApi.changeInfo(changeMyInfoRequest).enqueue(new Callback<Void>() {
+        Call<Void> call = severApi.changeInfo(accessToken,changeMyInfoRequest);
+        call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.isSuccessful()){
+                    Toast.makeText(ChangeInfoActivity.this, "정보가 수정 되었습니다", Toast.LENGTH_SHORT).show();
+                }
 
             }
 
@@ -101,6 +126,36 @@ public class ChangeInfoActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void clear() {
+        ImageButton name = binding.imageBtnChangeName;
+        ImageButton number = binding.imageBtnChangeNumber;
+        ImageButton birth = binding.imageBtnChangeBirth;
+        ImageButton major = binding.imageBtnChangeMajor;
+        ImageButton club = binding.imageBtnChangeClub;
+
+        EditText userName = binding.editTextChangeUserName;
+        EditText userClassNumber = binding.editTextChangeUserNumber;
+        EditText userBirth = binding.editTextChangeUserBirth;
+        EditText userMajorField = binding.editTextChangeUserMajor;
+        EditText userClubName = binding.editTextChangeUserClub;
+
+        name.setOnClickListener(click(userName));
+        number.setOnClickListener(click(userClassNumber));
+        birth.setOnClickListener(click(userBirth));
+        major.setOnClickListener(click(userMajorField));
+        club.setOnClickListener(click(userClubName));
+    }
+
+    private View.OnClickListener click(EditText id){
+
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                id.setText(null);
+            }
+        };
 
     }
 }
