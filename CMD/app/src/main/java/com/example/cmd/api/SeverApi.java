@@ -33,7 +33,7 @@ public interface SeverApi {
 
     @PATCH("/user/motifyUserInfo")
     Call<Void> changeInfo (
-            @Header("AccessToken") String token
-             ChangeMyInfoRequest chan
+            @Header("Authorization") String accessToken,
+            @Body ChangeMyInfoRequest changeMyInfoRequest
     );
 }
