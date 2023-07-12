@@ -72,8 +72,8 @@ public class ProfileFragment extends Fragment {
                     if(response.body() != null){
                         email.setText(response.body().getEmail());
                         name.setText(response.body().getName());
-                        classIdNumber.setText(response.body().getClassIdNumber().toString());
-                        birth.setText(response.body().getBirth().toString());
+                        classIdNumber.setText(response.body().getClassIdNumber());
+                        birth.setText(response.body().getBirth());
                         majorField.setText(response.body().getMajorField());
                         clubName.setText(response.body().getClubName());
                     }
