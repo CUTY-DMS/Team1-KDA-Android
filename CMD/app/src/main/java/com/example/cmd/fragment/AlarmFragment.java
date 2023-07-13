@@ -13,6 +13,7 @@ import com.example.cmd.R;
 import com.example.cmd.adapter.AlarmAdapter;
 import com.example.cmd.databinding.FragmentAlarmBinding;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class AlarmFragment extends Fragment {
 
@@ -30,6 +31,30 @@ public class AlarmFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        tabLayout = binding.tabLayoutAlarm;
+        viewPager2 = binding.viewPagerAlarm;
+        //adapter = new AlarmAdapter(getActivity().getSupportFragmentManager(), 1);
+        adapter = new AlarmAdapter(getChildFragmentManager(), getLifecycle());
+
+
+        adapter.addFragment(new AllNoticeFragment());
+        adapter.addFragment(new WeClassFragment());
+
+        viewPager2.setAdapter(adapter);
+
+        new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
+
+            switch (position) {
+                case 0:
+                    tab.setText("전체 공지");
+                    break;
+                case 1:
+                    tab.setText("우리 반 공지");
+                    break;
+
+            }
+        });
     }
 
     @Override
@@ -38,14 +63,14 @@ public class AlarmFragment extends Fragment {
 
 
 
-        adapter = new AlarmAdapter(getActivity().getSupportFragmentManager(), 1);
-
-        adapter.addFragment(new AllNoticeFragment());
-        adapter.addFragment(new WeClassFragment());
-
-        viewPager2.setAdapter(adapter);
-
-        tabLayout.setupWithViewPager(viewPager2);
+//        adapter = new AlarmAdapter(getActivity().getSupportFragmentManager(), 1);
+//
+//        adapter.addFragment(new AllNoticeFragment());
+//        adapter.addFragment(new WeClassFragment());
+//
+//        viewPager2.setAdapter(adapter);
+//
+//        tabLayout.setupWithViewPager(viewPager2);
         binding = FragmentAlarmBinding.inflate(inflater);
         return binding.getRoot();
     }
