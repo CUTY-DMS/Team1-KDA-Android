@@ -35,8 +35,7 @@ public class ChangeInfoActivity extends AppCompatActivity {
 
         binding = ActivityChangeInfoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        //Button editBtn = binding.buttonChangeEdit;
-        //EditText first = binding.editTextChangeUserName;
+
 
         binding.buttonChangeEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,25 +57,17 @@ public class ChangeInfoActivity extends AppCompatActivity {
     }
 
     private void check() {
-        EditText userName = binding.editTextChangeUserName;
-        EditText userClassNumber = binding.editTextChangeUserNumber;
-        EditText userBirth = binding.editTextChangeUserBirth;
-        EditText userMajorField = binding.editTextChangeUserMajor;
-        EditText userClubName = binding.editTextChangeUserClub;
 
         TextWatcher textWatcher = createTextWatcher();
 
-        userName.addTextChangedListener(textWatcher);
-        userClassNumber.addTextChangedListener(textWatcher);
-        userBirth.addTextChangedListener(textWatcher);
-        userMajorField.addTextChangedListener(textWatcher);
-        userClubName.addTextChangedListener(textWatcher);
+        binding.editTextChangeUserName.addTextChangedListener(textWatcher);
+        binding.editTextChangeUserNumber.addTextChangedListener(textWatcher);
+        binding.editTextChangeUserBirth.addTextChangedListener(textWatcher);
+        binding.editTextChangeUserMajor.addTextChangedListener(textWatcher);
+        binding.editTextChangeUserClub.addTextChangedListener(textWatcher);
     }
 
     private TextWatcher createTextWatcher() {
-
-        Button editBtn = binding.buttonChangeEdit;
-        Button saveBtn = binding.buttonChangeSave;
 
 
         return new TextWatcher() {
@@ -87,8 +78,8 @@ public class ChangeInfoActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                editBtn.setVisibility(View.INVISIBLE);
-                saveBtn.setVisibility(View.VISIBLE);
+                binding.buttonChangeEdit.setVisibility(View.INVISIBLE);
+                binding.buttonChangeSave.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -111,41 +102,35 @@ public class ChangeInfoActivity extends AppCompatActivity {
         ChangeMyInfoRequest changeMyInfoRequest = new ChangeMyInfoRequest(name,classIdNumber,birth,majorField,clubName);
         SeverApi severApi = ApiProvider.getInstance().create(SeverApi.class);
 
-        Call<Void> call = severApi.changeInfo(accessToken,changeMyInfoRequest);
-        call.enqueue(new Callback<Void>() {
+        binding.buttonChangeSave.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if(response.isSuccessful()){
-                    Toast.makeText(ChangeInfoActivity.this, "정보가 수정 되었습니다", Toast.LENGTH_SHORT).show();
-                }
+            public void onClick(View v) {
+                Call<Void> call = severApi.changeInfo(accessToken,changeMyInfoRequest);
+                call.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if(response.isSuccessful()){
+                            Toast.makeText(ChangeInfoActivity.this, "정보가 수정 되었습니다", Toast.LENGTH_SHORT).show();
+                        }
 
-            }
+                    }
 
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
 
+                    }
+                });
             }
         });
     }
 
     private void clear() {
-        ImageButton name = binding.imageBtnChangeName;
-        ImageButton number = binding.imageBtnChangeNumber;
-        ImageButton birth = binding.imageBtnChangeBirth;
-        ImageButton major = binding.imageBtnChangeMajor;
-        ImageButton club = binding.imageBtnChangeClub;
 
-        EditText userName = binding.editTextChangeUserName;
-        EditText userClassNumber = binding.editTextChangeUserNumber;
-        EditText userBirth = binding.editTextChangeUserBirth;
-        EditText userMajorField = binding.editTextChangeUserMajor;
-        EditText userClubName = binding.editTextChangeUserClub;
-
-        name.setOnClickListener(click(userName));
-        number.setOnClickListener(click(userClassNumber));
-        birth.setOnClickListener(click(userBirth));
-        major.setOnClickListener(click(userMajorField));
-        club.setOnClickListener(click(userClubName));
+        binding.imageBtnChangeName.setOnClickListener(click(binding.editTextChangeUserName));
+        binding.imageBtnChangeNumber.setOnClickListener(click(binding.editTextChangeUserNumber));
+        binding.imageBtnChangeBirth.setOnClickListener(click(binding.editTextChangeUserBirth));
+        binding.imageBtnChangeMajor.setOnClickListener(click(binding.editTextChangeUserMajor));
+        binding.imageBtnChangeClub.setOnClickListener(click(binding.editTextChangeUserClub));
     }
 
     private View.OnClickListener click(EditText id){
