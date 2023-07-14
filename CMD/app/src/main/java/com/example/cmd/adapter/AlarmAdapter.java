@@ -9,6 +9,9 @@ import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.example.cmd.fragment.AllNoticeFragment;
+import com.example.cmd.fragment.WeClassFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +19,7 @@ public class AlarmAdapter extends FragmentStateAdapter {
 
     private List<Fragment> fragmentList = new ArrayList<>();
 
-    public AlarmAdapter(FragmentManager fragmentManager, Lifecycle lifecycle){
+    public AlarmAdapter(@NonNull FragmentManager fragmentManager,@NonNull Lifecycle lifecycle){
         super(fragmentManager, lifecycle);
     }
 
@@ -26,8 +29,16 @@ public class AlarmAdapter extends FragmentStateAdapter {
 
     @NonNull
     @Override
-    public Fragment createFragment(int postion) {
-        return fragmentList.get(postion);
+    public Fragment createFragment(int position) {
+        switch (position) {
+            case 0:
+                return new AllNoticeFragment();
+            case 1:
+                return new WeClassFragment();
+            default:
+                return null;
+        }
+        //return fragmentList.get(position);
     }
 
 //    @NonNull
@@ -43,6 +54,7 @@ public class AlarmAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return fragmentList.size();
+        return 2;
+        //return fragmentList.size();
     }
 }
