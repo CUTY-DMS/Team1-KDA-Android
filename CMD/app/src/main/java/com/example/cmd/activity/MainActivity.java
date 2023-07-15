@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.frame_layout_main, scheduleFragment).commitAllowingStateLoss();
+        //transaction.addToBackStack(null);
 
         Map<Integer, Fragment> fragments = new HashMap<>();
         fragments.put(R.id.menu_calendar, calendarFragment);
@@ -55,11 +56,31 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment = fragments.get(item.getItemId());
 
                 if(fragment != null) {
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.frame_layout_main ,fragment)
-                            .commit();
+                    fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction transaction1 = fragmentManager.beginTransaction();
+
+                    if(fragment instanceof AlarmFragment) {
+                        transaction1.replace(R.id.frame_layout_main, fragment)
+                                .addToBackStack(null)
+                                .commit();
+                    }else{
+                        transaction1.replace(R.id.frame_layout_main, fragment)
+                                .commit();
+                    }
                     return true;
                 }
+
+//                if(fragment != null) {
+//                    getSupportFragmentManager().beginTransaction()
+//                            //.replace(R.id.frame_layout_main, fragments, fragments.class.getSimpleName()).addToBackStack(fragments.class.getSimpleName())
+//                            .replace(R.id.frame_layout_main ,fragment)
+//                            .commit();
+//                    return true;
+//                }
+
+
+
+
 
 //                switch (item.getItemId()){
 //                    case **R.id.menu_calendar:**
