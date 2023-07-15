@@ -24,16 +24,19 @@ import com.google.android.material.tabs.TabLayoutMediator;
 public class AlarmFragment extends Fragment {
 
     FragmentAlarmBinding binding;
-    private static final String TAG = "Alarm_Fragment";
 
-    private TabLayout tabLayout;
-    private ViewPager2 viewPager2;
-    private AlarmAdapter adapter;
+    Fragment allFragment,weFragment;
+    final int NUM_PAGED = 2;
+    //private static final String TAG = "Alarm_Fragment";
 
-    AllNoticeFragment allNoticeFragment;
-    WeClassFragment weClassFragment;
+    //private TabLayout tabLayout;
+    //private ViewPager2 viewPager2;
+    //private AlarmAdapter adapter;
 
-    LinearLayout container;
+    //AllNoticeFragment allNoticeFragment;
+    //WeClassFragment weClassFragment;
+
+    //LinearLayout container;
 
 
     @Override
@@ -76,72 +79,94 @@ public class AlarmFragment extends Fragment {
         binding = FragmentAlarmBinding.inflate(inflater, container, false);
         View rootView = binding.getRoot();
 
-        adapter = new AlarmAdapter(getChildFragmentManager(), getLifecycle());
-        //container = binding.getRoot().getRootView().findViewById(R.id.container)
-        container = rootView.findViewById(R.id.layout_container);
-        //viewPager2 = container.findViewById(R.id.viewPager_alarm);
-        viewPager2 = new ViewPager2(requireContext());
-        container.addView(viewPager2);
-        //viewPager2 = binding.viewPagerAlarm;
-        viewPager2.setAdapter(adapter);
 
-        tabLayout = binding.tabLayoutAlarm;
-        //tabLayout = rootView.findViewById(R.id.tabLayout_alarm);
-        new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
-            Log.d("TEST","인"+tab);
-            if(position == 0) {
-                tab.setText("전체 공지");
-                //getChildFragmentManager().beginTransaction().replace(R.id.layout_container, new AllNoticeFragment()).commit();
-            }
-            else {
-                tab.setText("우리 반 공지");
-                //getChildFragmentManager().beginTransaction().replace(R.id.layout_container, new WeClassFragment()).commit();
-            }
-        }).attach();
+        allFragment = new AllNoticeFragment();
+        weFragment = new WeClassFragment();
+
+        ViewPager2 viewPager2 = binding.viewPagerAlarm;
+        viewPager2.setAdapter(new AlarmAdapter(this,allFragment,weFragment,(int)NUM_PAGED));
+        viewPager2.setCurrentItem(0);
 
 
-        AllNoticeFragment allNoticeFragment1= new AllNoticeFragment();
-        WeClassFragment weClassFragment1 = new WeClassFragment();
-
-        //FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        TabLayout tabLayout = binding.tabLayoutAlarm;
+        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                Log.d("TEST", "dldl");
-                //FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                if(tab.getPosition() == 0) {
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                if(position == 0){
                     tab.setText("전체 공지");
-                    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                    //getChildFragmentManager().beginTransaction().replace(R.id.layout_container, new AllNoticeFragment()).commit();
-                    transaction.replace(R.id.layout_container, allNoticeFragment1);
-                    //transaction.addToBackStack(null);
-                    transaction.commit();
-                    Log.d("TEST","잉인");
-                }
-                else if (tab.getPosition() == 1){
+                }else {
                     tab.setText("우리 반 공지");
-                    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                    //getChildFragmentManager().beginTransaction().replace(R.id.layout_container, new WeClassFragment()).commit();
-                    transaction.replace(R.id.layout_container, weClassFragment1);
-                    Log.d("TEST","db"+weClassFragment1);
-                    //transaction.addToBackStack(null);
-                    transaction.commit();
                 }
-                Log.d("TEST","잉이인");
-
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
+        tabLayoutMediator.attach();
+//---------------------------------------------------------------------------------------
+//        adapter = new AlarmAdapter(getChildFragmentManager(), getLifecycle());
+//        //container = binding.getRoot().getRootView().findViewById(R.id.container)
+//        container = rootView.findViewById(R.id.layout_container);
+//        //viewPager2 = container.findViewById(R.id.viewPager_alarm);
+//        viewPager2 = new ViewPager2(requireContext());
+//        container.addView(viewPager2);
+//        //viewPager2 = binding.viewPagerAlarm;
+//        viewPager2.setAdapter(adapter);
+//
+//        tabLayout = binding.tabLayoutAlarm;
+//        //tabLayout = rootView.findViewById(R.id.tabLayout_alarm);
+//        new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
+//            Log.d("TEST","인"+tab);
+//            if(position == 0) {
+//                tab.setText("전체 공지");
+//                //getChildFragmentManager().beginTransaction().replace(R.id.layout_container, new AllNoticeFragment()).commit();
+//            }
+//            else {
+//                tab.setText("우리 반 공지");
+//                //getChildFragmentManager().beginTransaction().replace(R.id.layout_container, new WeClassFragment()).commit();
+//            }
+//        }).attach();
+//
+//
+//        AllNoticeFragment allNoticeFragment1= new AllNoticeFragment();
+//        WeClassFragment weClassFragment1 = new WeClassFragment();
+//
+//        //FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+//
+//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                Log.d("TEST", "dldl");
+//                //FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+//                if(tab.getPosition() == 0) {
+//                    tab.setText("전체 공지");
+//                    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+//                    //getChildFragmentManager().beginTransaction().replace(R.id.layout_container, new AllNoticeFragment()).commit();
+//                    transaction.replace(R.id.layout_container, allNoticeFragment1);
+//                    //transaction.addToBackStack(null);
+//                    transaction.commit();
+//                    Log.d("TEST","잉인");
+//                }
+//                else if (tab.getPosition() == 1){
+//                    tab.setText("우리 반 공지");
+//                    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+//                    //getChildFragmentManager().beginTransaction().replace(R.id.layout_container, new WeClassFragment()).commit();
+//                    transaction.replace(R.id.layout_container, weClassFragment1);
+//                    Log.d("TEST","db"+weClassFragment1);
+//                    //transaction.addToBackStack(null);
+//                    transaction.commit();
+//                }
+//                Log.d("TEST","잉이인");
+//
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
 
 
 //----------------------------------------------------------------------------
