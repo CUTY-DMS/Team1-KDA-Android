@@ -2,41 +2,29 @@ package com.example.cmd.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.lifecycle.Lifecycle;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-
-import com.example.cmd.fragment.AllNoticeFragment;
-import com.example.cmd.fragment.WeClassFragment;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class AlarmAdapter extends FragmentStateAdapter {
 
-    private List<Fragment> fragmentList = new ArrayList<>();
+    Fragment allFragment,weFragment;
+    int NUM_PAGED = 2;
 
-    public AlarmAdapter(@NonNull FragmentManager fragmentManager,@NonNull Lifecycle lifecycle){
-        super(fragmentManager, lifecycle);
+    public AlarmAdapter(Fragment fragment, Fragment allFragment, Fragment weFragment, int NUM_PAGED){
+        super(fragment);
+        this.allFragment = allFragment;
+        this.weFragment = weFragment;
+        this.NUM_PAGED = NUM_PAGED;
+
     }
 
-    public void addFragment(Fragment fragment){
-        fragmentList.add(fragment);
-    }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        switch (position) {
-            case 0:
-                return new AllNoticeFragment();
-            case 1:
-                return new WeClassFragment();
-            default:
-                return null;
+        if(position == 0){
+            return allFragment;
+        }else{
+            return weFragment;
         }
         //return fragmentList.get(position);
     }
@@ -54,7 +42,7 @@ public class AlarmAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 2;
+        return NUM_PAGED;
         //return fragmentList.size();
     }
 }
