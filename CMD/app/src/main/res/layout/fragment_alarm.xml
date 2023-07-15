@@ -30,25 +30,14 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_alarm_notice"/>
 
-    <LinearLayout
-        android:id="@+id/layout_container"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager_alarm"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tabLayout_alarm"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPager_alarm"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tabLayout_alarm"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-    </LinearLayout>
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 
