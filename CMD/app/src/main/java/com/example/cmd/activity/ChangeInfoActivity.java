@@ -3,6 +3,7 @@ package com.example.cmd.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
@@ -19,6 +20,7 @@ import com.example.cmd.R;
 import com.example.cmd.api.ApiProvider;
 import com.example.cmd.api.SeverApi;
 import com.example.cmd.databinding.ActivityChangeInfoBinding;
+import com.example.cmd.fragment.ProfileFragment;
 import com.example.cmd.request.ChangeMyInfoRequest;
 
 import retrofit2.Call;
@@ -49,6 +51,13 @@ public class ChangeInfoActivity extends AppCompatActivity {
                 InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                 inputMethodManager.showSoftInput(binding.editTextChangeUserName, InputMethodManager.SHOW_IMPLICIT);
                 Log.d("TEST", "클릭");
+            }
+        });
+
+        binding.imageBtnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
         check();
@@ -143,4 +152,15 @@ public class ChangeInfoActivity extends AppCompatActivity {
         };
 
     }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStackImmediate();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+
 }
