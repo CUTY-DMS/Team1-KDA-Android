@@ -47,4 +47,5 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0' //Circle ImageView
     implementation 'com.google.android.material:material:1.9.0'
 
+    implementation("com.tbuonomo:dotsindicator:5.0")
 }
