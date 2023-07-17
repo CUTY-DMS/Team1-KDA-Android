@@ -3,35 +3,27 @@ package com.example.cmd.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.cmd.R;
+import com.example.cmd.adapter.ScheduleAdapter;
 import com.example.cmd.databinding.FragmentScheduleBinding;
+import com.example.cmd.fragment.schedule.FriFragment;
+import com.example.cmd.fragment.schedule.MonFragment;
+import com.example.cmd.fragment.schedule.ThursFragment;
+import com.example.cmd.fragment.schedule.TuesFragment;
+import com.example.cmd.fragment.schedule.WednesFragment;
 
 
 public class ScheduleFragment extends Fragment {
 
     FragmentScheduleBinding binding;
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ScheduleFragment() {
-        // Required empty public constructor
-    }
-
-
-    public static ScheduleFragment newInstance(String param1, String param2) {
-        ScheduleFragment fragment = new ScheduleFragment();
-        Bundle args = new Bundle();
-
-        fragment.setArguments(args);
-        return fragment;
-    }
+    Fragment monFragment,tuesFragment,wednesFragment,thursFragment,friFragment;
+    final int NUM_PAGED = 5;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,6 +35,23 @@ public class ScheduleFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         binding = FragmentScheduleBinding.inflate(inflater);
+
+        monFragment = new MonFragment();
+        tuesFragment = new TuesFragment();
+        wednesFragment = new WednesFragment();
+        thursFragment = new ThursFragment();
+        friFragment = new FriFragment();
+
+        ViewPager2 viewPager2 = binding.viewPagerSchedule;
+        viewPager2.setAdapter(new ScheduleAdapter(this,monFragment,tuesFragment,wednesFragment,thursFragment,friFragment,NUM_PAGED));
+        viewPager2.setCurrentItem(0);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        binding = null;
     }
 }
