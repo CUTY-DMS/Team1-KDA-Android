@@ -17,6 +17,7 @@ import com.example.cmd.fragment.schedule.MonFragment;
 import com.example.cmd.fragment.schedule.ThursFragment;
 import com.example.cmd.fragment.schedule.TuesFragment;
 import com.example.cmd.fragment.schedule.WednesFragment;
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 
 public class ScheduleFragment extends Fragment {
@@ -41,6 +42,10 @@ public class ScheduleFragment extends Fragment {
         wednesFragment = new WednesFragment();
         thursFragment = new ThursFragment();
         friFragment = new FriFragment();
+
+        DotsIndicator dotsIndicator = binding.indicatorSchedule;
+        dotsIndicator.setSelected(true);
+        //dotsIndicator.setViewPager2(binding.viewPagerSchedule);
 
         ViewPager2 viewPager2 = binding.viewPagerSchedule;
         viewPager2.setAdapter(new ScheduleAdapter(this,monFragment,tuesFragment,wednesFragment,thursFragment,friFragment,NUM_PAGED));
