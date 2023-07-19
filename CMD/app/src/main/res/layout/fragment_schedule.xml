@@ -19,18 +19,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <TextView
-        android:id="@+id/textVIew_schedule_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="07월 07일 금요일"
-        android:textColor="@color/black"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="30dp"
-        android:textSize="15sp"
-        app:layout_constraintLeft_toLeftOf="@id/textView_schedule_schedule"
-        app:layout_constraintTop_toBottomOf="@id/textView_schedule_schedule"/>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -39,7 +27,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textVIew_schedule_date">
+        app:layout_constraintTop_toBottomOf="@id/textView_schedule_schedule">
 
 
 
@@ -53,11 +41,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+        <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
             android:id="@+id/indicator_schedule"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="80dp"
             app:dotsColor="@color/green1"
             app:dotsStrokeColor="@color/green2"
             app:dotsCornerRadius="8dp"
