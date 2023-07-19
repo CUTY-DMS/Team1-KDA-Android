@@ -4,6 +4,7 @@ package com.example.cmd.api;
 import com.example.cmd.request.ChangeMyInfoRequest;
 import com.example.cmd.request.LoginRequest;
 import com.example.cmd.request.SignupRequest;
+import com.example.cmd.response.LoginResponse;
 import com.example.cmd.response.MypageResponse;
 
 import retrofit2.Call;
@@ -22,7 +23,7 @@ public interface SeverApi {
     );
 
     @POST("/user/login")
-    Call<Void> login (
+    Call<LoginResponse> login (
             @Body LoginRequest loginRequest
     );
 
@@ -36,4 +37,10 @@ public interface SeverApi {
             @Header("Authorization") String accessToken,
             @Body ChangeMyInfoRequest changeMyInfoRequest
     );
+
+    @GET("/user/allNoti")
+    Call<Void> allNotice (
+            @Header("Authorization") String Token
+    );
+
 }
