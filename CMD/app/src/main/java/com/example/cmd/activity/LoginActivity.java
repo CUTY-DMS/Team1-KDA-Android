@@ -16,6 +16,7 @@ import com.example.cmd.api.ApiProvider;
 import com.example.cmd.api.SeverApi;
 import com.example.cmd.databinding.ActivityLoginBinding;
 import com.example.cmd.request.LoginRequest;
+import com.example.cmd.response.LoginResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,7 +25,7 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
-    private static String accessToken;
+    public static String accessToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,12 +67,13 @@ public class LoginActivity extends AppCompatActivity {
         LoginRequest loginRequest = new LoginRequest(email,password);
         SeverApi severApi = ApiProvider.getInstance().create(SeverApi.class);
 
-        severApi.login(loginRequest).enqueue(new Callback<Void>() {
+        severApi.login(loginRequest).enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if(response.isSuccessful()){
                     SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 
+                    accessToken = response.body().getAccessToken();
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("accessToken", accessToken);
                     editor.apply();
@@ -84,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "로그인에 실패했습니다", Toast.LENGTH_SHORT).show();
                 Log.e("TAG", "네트워크 요청 실패: "+t.getMessage());
             }
