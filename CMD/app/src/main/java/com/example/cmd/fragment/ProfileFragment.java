@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.cmd.activity.ChangeInfoActivity;
+import com.example.cmd.activity.ChangePasswordActivity;
 import com.example.cmd.api.ApiProvider;
 import com.example.cmd.api.SeverApi;
 import com.example.cmd.databinding.FragmentProfileBinding;
@@ -60,6 +61,14 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ChangeInfoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        binding.buttonProfileChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
                 startActivity(intent);
             }
         });
