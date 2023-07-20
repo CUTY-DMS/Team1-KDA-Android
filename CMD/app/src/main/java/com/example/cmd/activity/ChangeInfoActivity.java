@@ -54,7 +54,7 @@ public class ChangeInfoActivity extends AppCompatActivity {
             }
         });
 
-        binding.imageBtnClose.setOnClickListener(new View.OnClickListener() {
+        binding.imageBtnChangeInfoClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
