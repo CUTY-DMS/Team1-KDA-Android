@@ -4,8 +4,12 @@ package com.example.cmd.api;
 import com.example.cmd.request.ChangeMyInfoRequest;
 import com.example.cmd.request.LoginRequest;
 import com.example.cmd.request.SignupRequest;
+import com.example.cmd.response.AllNoticeResponse;
 import com.example.cmd.response.LoginResponse;
 import com.example.cmd.response.MypageResponse;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -39,7 +43,7 @@ public interface SeverApi {
     );
 
     @GET("/user/allNoti")
-    Call<Void> allNotice (
+    Call<List<AllNoticeResponse>> allNotice (
             @Header("Authorization") String Token
     );
 
