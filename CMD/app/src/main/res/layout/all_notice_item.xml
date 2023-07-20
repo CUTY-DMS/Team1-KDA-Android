@@ -13,7 +13,7 @@
         android:layout_gravity="center">
 
         <TextView
-            android:id="@+id/item_user"
+            android:id="@+id/textview_allNotice_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="정은진 T"
@@ -23,7 +23,7 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/item_location"
+            android:id="@+id/textview_allNotice_alarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="새로운 공지가 등록 되었습니다."
@@ -32,7 +32,7 @@
             android:textColor="@color/black"/>
 
         <TextView
-            android:id="@+id/item_date"
+            android:id="@+id/textview_allNotice_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="23.07.10"
