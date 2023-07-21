@@ -114,8 +114,8 @@ public class ChangeInfoActivity extends AppCompatActivity {
         binding.buttonChangeSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<Void> call = severApi.changeInfo(accessToken,changeMyInfoRequest);
-                call.enqueue(new Callback<Void>() {
+                Call<Void> changeInfo = severApi.changeInfo(accessToken,changeMyInfoRequest);
+                changeInfo.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if(response.isSuccessful()){
