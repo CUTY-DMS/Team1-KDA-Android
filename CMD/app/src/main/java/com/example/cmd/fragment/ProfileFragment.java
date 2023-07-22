@@ -16,9 +16,11 @@ import android.widget.TextView;
 
 import com.example.cmd.activity.ChangeInfoActivity;
 import com.example.cmd.activity.ChangePasswordActivity;
+import com.example.cmd.activity.LoginActivity;
 import com.example.cmd.api.ApiProvider;
 import com.example.cmd.api.SeverApi;
 import com.example.cmd.databinding.FragmentProfileBinding;
+import com.example.cmd.databinding.FragmentProfileNoBinding;
 import com.example.cmd.response.MypageResponse;
 
 import retrofit2.Call;
@@ -30,7 +32,11 @@ public class ProfileFragment extends Fragment {
 
 
     FragmentProfileBinding binding;
-    
+    FragmentProfileNoBinding noLoginBinding;
+
+    private SharedPreferences sharedPreferences;
+
+    private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,30 +47,49 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding = FragmentProfileBinding.inflate(inflater);
+        sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+
+        if(isLogin()) {
+            binding = FragmentProfileBinding.inflate(inflater);
+            bringInfo();
+
+            ImageButton editBtn = binding.imageBtnProfileEdit;
+            editBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), ChangeInfoActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            binding.buttonProfileChangePassword.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            return binding.getRoot();
 
 
-        bringInfo();
+        }else{
+            noLoginBinding = FragmentProfileNoBinding.inflate(inflater);
+            noLoginBinding.buttonProfileNoGoLogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            return noLoginBinding.getRoot();
+        }
 
 
-        ImageButton editBtn = binding.imageBtnProfileEdit;
-        editBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ChangeInfoActivity.class);
-                startActivity(intent);
-            }
-        });
 
-        binding.buttonProfileChangePassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
-                startActivity(intent);
-            }
-        });
 
-        return binding.getRoot();
+
     }
 
     private void bringInfo() {
@@ -106,5 +131,9 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+    }
+
+    private boolean isLogin() {
+        return sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false);
     }
 }
