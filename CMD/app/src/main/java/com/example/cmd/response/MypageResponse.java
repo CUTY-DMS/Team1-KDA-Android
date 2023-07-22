@@ -4,7 +4,7 @@ public class MypageResponse {
 
     private String name;
     private String email;
-    private String classIdNumber;
+    private String classId;
     private String birth;
     private String majorField;
     private String clubName;
@@ -18,7 +18,7 @@ public class MypageResponse {
     }
 
     public String getClassIdNumber() {
-        return classIdNumber;
+        return classId;
     }
 
     public String getBirth() {
