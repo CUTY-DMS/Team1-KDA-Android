@@ -68,8 +68,20 @@ public class AllNoticeFragment extends Fragment {
         severApi.allNotice(LoginActivity.accessToken).enqueue(new Callback<List<AllNoticeResponse>>() {
             @Override
             public void onResponse(Call<List<AllNoticeResponse>> call, Response<List<AllNoticeResponse>> response) {
-                allNoticeResponseList.addAll(response.body());
-                adapter.notifyDataSetChanged();
+                if (response.isSuccessful()) { // API 호출이 성공적이었는지 확인
+                    List<AllNoticeResponse> responseBody = response.body();
+                    if (responseBody == null || responseBody.isEmpty()) {
+                        binding.textviewAllNoticeNo.setVisibility(View.VISIBLE);
+                    } else {
+                        allNoticeResponseList.addAll(responseBody);
+                        adapter.notifyDataSetChanged();
+                    }
+                } else {
+                    Log.d("TEST","에러");
+                    // API 호출이 실패한 경우에 대한 처리
+                    // 예를 들면, 서버 오류 등에 대한 처리를 여기에 추가할 수 있습니다.
+                }
+
             }
 
             @Override
