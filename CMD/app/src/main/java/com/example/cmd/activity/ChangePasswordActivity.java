@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,19 +46,25 @@ public class ChangePasswordActivity extends AppCompatActivity {
     }
 
     private void changePassword() {
-        String oldPw = binding.editTextNowPassword.getText().toString();
-        String newPw = binding.editTextNewPassword.getText().toString();
-        String newPwCheck = binding.editTextNewPasswordCheck.getText().toString();
         TextView pwCheck = binding.textviewChangePasswordCheck;
         Button change = binding.buttonChangePasswordChange;
 
         change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!newPw.equals(newPwCheck)){
+                String oldPw = binding.editTextNowPassword.getText().toString();
+                String newPw = binding.editTextNewPassword.getText().toString();
+                String newPwCheck = binding.editTextNewPasswordCheck.getText().toString();
+
+                if (!newPw.equals(newPwCheck)){
                     pwCheck.setVisibility(View.VISIBLE);
+                    Log.d("TEST","new"+newPw);
+                    Log.d("TEST","ch"+newPwCheck);
                 }else {
                     sever(oldPw,newPw,newPwCheck);
+                    Log.d("TEST","서버");
+                    Log.d("TEST","new"+newPw);
+                    Log.d("TEST","ch"+newPwCheck);
                 }
             }
         });
