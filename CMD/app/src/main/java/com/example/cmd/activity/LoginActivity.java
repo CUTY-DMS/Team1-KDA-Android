@@ -26,6 +26,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
     public static String accessToken;
+    private static final String KEY_IS_LOGIN = "isLoggedIn";
+
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,12 +74,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if(response.isSuccessful()){
-                    SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                    savePreferences(true);
 
                     accessToken = response.body().getAccessToken();
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("accessToken", accessToken);
-                    editor.apply();
+
 
                     Toast.makeText(LoginActivity.this, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this , MainActivity.class);
@@ -92,4 +93,16 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void savePreferences(boolean isLogIn) {
+        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("accessToken", accessToken);
+        editor.apply();
+
+        editor.putBoolean(KEY_IS_LOGIN, isLogIn);
+        editor.apply();
+    }
+
 }
