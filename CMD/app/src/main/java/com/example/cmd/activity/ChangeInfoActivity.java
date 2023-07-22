@@ -60,6 +60,7 @@ public class ChangeInfoActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        bringInfo();
         check();
         clear();
 
@@ -160,6 +161,10 @@ public class ChangeInfoActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    private void bringInfo() {
+
     }
 
 
