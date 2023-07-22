@@ -1,6 +1,8 @@
 package com.example.cmd.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -28,18 +30,7 @@ public class ProfileFragment extends Fragment {
 
 
     FragmentProfileBinding binding;
-
-    public ProfileFragment() {
-    }
-
-
-    public static ProfileFragment newInstance(String param1, String param2) {
-        ProfileFragment fragment = new ProfileFragment();
-        Bundle args = new Bundle();
-
-        fragment.setArguments(args);
-        return fragment;
-    }
+    
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,21 +70,28 @@ public class ProfileFragment extends Fragment {
     private void bringInfo() {
         TextView email = binding.textViewProfileEmail;
         TextView name = binding.textViewProfileUserName;
-        TextView classIdNumber = binding.textViewProfileUserClassNumber;
+        TextView userName = binding.textViewProfileTopName;
+        TextView classId = binding.textViewProfileUserClassNumber;
         TextView birth = binding.textViewProfileUserBirth;
         TextView majorField = binding.textViewProfileUserMajor;
         TextView clubName = binding.textViewProfileUserClub;
 
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String accessToken = sharedPreferences.getString("accessToken",null);
+
         SeverApi severApi = ApiProvider.getInstance().create(SeverApi.class);
 
-        severApi.myPage().enqueue(new Callback<MypageResponse>() {
+        Call<MypageResponse> myPage = severApi.myPage(accessToken);
+
+        myPage.enqueue(new Callback<MypageResponse>() {
             @Override
             public void onResponse(Call<MypageResponse> call, Response<MypageResponse> response) {
                 if(response.isSuccessful()){
                     if(response.body() != null){
                         email.setText(response.body().getEmail());
                         name.setText(response.body().getName());
-                        classIdNumber.setText(response.body().getClassIdNumber());
+                        userName.setText(response.body().getName());
+                        classId.setText(response.body().getClassIdNumber());
                         birth.setText(response.body().getBirth());
                         majorField.setText(response.body().getMajorField());
                         clubName.setText(response.body().getClubName());
@@ -107,5 +105,6 @@ public class ProfileFragment extends Fragment {
 
             }
         });
+
     }
 }
