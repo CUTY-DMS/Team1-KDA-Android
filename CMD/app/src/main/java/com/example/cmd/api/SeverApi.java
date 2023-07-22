@@ -34,7 +34,7 @@ public interface SeverApi {
 
     @GET("/user/myPage")   //마이페이지
     Call<MypageResponse> myPage (
-
+            @Header("Authorization") String accessToken
     );
 
     @PATCH("/user/motifyUserInfo")  //내 정보 변경
