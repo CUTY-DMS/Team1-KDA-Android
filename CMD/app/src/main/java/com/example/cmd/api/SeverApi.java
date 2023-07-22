@@ -8,6 +8,7 @@ import com.example.cmd.request.SignupRequest;
 import com.example.cmd.response.AllNoticeResponse;
 import com.example.cmd.response.LoginResponse;
 import com.example.cmd.response.MypageResponse;
+import com.example.cmd.response.WeClassResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +53,11 @@ public interface SeverApi {
 
     @GET("/user/allNoti")  //전체 공지 리스트 확인
     Call<List<AllNoticeResponse>> allNotice (
+            @Header("Authorization") String Token
+    );
+
+    @GET("/user/classNoti")  //우리 반 공지 리스트 확인
+    Call<List<WeClassResponse>> weClass (
             @Header("Authorization") String Token
     );
 
