@@ -7,7 +7,7 @@
     tools:context=".fragment.ProfileFragment">
 
     <TextView
-        android:id="@+id/textVIew_profile_myPage"
+        android:id="@+id/textView_profile_myPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="마이페이지"
@@ -25,11 +25,11 @@
         android:layout_height="80dp"
         android:src="@drawable/default_image_profile"
         android:layout_marginTop="40dp"
-        app:layout_constraintLeft_toLeftOf="@id/textVIew_profile_myPage"
-        app:layout_constraintTop_toBottomOf="@id/textVIew_profile_myPage"/>
+        app:layout_constraintLeft_toLeftOf="@id/textView_profile_myPage"
+        app:layout_constraintTop_toBottomOf="@id/textView_profile_myPage"/>
 
     <TextView
-        android:id="@+id/textVIew_profile_name"
+        android:id="@+id/textView_profile_topName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="이지후"
@@ -39,7 +39,7 @@
         android:layout_marginTop="45dp"
         android:layout_marginLeft="30dp"
         app:layout_constraintLeft_toRightOf="@id/imageView_profile"
-        app:layout_constraintTop_toBottomOf="@id/textVIew_profile_myPage"/>
+        app:layout_constraintTop_toBottomOf="@id/textView_profile_myPage"/>
 
     <TextView
         android:id="@+id/textView_profile_email"
@@ -48,8 +48,8 @@
         android:text="hidsm@dsm.hs.kr"
         android:textColor="@color/black"
         android:layout_marginTop="10dp"
-        app:layout_constraintLeft_toLeftOf="@id/textVIew_profile_name"
-        app:layout_constraintTop_toBottomOf="@id/textVIew_profile_name"/>
+        app:layout_constraintLeft_toLeftOf="@id/textView_profile_topName"
+        app:layout_constraintTop_toBottomOf="@id/textView_profile_topName"/>
 
     <ImageView
         android:id="@+id/imageView_profile_line1"
