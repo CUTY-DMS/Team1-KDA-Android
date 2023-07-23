@@ -86,10 +86,6 @@ public class ProfileFragment extends Fragment {
             return noLoginBinding.getRoot();
         }
 
-
-
-
-
     }
 
     private void bringInfo() {
