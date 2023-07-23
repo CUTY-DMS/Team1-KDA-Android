@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.SplashActivity">
+
+    <ImageView
+        android:id="@+id/imageview_kda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_kda"
+        android:layout_marginTop="110dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    
+    <com.example.cmd.animation.LetterSpacingTextView
+        android:id="@+id/textview_KDA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="KDA"
+        android:fontFamily="@font/font_style"
+        android:textColor="@color/green3"
+        android:textSize="60sp"
+        android:layout_marginRight="80dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintLeft_toLeftOf="@id/imageview_kda"
+        app:layout_constraintRight_toRightOf="@id/imageview_kda"
+        app:layout_constraintTop_toBottomOf="@id/imageview_kda"/>
+
+
+    <com.example.cmd.animation.ScalableTextView
+        android:id="@+id/textview_KDA_description1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="orea"
+        android:textColor="@color/green3"
+        android:textSize="20sp"
+        android:fontFamily="@font/font_style"
+        android:layout_marginLeft="80dp"
+        android:visibility="invisible"
+        android:layout_marginTop="75dp"
+        app:layout_constraintLeft_toLeftOf="@id/textview_KDA"
+        app:layout_constraintTop_toBottomOf="@id/imageview_kda"/>
+
+    <com.example.cmd.animation.ScalableTextView
+        android:id="@+id/textview_KDA_description2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="aedeok"
+        android:fontFamily="@font/font_style"
+        android:textColor="@color/green3"
+        android:textSize="20sp"
+        android:layout_marginLeft="120dp"
+        android:visibility="invisible"
+        android:layout_marginTop="75dp"
+        app:layout_constraintLeft_toLeftOf="@id/textview_KDA"
+        app:layout_constraintRight_toRightOf="@id/textview_KDA"
+        app:layout_constraintTop_toBottomOf="@id/imageview_kda"/>
+
+    <com.example.cmd.animation.ScalableTextView
+        android:id="@+id/textview_KDA_description3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ssistance"
+        android:fontFamily="@font/font_style"
+        android:textColor="@color/green3"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        android:layout_marginTop="75dp"
+        android:layout_marginRight="5dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageview_kda"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
