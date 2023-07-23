@@ -6,4 +6,8 @@
     </style>
 
     <style name="Theme.CMD" parent="Base.Theme.CMD" />
+
+    <style name="FullScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+    </style>
 </resources>
