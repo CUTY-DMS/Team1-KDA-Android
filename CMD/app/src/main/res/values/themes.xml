@@ -3,11 +3,17 @@
     <style name="Base.Theme.CMD" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/white</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+    </style>
+
+    <style name="MainActivityTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- MainActivity에서 사용할 네비게이션 바 색상 설정 -->
+        <item name="android:navigationBarColor">@color/green2</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
     <style name="Theme.CMD" parent="Base.Theme.CMD" />
-
-    <style name="FullScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowFullscreen">true</item>
-    </style>
+    
 </resources>
