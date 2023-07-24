@@ -51,6 +51,8 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        savePreferences(false);
     }
 
     private void login() {
