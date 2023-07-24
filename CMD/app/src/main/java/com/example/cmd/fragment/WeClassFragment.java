@@ -69,7 +69,7 @@ public class WeClassFragment extends Fragment {
                 if(response.isSuccessful()) {
                     List<WeClassResponse> responsesBody = response.body();
                     if(responsesBody == null || responsesBody.isEmpty()) {
-
+                        binding.textviewWeClassNo.setVisibility(View.VISIBLE);
                     }else{
                         weClassResponsesList.addAll(responsesBody);
                         adapter.notifyDataSetChanged();
