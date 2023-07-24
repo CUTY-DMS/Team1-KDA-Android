@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.SplashActivity">
+    tools:context=".activity.SplashActivity"
+    android:background="@color/white">
 
     <ImageView
         android:id="@+id/imageview_kda"
@@ -17,19 +18,58 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     
-    <com.example.cmd.animation.LetterSpacingTextView
-        android:id="@+id/textview_KDA"
+
+
+    <com.example.cmd.animation.ScalableTextView
+        android:id="@+id/textview_K"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="KDA"
+        android:text="K"
+        android:background="@color/white"
         android:fontFamily="@font/font_style"
         android:textColor="@color/green3"
-        android:textSize="60sp"
-        android:layout_marginRight="80dp"
-        android:layout_marginTop="40dp"
+        android:textSize="70sp"
+        android:layout_marginRight="200dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/imageview_kda"
+        app:layout_constraintTop_toBottomOf="@id/imageview_kda"/>
+
+    <com.example.cmd.animation.ScalableTextView
+        android:id="@+id/textview_D"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="D"
+        android:fontFamily="@font/font_style"
+        android:textColor="@color/green3"
+        android:textSize="70sp"
+        android:background="@color/white"
+        android:layout_marginRight="75dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintLeft_toLeftOf="@id/imageview_kda"
         app:layout_constraintRight_toRightOf="@id/imageview_kda"
         app:layout_constraintTop_toBottomOf="@id/imageview_kda"/>
+
+    <com.example.cmd.animation.ScalableTextView
+        android:id="@+id/textview_A"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="A"
+        android:paddingLeft="10dp"
+        android:background="@color/white"
+        android:fontFamily="@font/font_style"
+        android:textColor="@color/green3"
+        android:textSize="70sp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintLeft_toLeftOf="@id/imageview_kda"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageview_kda"/>
+
+
+
+
+
 
 
     <com.example.cmd.animation.ScalableTextView
@@ -40,10 +80,9 @@
         android:textColor="@color/green3"
         android:textSize="20sp"
         android:fontFamily="@font/font_style"
-        android:layout_marginLeft="80dp"
         android:visibility="invisible"
-        android:layout_marginTop="75dp"
-        app:layout_constraintLeft_toLeftOf="@id/textview_KDA"
+        android:layout_marginTop="100dp"
+        app:layout_constraintLeft_toRightOf="@id/textview_K"
         app:layout_constraintTop_toBottomOf="@id/imageview_kda"/>
 
     <com.example.cmd.animation.ScalableTextView
@@ -54,11 +93,9 @@
         android:fontFamily="@font/font_style"
         android:textColor="@color/green3"
         android:textSize="20sp"
-        android:layout_marginLeft="120dp"
         android:visibility="invisible"
-        android:layout_marginTop="75dp"
-        app:layout_constraintLeft_toLeftOf="@id/textview_KDA"
-        app:layout_constraintRight_toRightOf="@id/textview_KDA"
+        android:layout_marginTop="100dp"
+        app:layout_constraintLeft_toRightOf="@id/textview_D"
         app:layout_constraintTop_toBottomOf="@id/imageview_kda"/>
 
     <com.example.cmd.animation.ScalableTextView
@@ -70,9 +107,8 @@
         android:textColor="@color/green3"
         android:textSize="20sp"
         android:visibility="invisible"
-        android:layout_marginTop="75dp"
-        android:layout_marginRight="5dp"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="100dp"
+        app:layout_constraintLeft_toRightOf="@id/textview_A"
         app:layout_constraintTop_toBottomOf="@id/imageview_kda"/>
 
 
