@@ -50,7 +50,6 @@ public interface SeverApi {
             @Body ChangePasswordRequest changePasswordRequest
     );
 
-
     @GET("/user/allNoti")  //전체 공지 리스트 확인
     Call<List<AllNoticeResponse>> allNotice (
             @Header("Authorization") String Token
