@@ -4,12 +4,14 @@ import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cmd.R;
+import com.example.cmd.etc.AllNoticeDialog;
 import com.example.cmd.response.AllNoticeResponse;
 
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import java.util.List;
 public class AllNoticeAdapter extends RecyclerView.Adapter<AllNoticeAdapter.ItemViewHolder> {
 
     public List<AllNoticeResponse> list;
+    private AllNoticeDialog allNoticeDialog;
 
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -30,6 +33,19 @@ public class AllNoticeAdapter extends RecyclerView.Adapter<AllNoticeAdapter.Item
 
             name = itemView.findViewById(R.id.textview_allNotice_user);
             date = itemView.findViewById(R.id.textview_allNotice_date);
+
+
+            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+            layoutParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+            layoutParams.dimAmount = 0.8f;
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    allNoticeDialog = new AllNoticeDialog(allNoticeDialog.getContext(), "다이얼로그 내용");
+                    allNoticeDialog.show();
+                }
+            });
         }
     }
 
