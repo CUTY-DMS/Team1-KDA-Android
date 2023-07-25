@@ -55,7 +55,7 @@ public class ProfileFragment extends Fragment {
         Log.d("TEST","로그인 상태 "+isLogin());
         Log.d("TEST","로그인 상태 토큰 : "+ sharedPreferences.getString("accessToken",null));
 
-        if(accessToken != null) {
+        if(LoginActivity.accessToken != null) {
             binding = FragmentProfileBinding.inflate(inflater);
             bringInfo();
 
@@ -123,7 +123,9 @@ public class ProfileFragment extends Fragment {
                         majorField.setText(response.body().getMajorField());
                         clubName.setText(response.body().getClubName());
                     }
+                    if(response.code() == 404){
 
+                    }
                 }
             }
 
