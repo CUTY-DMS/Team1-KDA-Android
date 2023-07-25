@@ -1,5 +1,7 @@
 package com.example.cmd.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,6 +19,7 @@ import com.example.cmd.adapter.WeClassAdapter;
 import com.example.cmd.api.ApiProvider;
 import com.example.cmd.api.SeverApi;
 import com.example.cmd.databinding.FragmentWeClassBinding;
+import com.example.cmd.response.AllNoticeResponse;
 import com.example.cmd.response.WeClassResponse;
 
 import java.util.ArrayList;
@@ -61,9 +64,16 @@ public class WeClassFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String accessToken = sharedPreferences.getString("accessToken",null);
+
         SeverApi severApi = ApiProvider.getInstance().create(SeverApi.class);
 
-        severApi.weClass(LoginActivity.accessToken).enqueue(new Callback<List<WeClassResponse>>() {
+        Call<List<WeClassResponse>> weClass = severApi.weClass(accessToken);
+
+        //SeverApi severApi = ApiProvider.getInstance().create(SeverApi.class);
+
+        weClass.enqueue(new Callback<List<WeClassResponse>>() {
             @Override
             public void onResponse(Call<List<WeClassResponse>> call, Response<List<WeClassResponse>> response) {
                 if(response.isSuccessful()) {
@@ -82,6 +92,26 @@ public class WeClassFragment extends Fragment {
 
             }
         });
+
+//        severApi.weClass(LoginActivity.accessToken).enqueue(new Callback<List<WeClassResponse>>() {
+//            @Override
+//            public void onResponse(Call<List<WeClassResponse>> call, Response<List<WeClassResponse>> response) {
+//                if(response.isSuccessful()) {
+//                    List<WeClassResponse> responsesBody = response.body();
+//                    if(responsesBody == null || responsesBody.isEmpty()) {
+//                        binding.textviewWeClassNo.setVisibility(View.VISIBLE);
+//                    }else{
+//                        weClassResponsesList.addAll(responsesBody);
+//                        adapter.notifyDataSetChanged();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<WeClassResponse>> call, Throwable t) {
+//
+//            }
+//        });
         return binding.getRoot();
     }
 
