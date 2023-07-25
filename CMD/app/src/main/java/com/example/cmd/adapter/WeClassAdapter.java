@@ -47,8 +47,11 @@ public class WeClassAdapter extends RecyclerView.Adapter<WeClassAdapter.ItemView
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        holder.name.setText(list.get(position).getTitle());
-        holder.date.setText(list.get(position).getDateTime());
+        if(holder.name != null || holder.date != null){
+            holder.name.setText(list.get(position).getTitle());
+            holder.date.setText(list.get(position).getDateTime());
+        }
+
     }
 
     @Override
