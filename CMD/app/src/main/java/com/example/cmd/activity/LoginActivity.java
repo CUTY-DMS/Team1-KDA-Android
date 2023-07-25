@@ -79,6 +79,14 @@ public class LoginActivity extends AppCompatActivity {
                     savePreferences(true);
 
                     accessToken = response.body().getAccessToken();
+                    Log.d("TEST","토큰"+accessToken);
+
+                    sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    Log.d("TEST","로그인 accessToken/" + accessToken);
+                    editor.putString("accessToken", accessToken);
+                    editor.apply();
 
 
                     Toast.makeText(LoginActivity.this, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show();
@@ -100,8 +108,7 @@ public class LoginActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("accessToken", accessToken);
-        editor.apply();
+
 
         editor.putBoolean(KEY_IS_LOGIN, isLogIn);
         editor.apply();
