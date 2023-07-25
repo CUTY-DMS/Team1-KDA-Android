@@ -50,9 +50,12 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String accessToken = sharedPreferences.getString("accessToken",null);
 
         Log.d("TEST","로그인 상태 "+isLogin());
-        if(isLogin()) {
+        Log.d("TEST","로그인 상태 토큰 : "+ sharedPreferences.getString("accessToken",null));
+
+        if(accessToken != null) {
             binding = FragmentProfileBinding.inflate(inflater);
             bringInfo();
 
