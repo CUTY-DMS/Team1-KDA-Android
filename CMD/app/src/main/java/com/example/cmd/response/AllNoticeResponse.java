@@ -1,6 +1,6 @@
 package com.example.cmd.response;
 
-import java.util.List;
+
 
 public class AllNoticeResponse {
     private String title;
