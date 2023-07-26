@@ -1,6 +1,7 @@
 package com.example.cmd.adapter;
 
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cmd.R;
 import com.example.cmd.etc.AllNoticeDialog;
+import com.example.cmd.fragment.AllNoticeFragment;
 import com.example.cmd.response.AllNoticeResponse;
 
 import java.util.ArrayList;
@@ -35,15 +37,16 @@ public class AllNoticeAdapter extends RecyclerView.Adapter<AllNoticeAdapter.Item
             date = itemView.findViewById(R.id.textview_allNotice_date);
 
 
-            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-            layoutParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-            layoutParams.dimAmount = 0.8f;
+            //WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+            //layoutParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+            //layoutParams.dimAmount = 0.8f;
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    allNoticeDialog = new AllNoticeDialog(allNoticeDialog.getContext(), "다이얼로그 내용");
+                    allNoticeDialog = new AllNoticeDialog(v.getContext(), "다이얼로그 내용");
                     allNoticeDialog.show();
+
                 }
             });
         }
@@ -51,6 +54,7 @@ public class AllNoticeAdapter extends RecyclerView.Adapter<AllNoticeAdapter.Item
 
     public AllNoticeAdapter(List<AllNoticeResponse> list) {
         this.list = list;
+        Log.d("TEST","allList"+list);
     }
 
 
@@ -68,6 +72,7 @@ public class AllNoticeAdapter extends RecyclerView.Adapter<AllNoticeAdapter.Item
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         holder.name.setText(list.get(position).getTitle());
         holder.date.setText(list.get(position).getDateTime());
+        Log.d("TEST","전체 알림/ name "+holder.name+"/date "+holder.date);
 
     }
 
