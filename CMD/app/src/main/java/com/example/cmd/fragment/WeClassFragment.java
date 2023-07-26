@@ -64,16 +64,11 @@ public class WeClassFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        String accessToken = sharedPreferences.getString("accessToken",null);
 
         SeverApi severApi = ApiProvider.getInstance().create(SeverApi.class);
 
-        Call<List<WeClassResponse>> weClass = severApi.weClass(accessToken);
 
-        //SeverApi severApi = ApiProvider.getInstance().create(SeverApi.class);
-
-        weClass.enqueue(new Callback<List<WeClassResponse>>() {
+        severApi.weClass(LoginActivity.accessToken).enqueue(new Callback<List<WeClassResponse>>() {
             @Override
             public void onResponse(Call<List<WeClassResponse>> call, Response<List<WeClassResponse>> response) {
                 if(response.isSuccessful()) {
@@ -83,6 +78,7 @@ public class WeClassFragment extends Fragment {
                     }else{
                         weClassResponsesList.addAll(responsesBody);
                         adapter.notifyDataSetChanged();
+                        Log.d("TEST","r/"+responsesBody);
                     }
                 }
             }
@@ -92,26 +88,6 @@ public class WeClassFragment extends Fragment {
 
             }
         });
-
-//        severApi.weClass(LoginActivity.accessToken).enqueue(new Callback<List<WeClassResponse>>() {
-//            @Override
-//            public void onResponse(Call<List<WeClassResponse>> call, Response<List<WeClassResponse>> response) {
-//                if(response.isSuccessful()) {
-//                    List<WeClassResponse> responsesBody = response.body();
-//                    if(responsesBody == null || responsesBody.isEmpty()) {
-//                        binding.textviewWeClassNo.setVisibility(View.VISIBLE);
-//                    }else{
-//                        weClassResponsesList.addAll(responsesBody);
-//                        adapter.notifyDataSetChanged();
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<WeClassResponse>> call, Throwable t) {
-//
-//            }
-//        });
         return binding.getRoot();
     }
 
