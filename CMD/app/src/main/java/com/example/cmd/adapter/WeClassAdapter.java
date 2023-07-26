@@ -1,5 +1,6 @@
 package com.example.cmd.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,13 +27,14 @@ public class WeClassAdapter extends RecyclerView.Adapter<WeClassAdapter.ItemView
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            name = itemView.findViewById(R.id.textview_allNotice_user);
-            date = itemView.findViewById(R.id.textview_allNotice_date);
+            name = itemView.findViewById(R.id.textview_weClass_user);
+            date = itemView.findViewById(R.id.textview_weClass_date);
         }
     }
 
     public WeClassAdapter(List<WeClassResponse> list) {
         this.list =list;
+        Log.d("TEST","list/" +list);
     }
 
     @NonNull
@@ -47,10 +49,12 @@ public class WeClassAdapter extends RecyclerView.Adapter<WeClassAdapter.ItemView
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        if(holder.name != null || holder.date != null){
-            holder.name.setText(list.get(position).getTitle());
-            holder.date.setText(list.get(position).getDateTime());
-        }
+        Log.d("TEST","우리 반 알림/ name "+holder.name+"/date "+holder.date);
+        Log.d("TEST","c/"+list.get(position).getTitle());
+
+        holder.name.setText(list.get(position).getTitle());
+        holder.date.setText(list.get(position).getDateTime());
+
 
     }
 
