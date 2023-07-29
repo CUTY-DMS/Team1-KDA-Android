@@ -8,6 +8,7 @@ import com.example.cmd.request.SignupRequest;
 import com.example.cmd.response.AllNoticeResponse;
 import com.example.cmd.response.LoginResponse;
 import com.example.cmd.response.MypageResponse;
+import com.example.cmd.response.ReissueResponse;
 import com.example.cmd.response.WeClassResponse;
 
 import java.util.ArrayList;
@@ -59,5 +60,10 @@ public interface SeverApi {
     Call<List<WeClassResponse>> weClass (
             @Header("Authorization") String Token
     );
+
+//    @POST("/reissue")  //토큰 재발급
+//    Call<ReissueResponse> reissue (
+//            @Header("AUTHORIZATION_HEADER ")
+//    );
 
 }
