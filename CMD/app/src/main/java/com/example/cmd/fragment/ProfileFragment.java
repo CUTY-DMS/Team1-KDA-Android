@@ -1,21 +1,27 @@
 package com.example.cmd.fragment;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.cmd.R;
 import com.example.cmd.activity.ChangeInfoActivity;
 import com.example.cmd.activity.ChangePasswordActivity;
 import com.example.cmd.activity.LoginActivity;
@@ -76,6 +82,13 @@ public class ProfileFragment extends Fragment {
                 }
             });
 
+            binding.buttonProfileLogout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    logOut();
+                }
+            });
+
             return binding.getRoot();
 
 
@@ -86,6 +99,7 @@ public class ProfileFragment extends Fragment {
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
                     startActivity(intent);
+                    getActivity().finish();
                 }
             });
 
@@ -140,4 +154,38 @@ public class ProfileFragment extends Fragment {
     private boolean isLogin() {
         return sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false);
     }
+
+    private void logOut() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.AlertDialogTheme));
+
+        builder.setTitle("로그아웃");
+        builder.setMessage("로그아웃 하실?");
+
+        builder.setPositiveButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        builder.setNegativeButton("Log.아웃", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(getActivity(),LoginActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+
+                Toast.makeText(getContext(),"Log.아웃 되었습니다!",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+
+
+    }
+
+
 }
