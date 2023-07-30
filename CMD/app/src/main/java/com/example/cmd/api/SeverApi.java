@@ -53,17 +53,17 @@ public interface SeverApi {
 
     @GET("/user/allNoti")  //전체 공지 리스트 확인
     Call<List<AllNoticeResponse>> allNotice (
-            @Header("Authorization") String Token
+            @Header("Authorization") String accessToken
     );
 
     @GET("/user/classNoti")  //우리 반 공지 리스트 확인
     Call<List<WeClassResponse>> weClass (
-            @Header("Authorization") String Token
+            @Header("Authorization") String accessToken
     );
 
-//    @POST("/reissue")  //토큰 재발급
-//    Call<ReissueResponse> reissue (
-//            @Header("AUTHORIZATION_HEADER ")
-//    );
+    @POST("/reissue")  //토큰 재발급
+    Call<ReissueResponse> reissue (
+            @Header("AUTHORIZATION_HEADER ") String refreshToken
+    );
 
 }
