@@ -26,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
     public static String accessToken;
+    public static String refreshToken;
     private static final String KEY_IS_LOGIN = "isLoggedIn";
 
     private SharedPreferences sharedPreferences;
@@ -79,6 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                     savePreferences(true);
 
                     accessToken = response.body().getAccessToken();
+                    refreshToken = response.body().getRefreshToken();
                     Log.d("TEST","토큰"+accessToken);
 
                     sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
@@ -86,7 +88,10 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     Log.d("TEST","로그인 accessToken/" + accessToken);
                     editor.putString("accessToken", accessToken);
+                    editor.putString("refreshToken", refreshToken);
                     editor.apply();
+
+
 
 
                     Toast.makeText(LoginActivity.this, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show();
