@@ -1,5 +1,7 @@
 package com.example.cmd.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,24 +11,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.cmd.R;
+import com.example.cmd.activity.LoginActivity;
 import com.example.cmd.databinding.FragmentCalendarBinding;
 
 public class CalendarFragment extends Fragment {
 
     FragmentCalendarBinding binding;
 
+    private SharedPreferences sharedPreferences;
+
 
     public CalendarFragment() {
         // Required empty public constructor
-    }
-
-    // TODO: Rename and change types and number of parameters
-    public static CalendarFragment newInstance(String param1, String param2) {
-        CalendarFragment fragment = new CalendarFragment();
-        Bundle args = new Bundle();
-
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -38,8 +34,14 @@ public class CalendarFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = FragmentCalendarBinding.inflate(inflater);
+
+        sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String accessToken = sharedPreferences.getString("accessToken",null);
+
+        if(LoginActivity.accessToken == null)
+            binding.textviewCalendarLogin.setVisibility(View.VISIBLE);
+
         return binding.getRoot();
     }
 }
