@@ -74,11 +74,24 @@ public class AllNoticeAdapter extends RecyclerView.Adapter<AllNoticeAdapter.Item
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        holder.name.setText(list.get(position).getTitle());
-        holder.date.setText(list.get(position).getDateTime());
-        holder.title.setText(list.get(position).getTitle());
+
+
+        String inputDateString = list.get(position).getDateTime();
+
+
+        DateTimeFormatter input = DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm:ss");
+        DateTimeFormatter output = DateTimeFormatter.ofPattern("yy.MM.dd");
+
+        LocalDateTime dateTime = LocalDateTime.parse(inputDateString,input);
+        String outDate = dateTime.format(DateTimeFormatter.ofPattern("yy.MM.dd"));
+
+        Log.d("TEST","time"+outDate);
 
         Log.d("TEST","전체 알림/ name "+holder.name+"/date "+holder.date);
+
+        holder.name.setText(list.get(position).getTitle());
+        holder.date.setText(outDate);
+        holder.title.setText(list.get(position).getTitle());
 
     }
 
