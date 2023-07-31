@@ -1,5 +1,6 @@
 package com.example.cmd.fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 
 import com.example.cmd.R;
+import com.example.cmd.activity.LoginActivity;
 import com.example.cmd.adapter.AlarmAdapter;
 import com.example.cmd.databinding.FragmentAlarmBinding;
 import com.google.android.material.tabs.TabLayout;
@@ -24,6 +26,9 @@ import com.google.android.material.tabs.TabLayoutMediator;
 public class AlarmFragment extends Fragment {
 
     FragmentAlarmBinding binding;
+
+    private SharedPreferences sharedPreferences;
+
 
     Fragment allFragment,weFragment;
     final int NUM_PAGED = 2;
@@ -100,6 +105,10 @@ public class AlarmFragment extends Fragment {
             }
         });
         tabLayoutMediator.attach();
+
+        if(LoginActivity.accessToken == null){
+            binding.textviewAlarmLogin.setVisibility(View.VISIBLE);
+        }
 //---------------------------------------------------------------------------------------
 //        adapter = new AlarmAdapter(getChildFragmentManager(), getLifecycle());
 //        //container = binding.getRoot().getRootView().findViewById(R.id.container)
