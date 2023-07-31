@@ -27,16 +27,38 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_calendar">
 
-        <CalendarView
-            android:id="@+id/calendarView_calendar"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginTop="60dp" />
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:layout_gravity="center">
+
+            <CalendarView
+                android:id="@+id/calendarView_calendar"
+                android:layout_width="match_parent"
+                android:layout_height="350dp" />
+
+        </androidx.cardview.widget.CardView>
+
+
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/textview_calendar_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="로그인을 하시면 더 많은 정보를\n 얻으실수 있습니다"
+            android:textColor="@color/gray"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:visibility="invisible"/>
 
     </LinearLayout>
 
