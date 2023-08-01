@@ -181,6 +181,7 @@ public class ProfileFragment extends Fragment {
 
 
         AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_radious);
         dialog.show();
 
 
