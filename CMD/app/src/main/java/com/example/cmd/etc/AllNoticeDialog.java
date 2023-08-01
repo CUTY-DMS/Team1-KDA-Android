@@ -2,36 +2,36 @@ package com.example.cmd.etc;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
-import com.example.cmd.R;
+import com.example.cmd.activity.LoginActivity;
+import com.example.cmd.api.ApiProvider;
+import com.example.cmd.api.SeverApi;
 import com.example.cmd.databinding.ActivityAllNoticeDialogBinding;
+import com.example.cmd.response.NoticeCheckResponse;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AllNoticeDialog extends Dialog {
 
-    private TextView title;
-    private TextView date;
-    private TextView detail;
 
     ActivityAllNoticeDialogBinding binding;
 
 
-    public AllNoticeDialog(@NonNull Context context, String themeResId) {
+    public AllNoticeDialog(@NonNull Context context, Long id) {
         super(context);
 
         binding = ActivityAllNoticeDialogBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        title = binding.textviewAllDialogUserTitle;
-        date = binding.textviewAllDialogUserDate;
-        detail = binding.textviewAllDialogUserDetail;
+        Log.d("TEST","id"+id);
+        sever(id);
 
-        detail.setText(themeResId);
 
         binding.buttonAllDialogShut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,5 +40,27 @@ public class AllNoticeDialog extends Dialog {
             }
         });
     }
+
+    private void sever(Long id) {
+        SeverApi severApi = ApiProvider.getInstance().create(SeverApi.class);
+
+        severApi.check(LoginActivity.accessToken, id).enqueue(new Callback<NoticeCheckResponse>() {
+            @Override
+            public void onResponse(Call<NoticeCheckResponse> call, Response<NoticeCheckResponse> response) {
+                if(response.isSuccessful()){
+                    binding.textviewAllDialogUserTitle.setText(response.body().getTitle());
+                    binding.textviewAllDialogUserDate.setText(response.body().getDateTime());
+                    binding.textviewAllDialogUserDetail.setText(response.body().getContents());
+                    binding.textviewAllDialogUser.setText(response.body().getName());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NoticeCheckResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
 
 }
