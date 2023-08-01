@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
-    android:layout_height="400dp"
+    android:layout_height="wrap_content"
     android:background="@drawable/radious"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -58,7 +58,7 @@
         android:textColor="@color/black"
         android:text="23.07.10"
         android:textSize="15sp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="11dp"
         app:layout_constraintLeft_toRightOf="@id/textview_allDialog_date"
         app:layout_constraintTop_toBottomOf="@id/textview_allDialog_userTitle"/>
 
@@ -78,13 +78,19 @@
         android:layout_width="230dp"
         android:layout_height="140dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintLeft_toLeftOf="@id/textview_allDialog_detail"
+        android:background="@drawable/edge"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_allDialog_detail">
 
         <TextView
             android:id="@+id/textview_allDialog_userDetail"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"/>
 
     </ScrollView>
 
@@ -95,8 +101,10 @@
         android:text="확인했습니다"
         android:backgroundTint="@color/green2"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintLeft_toLeftOf="@id/scrollview_allDialog"
         app:layout_constraintRight_toRightOf="@id/scrollview_allDialog"
-        app:layout_constraintTop_toBottomOf="@id/scrollview_allDialog"/>
+        app:layout_constraintTop_toBottomOf="@id/scrollview_allDialog"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
