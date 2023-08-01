@@ -13,6 +13,9 @@ import com.example.cmd.api.SeverApi;
 import com.example.cmd.databinding.ActivityAllNoticeDialogBinding;
 import com.example.cmd.response.NoticeCheckResponse;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,8 +51,17 @@ public class AllNoticeDialog extends Dialog {
             @Override
             public void onResponse(Call<NoticeCheckResponse> call, Response<NoticeCheckResponse> response) {
                 if(response.isSuccessful()){
+                    String inputDateString = response.body().getDateTime();
+
+
+                    DateTimeFormatter input = DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm:ss");
+                    //DateTimeFormatter output = DateTimeFormatter.ofPattern("yy.MM.dd");
+
+                    LocalDateTime dateTime = LocalDateTime.parse(inputDateString,input);
+                    String outDate = dateTime.format(DateTimeFormatter.ofPattern("yy.MM.dd"));
+                    
                     binding.textviewAllDialogUserTitle.setText(response.body().getTitle());
-                    binding.textviewAllDialogUserDate.setText(response.body().getDateTime());
+                    binding.textviewAllDialogUserDate.setText(outDate);
                     binding.textviewAllDialogUserDetail.setText(response.body().getContents());
                     binding.textviewAllDialogUser.setText(response.body().getName());
                 }
