@@ -20,13 +20,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AllNoticeDialog extends Dialog {
+public class NoticeDialog extends Dialog {
 
 
     ActivityAllNoticeDialogBinding binding;
 
 
-    public AllNoticeDialog(@NonNull Context context, Long id) {
+    public NoticeDialog(@NonNull Context context, Long id) {
         super(context);
 
         binding = ActivityAllNoticeDialogBinding.inflate(getLayoutInflater());
@@ -55,11 +55,10 @@ public class AllNoticeDialog extends Dialog {
 
 
                     DateTimeFormatter input = DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm:ss");
-                    //DateTimeFormatter output = DateTimeFormatter.ofPattern("yy.MM.dd");
 
                     LocalDateTime dateTime = LocalDateTime.parse(inputDateString,input);
                     String outDate = dateTime.format(DateTimeFormatter.ofPattern("yy.MM.dd"));
-                    
+
                     binding.textviewAllDialogUserTitle.setText(response.body().getTitle());
                     binding.textviewAllDialogUserDate.setText(outDate);
                     binding.textviewAllDialogUserDetail.setText(response.body().getContents());
