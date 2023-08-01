@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cmd.R;
+import com.example.cmd.etc.NoticeDialog;
 import com.example.cmd.response.WeClassResponse;
 
 import java.time.LocalDateTime;
@@ -67,9 +68,19 @@ public class WeClassAdapter extends RecyclerView.Adapter<WeClassAdapter.ItemView
         LocalDateTime dateTime = LocalDateTime.parse(inputDateString,input);
         String outDate = dateTime.format(DateTimeFormatter.ofPattern("yy.MM.dd"));
 
-        holder.name.setText(list.get(position).getTitle());
+        holder.name.setText(list.get(position).getName());
         holder.title.setText(list.get(position).getTitle());
         holder.date.setText(outDate);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int clickPosition = holder.getAdapterPosition();
+                NoticeDialog noticeDialog = new NoticeDialog(v.getContext(), list.get(clickPosition).getId());
+                noticeDialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_radious);
+                noticeDialog.show();
+            }
+        });
 
 
     }
