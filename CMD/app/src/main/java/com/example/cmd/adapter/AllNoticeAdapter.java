@@ -1,36 +1,26 @@
 package com.example.cmd.adapter;
 
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cmd.R;
-import com.example.cmd.etc.AllNoticeDialog;
-import com.example.cmd.fragment.AllNoticeFragment;
+import com.example.cmd.etc.NoticeDialog;
 import com.example.cmd.response.AllNoticeResponse;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AllNoticeAdapter extends RecyclerView.Adapter<AllNoticeAdapter.ItemViewHolder> {
 
     public List<AllNoticeResponse> list;
-    private AllNoticeDialog allNoticeDialog;
-    public Long id;
+    private NoticeDialog noticeDialog;
 
 
 
@@ -80,7 +70,7 @@ public class AllNoticeAdapter extends RecyclerView.Adapter<AllNoticeAdapter.Item
 
 
         DateTimeFormatter input = DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm:ss");
-        DateTimeFormatter output = DateTimeFormatter.ofPattern("yy.MM.dd");
+        //DateTimeFormatter output = DateTimeFormatter.ofPattern("yy.MM.dd");
 
         LocalDateTime dateTime = LocalDateTime.parse(inputDateString,input);
         String outDate = dateTime.format(DateTimeFormatter.ofPattern("yy.MM.dd"));
@@ -90,25 +80,24 @@ public class AllNoticeAdapter extends RecyclerView.Adapter<AllNoticeAdapter.Item
         Log.d("TEST","전체 알림/ name "+holder.name+"/date "+holder.date);
 
         //Intent intent = new Intent(AllNoticeDialog.class);
-        Bundle bundle = new Bundle();
+        //Bundle bundle = new Bundle();
 
         holder.name.setText(list.get(position).getName());
         holder.date.setText(outDate);
         holder.title.setText(list.get(position).getTitle());
 
-        id = list.get(position).getId();
-        bundle.putLong("id",id);
-        Log.d("TEST","id?"+id);
+        //id = list.get(position).getId();
+        //bundle.putLong("id",id);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int clickPosition = holder.getAdapterPosition();
-                allNoticeDialog = new AllNoticeDialog(v.getContext(), list.get(clickPosition).getId());
+                noticeDialog = new NoticeDialog(v.getContext(), list.get(clickPosition).getId());
                 //radious.xmlallNoticeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
                 //allNoticeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                allNoticeDialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_radious);
-                allNoticeDialog.show();
+                noticeDialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_radious);
+                noticeDialog.show();
             }
         });
 
