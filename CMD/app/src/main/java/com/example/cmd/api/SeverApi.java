@@ -8,10 +8,10 @@ import com.example.cmd.request.SignupRequest;
 import com.example.cmd.response.AllNoticeResponse;
 import com.example.cmd.response.LoginResponse;
 import com.example.cmd.response.MypageResponse;
+import com.example.cmd.response.NoticeCheckResponse;
 import com.example.cmd.response.ReissueResponse;
 import com.example.cmd.response.WeClassResponse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -59,6 +59,12 @@ public interface SeverApi {
     @GET("/user/classNoti")  //우리 반 공지 리스트 확인
     Call<List<WeClassResponse>> weClass (
             @Header("Authorization") String accessToken
+    );
+
+    @GET("/noti/check/{notiId}")  //공지 상세 보기
+    Call<NoticeCheckResponse> check (
+            @Header("Authorization") String accessToken,
+            @Path("notiId") long id
     );
 
     @POST("/reissue")  //토큰 재발급
