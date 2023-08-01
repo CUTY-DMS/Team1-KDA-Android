@@ -1,10 +1,15 @@
 package com.example.cmd.adapter;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -25,6 +30,8 @@ public class AllNoticeAdapter extends RecyclerView.Adapter<AllNoticeAdapter.Item
 
     public List<AllNoticeResponse> list;
     private AllNoticeDialog allNoticeDialog;
+    public Long id;
+
 
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -32,6 +39,7 @@ public class AllNoticeAdapter extends RecyclerView.Adapter<AllNoticeAdapter.Item
         public TextView name;
         public TextView date;
         public TextView title;
+
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -45,14 +53,6 @@ public class AllNoticeAdapter extends RecyclerView.Adapter<AllNoticeAdapter.Item
             //layoutParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
             //layoutParams.dimAmount = 0.8f;
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    allNoticeDialog = new AllNoticeDialog(v.getContext(), "다이얼로그 내용");
-                    allNoticeDialog.show();
-
-                }
-            });
         }
     }
 
@@ -89,9 +89,30 @@ public class AllNoticeAdapter extends RecyclerView.Adapter<AllNoticeAdapter.Item
 
         Log.d("TEST","전체 알림/ name "+holder.name+"/date "+holder.date);
 
-        holder.name.setText(list.get(position).getTitle());
+        //Intent intent = new Intent(AllNoticeDialog.class);
+        Bundle bundle = new Bundle();
+
+        holder.name.setText(list.get(position).getName());
         holder.date.setText(outDate);
         holder.title.setText(list.get(position).getTitle());
+
+        id = list.get(position).getId();
+        bundle.putLong("id",id);
+        Log.d("TEST","id?"+id);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int clickPosition = holder.getAdapterPosition();
+                allNoticeDialog = new AllNoticeDialog(v.getContext(), list.get(clickPosition).getId());
+                //radious.xmlallNoticeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                //allNoticeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                allNoticeDialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_radious);
+                allNoticeDialog.show();
+            }
+        });
+
+
 
     }
 
