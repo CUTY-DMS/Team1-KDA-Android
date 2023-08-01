@@ -7,6 +7,8 @@ public class AllNoticeResponse {
     private String dateTime;
     private String name;
 
+    private Long id;
+
     public String getTitle() {
         return title;
     }
@@ -17,5 +19,9 @@ public class AllNoticeResponse {
 
     public String getName() {
         return name;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
