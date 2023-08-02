@@ -5,11 +5,11 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/linear_allNotice"
         android:layout_width="350dp"
         android:layout_height="90dp"
         android:orientation="vertical"
-        android:background="@drawable/radious"
-        android:backgroundTint="@color/green1"
+        android:background="@drawable/item_radious"
         android:layout_gravity="center">
 
         <TextView

@@ -110,13 +110,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="이지후"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="80dp"
             android:textStyle="bold"
             android:textSize="15sp"
             android:textColor="@color/black"
             app:layout_constraintLeft_toRightOf="@id/textView_profile_name"
-            app:layout_constraintTop_toBottomOf="@id/textView_profile_usrInfo"/>
+            app:layout_constraintBottom_toBottomOf="@id/textView_profile_name"/>
 
         <TextView
             android:id="@+id/textView_profile_classNumber"
@@ -133,12 +132,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1103"
-            android:layout_marginTop="20dp"
             android:textStyle="bold"
             android:textSize="15sp"
             android:textColor="@color/black"
             app:layout_constraintLeft_toLeftOf="@id/textView_profile_userName"
-            app:layout_constraintTop_toBottomOf="@id/textView_profile_userName"/>
+            app:layout_constraintBottom_toBottomOf="@id/textView_profile_classNumber"/>
 
         <TextView
             android:id="@+id/textView_profile_birth"
@@ -155,13 +153,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="08.02.09"
-            android:layout_marginTop="20dp"
             android:textStyle="bold"
             android:textSize="15sp"
             android:textColor="@color/black"
             app:layout_constraintLeft_toLeftOf="@id/textView_profile_userClassNumber"
-            app:layout_constraintTop_toBottomOf="@id/textView_profile_userClassNumber"/>
-
+            app:layout_constraintBottom_toBottomOf="@id/textView_profile_birth"/>
         <TextView
             android:id="@+id/textView_profile_major"
             android:layout_width="wrap_content"
@@ -177,13 +173,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Backend"
-            android:layout_marginTop="20dp"
             android:textStyle="bold"
             android:textSize="15sp"
             android:textColor="@color/black"
             app:layout_constraintLeft_toLeftOf="@id/textView_profile_userBirth"
-            app:layout_constraintTop_toBottomOf="@id/textView_profile_userBirth"/>
-
+            app:layout_constraintBottom_toBottomOf="@id/textView_profile_major"/>
         <TextView
             android:id="@+id/textView_profile_club"
             android:layout_width="wrap_content"
@@ -199,13 +193,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="정"
-            android:layout_marginTop="20dp"
             android:textStyle="bold"
             android:textSize="15sp"
             android:textColor="@color/black"
             app:layout_constraintLeft_toLeftOf="@id/textView_profile_userMajor"
-            app:layout_constraintTop_toBottomOf="@id/textView_profile_userMajor"/>
-
+            app:layout_constraintBottom_toBottomOf="@id/textView_profile_club"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
