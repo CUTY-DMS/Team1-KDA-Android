@@ -11,12 +11,9 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.cmd.R;
 import com.example.cmd.api.ApiProvider;
 import com.example.cmd.api.SeverApi;
 import com.example.cmd.databinding.ActivityChangeInfoBinding;
@@ -37,6 +34,15 @@ public class ChangeInfoActivity extends AppCompatActivity {
 
         binding = ActivityChangeInfoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+        binding.editTextChangeUserName.setText(bundle.getString("name"));
+        binding.editTextChangeUserNumber.setText(String.valueOf(bundle.getLong("classId")));
+        binding.editTextChangeUserBirth.setText(String.valueOf(bundle.getLong("birth")));
+        binding.editTextChangeUserMajor.setText(bundle.getString("majorField"));
+        binding.editTextChangeUserClub.setText(bundle.getString("clubName"));
 
 
         binding.buttonChangeEdit.setOnClickListener(new View.OnClickListener() {
@@ -106,28 +112,51 @@ public class ChangeInfoActivity extends AppCompatActivity {
         String majorField = binding.editTextChangeUserMajor.getText().toString();
         String clubName = binding.editTextChangeUserClub.getText().toString();
 
+        Long classIdNum = null;
+        Long birthDay = null;
+        try {
+            classIdNum = Long.parseLong(classIdNumber);
+            birthDay = Long.parseLong(birth);
+
+        } catch (NumberFormatException e) {
+
+        }
+
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String accessToken = sharedPreferences.getString("accessToken",null);
 
-        ChangeMyInfoRequest changeMyInfoRequest = new ChangeMyInfoRequest(name,classIdNumber,birth,majorField,clubName);
+        Log.d("TEST","학번/"+classIdNum);
+        ChangeMyInfoRequest changeMyInfoRequest = new ChangeMyInfoRequest(name,classIdNum,birthDay,majorField,clubName);
         SeverApi severApi = ApiProvider.getInstance().create(SeverApi.class);
 
         binding.buttonChangeSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<Void> changeInfo = severApi.changeInfo(accessToken,changeMyInfoRequest);
-                changeInfo.enqueue(new Callback<Void>() {
+//                Call<Void> changeInfo = severApi.changeInfo(accessToken,changeMyInfoRequest);
+//                changeInfo.enqueue(new Callback<Void>() {
+//                    @Override
+//                    public void onResponse(Call<Void> call, Response<Void> response) {
+//
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<Void> call, Throwable t) {
+//
+//                    }
+//                });
+
+                severApi.changeInfo(accessToken,changeMyInfoRequest).enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if(response.isSuccessful()){
                             Toast.makeText(ChangeInfoActivity.this, "정보가 수정 되었습니다", Toast.LENGTH_SHORT).show();
                         }
-
                     }
 
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-
+                        Log.e("TAG", "네트워크 요청 실패: "+t.getMessage());
                     }
                 });
             }
