@@ -39,13 +39,13 @@ public interface SeverApi {
             @Header("Authorization") String accessToken
     );
 
-    @PATCH("/user/motifyUserInfo")  //내 정보 변경
+    @PATCH("/user/infoChange")  //내 정보 변경
     Call<Void> changeInfo (
             @Header("Authorization") String accessToken,
             @Body ChangeMyInfoRequest changeMyInfoRequest
     );
 
-    @PATCH("/admin/password/change")  //비밀번호 변경
+    @PATCH("/user/password/change")  //비밀번호 변경
     Call<Void> changePassword (
             @Header("Authorization") String accessToken,
             @Body ChangePasswordRequest changePasswordRequest
