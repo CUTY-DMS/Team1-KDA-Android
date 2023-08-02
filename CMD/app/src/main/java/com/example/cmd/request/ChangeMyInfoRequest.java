@@ -5,14 +5,14 @@ import android.text.Editable;
 public class ChangeMyInfoRequest {
 
     private String name;
-    private Long classIdNumber;
+    private Long classId;
     private Long birth;
     private String majorField;
     private String clubName;
 
-    public ChangeMyInfoRequest(String name, Long classIdNumber, Long birth, String majorField, String clubName){
+    public ChangeMyInfoRequest(String name, Long classId, Long birth, String majorField, String clubName){
         this.name = name;
-        this.classIdNumber = classIdNumber;
+        this.classId = classId;
         this.birth = birth;
         this.majorField = majorField;
         this.clubName = clubName;
