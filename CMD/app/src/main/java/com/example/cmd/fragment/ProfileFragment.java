@@ -65,14 +65,7 @@ public class ProfileFragment extends Fragment {
             binding = FragmentProfileBinding.inflate(inflater);
             bringInfo();
 
-            ImageButton editBtn = binding.imageBtnProfileEdit;
-            editBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), ChangeInfoActivity.class);
-                    startActivity(intent);
-                }
-            });
+
 
             binding.buttonProfileChangePassword.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -132,10 +125,29 @@ public class ProfileFragment extends Fragment {
                         email.setText(response.body().getEmail());
                         name.setText(response.body().getName());
                         userName.setText(response.body().getName());
-                        classId.setText(response.body().getClassIdNumber());
-                        birth.setText(response.body().getBirth());
+                        classId.setText(String.valueOf(response.body().getClassId()));
+                        birth.setText(String.valueOf(response.body().getBirth()));
                         majorField.setText(response.body().getMajorField());
                         clubName.setText(response.body().getClubName());
+
+                        Log.d("TEST","학"+String.valueOf(response.body().getClassId()));
+
+
+                        binding.imageBtnProfileEdit.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(getActivity(),ChangeInfoActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putString("name",response.body().getName());
+                                bundle.putLong("classId",response.body().getClassId());
+                                bundle.putLong("birth",response.body().getBirth());
+                                bundle.putString("majorField",response.body().getMajorField());
+                                bundle.putString("clubName",response.body().getClubName());
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                            }
+                        });
+
                     }
                     if(response.code() == 404){
 
