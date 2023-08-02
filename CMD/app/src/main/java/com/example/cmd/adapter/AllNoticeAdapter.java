@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,8 @@ public class AllNoticeAdapter extends RecyclerView.Adapter<AllNoticeAdapter.Item
         public TextView date;
         public TextView title;
 
+        public LinearLayout linearLayout;
+
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -37,6 +40,8 @@ public class AllNoticeAdapter extends RecyclerView.Adapter<AllNoticeAdapter.Item
             name = itemView.findViewById(R.id.textview_allNotice_user);
             date = itemView.findViewById(R.id.textview_allNotice_date);
             title = itemView.findViewById(R.id.textview_allNotice_alarm);
+
+            linearLayout = itemView.findViewById(R.id.linear_allNotice);
 
 
             //WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
@@ -98,6 +103,8 @@ public class AllNoticeAdapter extends RecyclerView.Adapter<AllNoticeAdapter.Item
                 //allNoticeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 noticeDialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_radious);
                 noticeDialog.show();
+
+                holder.linearLayout.setBackgroundResource(R.drawable.item_radious_click);
             }
         });
 

@@ -4,9 +4,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cmd.R;
@@ -28,12 +30,16 @@ public class WeClassAdapter extends RecyclerView.Adapter<WeClassAdapter.ItemView
         public TextView date;
         public TextView title;
 
+        public LinearLayout linearLayout;
+
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
 
             name = itemView.findViewById(R.id.textview_weClass_user);
             date = itemView.findViewById(R.id.textview_weClass_date);
             title = itemView.findViewById(R.id.textview_weClass_alarm);
+
+            linearLayout = itemView.findViewById(R.id.linear_weClass);
         }
     }
 
@@ -79,6 +85,9 @@ public class WeClassAdapter extends RecyclerView.Adapter<WeClassAdapter.ItemView
                 NoticeDialog noticeDialog = new NoticeDialog(v.getContext(), list.get(clickPosition).getId());
                 noticeDialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_radious);
                 noticeDialog.show();
+
+                holder.linearLayout.setBackgroundResource(R.drawable.item_radious_click);
+                //holder.linearLayout.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.green1));
             }
         });
 
