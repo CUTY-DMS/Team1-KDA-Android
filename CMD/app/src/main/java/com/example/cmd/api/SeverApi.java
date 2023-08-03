@@ -10,6 +10,7 @@ import com.example.cmd.response.LoginResponse;
 import com.example.cmd.response.MypageResponse;
 import com.example.cmd.response.NoticeCheckResponse;
 import com.example.cmd.response.ReissueResponse;
+import com.example.cmd.response.ScheduleResponse;
 import com.example.cmd.response.WeClassResponse;
 
 import java.util.List;
@@ -67,6 +68,16 @@ public interface SeverApi {
             @Path("notiId") long id
     );
 
+    @GET("{key}")
+    Call<ScheduleResponse> scheduleList (
+            @Path("key") String key
+    );
+
+    @GET("&{grade}&{classNm}")  //시간표
+    Call<ScheduleResponse> schedule (
+            @Path("grade") String grade,
+            @Path("classNm") String classNm
+    );
     @POST("/reissue")  //토큰 재발급
     Call<ReissueResponse> reissue (
             @Header("AUTHORIZATION_HEADER ") String refreshToken
