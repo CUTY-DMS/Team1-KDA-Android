@@ -14,11 +14,11 @@ import com.example.cmd.response.ScheduleItemResponse;
 
 import java.util.List;
 
-public class MonAdapter extends RecyclerView.Adapter<MonAdapter.ViewHolder> {
+public class ScheduleListAdapter extends RecyclerView.Adapter<ScheduleListAdapter.ViewHolder> {
 
     private List<ScheduleItemResponse> items;
 
-    public MonAdapter(List<ScheduleItemResponse> items) {
+    public ScheduleListAdapter(List<ScheduleItemResponse> items) {
         this.items = items;
         Log.d("TEST","아이/"+items);
     }
@@ -26,13 +26,13 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.ViewHolder> {
 
     @NonNull
     @Override
-    public MonAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ScheduleListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.schedule_item, parent, false);
         return new ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MonAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ScheduleListAdapter.ViewHolder holder, int position) {
         ScheduleItemResponse item = items.get(position);
         holder.setItem(item);
     }
