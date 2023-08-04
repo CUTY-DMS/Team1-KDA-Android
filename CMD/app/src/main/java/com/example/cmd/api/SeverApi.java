@@ -22,6 +22,7 @@ import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface SeverApi {
 
@@ -68,9 +69,12 @@ public interface SeverApi {
             @Path("notiId") long id
     );
 
-    @GET("{key}")
+    @GET("hisTimetable?ATPT_OFCDC_SC_CODE=G10&SD_SCHUL_CODE=7430310&Type=json")
     Call<ScheduleResponse> scheduleList (
-            @Path("key") String key
+            @Query("GRADE") String grade,
+            @Query("CLASS_NM") String classNm,
+            @Query("ALL_TI_YMD") String date,
+            @Query("KEY") String key
     );
 
     @GET("&{grade}&{classNm}")  //시간표
@@ -78,6 +82,7 @@ public interface SeverApi {
             @Path("grade") String grade,
             @Path("classNm") String classNm
     );
+
     @POST("/reissue")  //토큰 재발급
     Call<ReissueResponse> reissue (
             @Header("AUTHORIZATION_HEADER ") String refreshToken
