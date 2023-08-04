@@ -3,64 +3,123 @@ package com.example.cmd.fragment.schedule;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.cmd.R;
+import com.example.cmd.adapter.ScheduleListAdapter;
+import com.example.cmd.api.SeverApi;
+import com.example.cmd.databinding.FragmentWednesBinding;
+import com.example.cmd.response.ScheduleHisTimetable;
+import com.example.cmd.response.ScheduleItemResponse;
+import com.example.cmd.response.ScheduleResponse;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link WednesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+
 public class WednesFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
-    public WednesFragment() {
-        // Required empty public constructor
-    }
+    FragmentWednesBinding binding;
+    private static final String BASE_URL = "https://open.neis.go.kr/hub/";
+    private static final String KEY = "&KEY=513aa74951a64b0793c9a0519e3e4bde";
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment WednesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static WednesFragment newInstance(String param1, String param2) {
-        WednesFragment fragment = new WednesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private static String grade;
+    private static String classNm;
+    private static String date;
+
+    List<ScheduleItemResponse> scheduleItemResponseList;
+    ScheduleListAdapter scheduleListAdapter;
+    RecyclerView recyclerView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_wednes, container, false);
+        binding = FragmentWednesBinding.inflate(inflater);
+
+        grade = "1";
+        classNm = "3";
+        date = "20230705";
+
+        recyclerView = binding.recyclerViewWednes;
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+
+        scheduleItemResponseList = new ArrayList<>();
+        scheduleListAdapter = new ScheduleListAdapter(scheduleItemResponseList);
+        recyclerView.setAdapter(scheduleListAdapter);
+
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        SeverApi severApi = retrofit.create(SeverApi.class);
+
+        Call<ScheduleResponse> call = severApi.scheduleList(grade,classNm,date,KEY);
+
+        call.enqueue(new Callback<ScheduleResponse>() {
+            @Override
+            public void onResponse(Call<ScheduleResponse> call, Response<ScheduleResponse> response) {
+                if (response.isSuccessful()) {
+
+                    ScheduleResponse scheduleResponse = response.body();
+
+                    if (scheduleResponse != null) {
+                        List<ScheduleHisTimetable> scheduleItems = scheduleResponse.getHisTimetable();
+
+                        for (ScheduleHisTimetable item : scheduleItems) {
+
+
+                            if(item.getScheduleItems() != null){
+                                scheduleItemResponseList.addAll(item.getScheduleItems());
+                            }
+
+
+                        }
+
+                        scheduleListAdapter.notifyDataSetChanged();
+                    }
+
+                } else {
+                    // API 호출 실패 처리
+                    Log.d("TEST", "API 호출 실패 코드: " + response.code());
+                    Log.d("TEST", "연결 주소 확인: " + response.raw().request().url().url());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ScheduleResponse> call, Throwable t) {
+                Log.d("TEST", "통신 실패: " + t.getMessage());
+            }
+        });
+
+
+
+        return binding.getRoot();
     }
 }

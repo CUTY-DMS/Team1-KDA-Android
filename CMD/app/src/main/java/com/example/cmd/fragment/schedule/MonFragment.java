@@ -10,10 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
-import com.example.cmd.R;
-import com.example.cmd.adapter.MonAdapter;
+import com.example.cmd.adapter.ScheduleListAdapter;
 import com.example.cmd.api.SeverApi;
 import com.example.cmd.databinding.FragmentMonBinding;
 import com.example.cmd.response.ScheduleHisTimetable;
@@ -27,8 +25,6 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,14 +42,8 @@ public class MonFragment extends Fragment {
     private static String date;
 
     List<ScheduleItemResponse> scheduleItemResponseList;
-    List<ScheduleHisTimetable> scheduleHisTimetableList;
-    MonAdapter monAdapter;
+    ScheduleListAdapter scheduleListAdapter;
     RecyclerView recyclerView;
-
-    public MonFragment() {
-        // Required empty public constructor
-    }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,22 +65,10 @@ public class MonFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         scheduleItemResponseList = new ArrayList<>();
-        monAdapter = new MonAdapter(scheduleItemResponseList);
+        scheduleListAdapter = new ScheduleListAdapter(scheduleItemResponseList);
         Log.d("TEST","시간표 리스트/" + scheduleItemResponseList);
-        recyclerView.setAdapter(monAdapter);
+        recyclerView.setAdapter(scheduleListAdapter);
 
-
-
-
-        // HttpLoggingInterceptor 인스턴스 생성
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-// OkHttpClient에 인터셉터 추가
-        OkHttpClient httpClient = new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                // 다른 필요한 인터셉터들도 추가할 수 있음
-                .build();
 
         Gson gson = new GsonBuilder()
                 .setLenient()
@@ -114,14 +92,6 @@ public class MonFragment extends Fragment {
                     // JSON 배열을 JSON 객체로 래핑
                     JsonObject jsonObject = new JsonObject();
                     JsonArray jsonArray = new JsonArray();
-//                    for (ScheduleResponse schedule : scheduleList) {
-//                        JsonObject scheduleObject = new JsonObject();
-//                        scheduleObject.addProperty("GRADE", schedule.getGrade());
-//                        scheduleObject.addProperty("CLASS_NM", schedule.getClassNm());
-//                        scheduleObject.addProperty("PERIO", schedule.getPerio());
-//                        scheduleObject.addProperty("ITRT_CNTNT", schedule.getItrtCntnt());
-//                        jsonArray.add(scheduleObject);
-//                    }
 
                     Log.d("TEST","응답/"+response.body());
                     ScheduleResponse scheduleResponse = response.body();
@@ -147,7 +117,7 @@ public class MonFragment extends Fragment {
 
                         }
 
-                        monAdapter.notifyDataSetChanged();
+                        scheduleListAdapter.notifyDataSetChanged();
                     }
                     jsonObject.add("items", jsonArray);
 
@@ -167,7 +137,6 @@ public class MonFragment extends Fragment {
             @Override
             public void onFailure(Call<ScheduleResponse> call, Throwable t) {
                 Log.d("TEST", "통신 실패: " + t.getMessage());
-                Log.d("TEST", "실패: " + httpClient);
             }
         });
 
