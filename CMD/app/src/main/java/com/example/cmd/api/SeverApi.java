@@ -69,18 +69,12 @@ public interface SeverApi {
             @Path("notiId") long id
     );
 
-    @GET("hisTimetable?ATPT_OFCDC_SC_CODE=G10&SD_SCHUL_CODE=7430310&Type=json")
+    @GET("hisTimetable?ATPT_OFCDC_SC_CODE=G10&SD_SCHUL_CODE=7430310&Type=json") //시간표
     Call<ScheduleResponse> scheduleList (
             @Query("GRADE") String grade,
             @Query("CLASS_NM") String classNm,
             @Query("ALL_TI_YMD") String date,
             @Query("KEY") String key
-    );
-
-    @GET("&{grade}&{classNm}")  //시간표
-    Call<ScheduleResponse> schedule (
-            @Path("grade") String grade,
-            @Path("classNm") String classNm
     );
 
     @POST("/reissue")  //토큰 재발급
