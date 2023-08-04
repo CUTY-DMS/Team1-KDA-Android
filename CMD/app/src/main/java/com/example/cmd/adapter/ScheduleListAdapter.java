@@ -46,15 +46,18 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView schedule;
+        private TextView time;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             schedule = itemView.findViewById(R.id.textView_schedule);
+            time = itemView.findViewById(R.id.textView_schedule_time);
         }
 
         public void setItem(ScheduleItemResponse item) {
             Log.d("TEST","시간표 아이템/" + item);
             schedule.setText(item.getItrtCntnt());
+            time.setText(item.getPerio());
         }
     }
 }
