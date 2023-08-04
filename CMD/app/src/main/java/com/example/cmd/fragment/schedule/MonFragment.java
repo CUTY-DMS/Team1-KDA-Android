@@ -46,6 +46,7 @@ public class MonFragment extends Fragment {
     private static String date;
 
     List<ScheduleItemResponse> scheduleItemResponseList;
+    List<ScheduleHisTimetable> scheduleHisTimetableList;
     MonAdapter monAdapter;
     RecyclerView recyclerView;
 
@@ -128,6 +129,7 @@ public class MonFragment extends Fragment {
                     if (scheduleResponse != null) {
                         List<ScheduleHisTimetable> scheduleItems = scheduleResponse.getHisTimetable();
                         //List<ScheduleItemResponse> itemResponseList = response.body();
+                        //List<ScheduleResponse> responsesBody = response.body();
                         for (ScheduleHisTimetable item : scheduleItems) {
                             JsonObject scheduleObject = new JsonObject();
                             //scheduleObject.addProperty("ITRT_CNTNT", item.getScheduleItems().toString());
@@ -137,8 +139,14 @@ public class MonFragment extends Fragment {
                             Log.d("TEST","f/"+scheduleItems);
                             //Log.d("TEST", "ITRT_CNTNT: " + itrtCntnt);
                             jsonArray.add(scheduleObject);
+
+                            if(item.getScheduleItems() != null){
+                                scheduleItemResponseList.addAll(item.getScheduleItems());
+                            }
+
+
                         }
-                        //scheduleItemResponseList.addAll(response.body());
+
                         monAdapter.notifyDataSetChanged();
                     }
                     jsonObject.add("items", jsonArray);
