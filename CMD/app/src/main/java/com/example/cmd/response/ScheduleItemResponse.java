@@ -12,8 +12,16 @@ public class ScheduleItemResponse {
     @Expose
     private String itrtCntnt;
 
+    @SerializedName("PERIO")
+    @Expose
+    private String perio;
+
     public String getItrtCntnt() {
         return itrtCntnt;
+    }
+
+    public String getPerio() {
+        return perio;
     }
 
 
