@@ -46,7 +46,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            tools:listitem="@layout/calendar_item"/>
 
         <TextView
             android:id="@+id/textview_calendar_login"
@@ -61,30 +62,5 @@
             android:visibility="invisible"/>
 
     </LinearLayout>
-
-
-    <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/icon_plus"
-        android:backgroundTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
-
-
-
-
-
-<!--    <Button-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="+ 일정 추가하기"-->
-<!--        android:backgroundTint="@color/green3"-->
-<!--        android:layout_marginLeft="30dp"-->
-<!--        android:layout_marginTop="30dp"-->
-<!--        app:layout_constraintLeft_toLeftOf="@id/calendarView_calendar"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/calendarView_calendar"/>-->
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
