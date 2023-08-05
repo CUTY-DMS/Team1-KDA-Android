@@ -1,7 +1,6 @@
 package com.example.cmd.api;
 
 
-import com.example.cmd.request.CalendarRequest;
 import com.example.cmd.request.ChangeMyInfoRequest;
 import com.example.cmd.request.ChangePasswordRequest;
 import com.example.cmd.request.LoginRequest;
@@ -79,10 +78,11 @@ public interface SeverApi {
             @Query("KEY") String key
     );
 
-    @GET("/user/schedule") //달력 일정 보기
-    Call<CalendarResponse> calendar (
+    @GET("/user/schedule/{year}/{month}") //달력 일정 보기
+    Call<List<CalendarResponse>> calendar (
             @Header("Authorization") String accessToken,
-            @Body CalendarRequest calendarRequest
+            @Path("year") int year,
+            @Path("month") int mont
     );
 
     @POST("/reissue")  //토큰 재발급
