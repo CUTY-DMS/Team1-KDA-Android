@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/linear_weClass"
+        android:id="@+id/linear_calendar"
         android:layout_width="400dp"
         android:layout_height="50dp"
         android:orientation="horizontal">
@@ -16,6 +16,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/textView_calendar_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5"
@@ -42,7 +43,7 @@
                 android:layout_height="50dp"
                 android:src="@drawable/calendar_line"/>
             <TextView
-                android:id="@+id/textview_weClass_user"
+                android:id="@+id/textview_calendar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="체육 대회"
