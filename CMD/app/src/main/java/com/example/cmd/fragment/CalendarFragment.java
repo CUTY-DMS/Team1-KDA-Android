@@ -23,7 +23,9 @@ import com.example.cmd.api.SeverApi;
 import com.example.cmd.databinding.FragmentCalendarBinding;
 import com.example.cmd.response.CalendarResponse;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -81,11 +83,21 @@ public class CalendarFragment extends Fragment {
                 @Override
                 public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                     years = year;
-                    months = month;
+                    months = month+1;
 
-                    Log.d("TEST","년 달"+years/months);
+                    Log.d("TEST","년"+years);
+                    Log.d("TEST","달"+months);
                 }
             });
+
+            SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
+            SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
+
+            Date date = new Date();
+
+            years = Integer.parseInt(yearFormat.format(date));
+            months = Integer.parseInt(monthFormat.format(date));
+            Log.d("TEST","ye"+years);
 
             sever();
         }
