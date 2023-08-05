@@ -2,65 +2,87 @@ package com.example.cmd.fragment.signup;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.cmd.R;
+import com.example.cmd.activity.SignupActivity;
+import com.example.cmd.databinding.FragmentStep3Binding;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Step3Fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class Step3Fragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    FragmentStep3Binding binding;
     public Step3Fragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Step3Fragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Step3Fragment newInstance(String param1, String param2) {
-        Step3Fragment fragment = new Step3Fragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_step3, container, false);
+        binding = FragmentStep3Binding.inflate(inflater);
+
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @NonNull Bundle savedInstance) {
+        super.onViewCreated(view, savedInstance);
+
+        Button nextBtn = binding.buttonStep3Next;
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String major = binding.edittextSignupMajorField.getText().toString();
+                String clubName = binding.edittextSignupClubName.getText().toString();
+
+                if(major.length() == 0 || clubName.length() == 0) {
+                    binding.textViewStep3Noti.setVisibility(View.VISIBLE);
+                } else {
+                    Bundle args = getArguments();
+                    String name = args.getString("name");
+                    String email = args.getString("email");
+                    Long classNumber = args.getLong("classNumber");
+                    Long birth = args.getLong("birth");
+
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("email",email);
+                    bundle.putLong("classNumber",classNumber);
+                    bundle.putLong("birth",birth);
+                    bundle.putString("name",name);
+                    bundle.putString("major",major);
+                    bundle.putString("clubName",clubName);
+
+                    Step3Fragment step3Fragment = new Step3Fragment();
+                    step3Fragment.setArguments(bundle);
+                    ((SignupActivity) requireActivity()).moveToStep(75);
+                }
+
+
+            }
+        });
+
+
+        Button preBtn = binding.buttonStep3Previous;
+        preBtn.setText("이전");
+        preBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((SignupActivity) requireActivity()).onPreButtonClick(v);
+            }
+        });
+
     }
 }

@@ -2,65 +2,100 @@ package com.example.cmd.fragment.signup;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.cmd.R;
+import com.example.cmd.activity.SignupActivity;
+import com.example.cmd.databinding.FragmentStep2Binding;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Step2Fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class Step2Fragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    FragmentStep2Binding binding;
     public Step2Fragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Step2Fragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Step2Fragment newInstance(String param1, String param2) {
-        Step2Fragment fragment = new Step2Fragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
+        Bundle args = getArguments();
+        if(args != null){
+            Log.d("TEST","sss"+args);
+        }else{
+            Log.d("TEST","ss");
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_step2, container, false);
+        binding = FragmentStep2Binding.inflate(inflater);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @NonNull Bundle savedInstance) {
+        super.onViewCreated(view, savedInstance);
+
+        Button nextBtn = binding.buttonStep2Next;
+
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = binding.edittextSignupEmail.getText().toString();
+                String classN = binding.edittextSignupClassNumber.getText().toString();
+                String bir = binding.edittextSignupBirth.getText().toString();
+
+                if(email.length() == 0 || classN.length() == 0 || bir.length() == 0) {
+                    binding.textViewStep2Noti.setVisibility(View.VISIBLE);
+                } else {
+                    Long classNumber = Long.parseLong(binding.edittextSignupClassNumber.getText().toString());
+                    Long birth = Long.parseLong(binding.edittextSignupBirth.getText().toString());
+
+                    Bundle args = getArguments();
+                    if(args != null) {
+                        Log.d("TEST","d");
+                        String name = args.getString("name");
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString("email",email);
+                        bundle.putLong("classNumber",classNumber);
+                        bundle.putLong("birth",birth);
+                        bundle.putString("name",name);
+
+                        Step3Fragment step3Fragment = new Step3Fragment();
+                        step3Fragment.setArguments(bundle);
+                        ((SignupActivity) requireActivity()).moveToStep(50);
+                    }else {
+                        Log.d("TEST","n");
+                    }
+
+                }
+            }
+        });
+
+
+
+        Button preBtn = binding.buttonStep2Previous;
+        preBtn.setText("이전");
+        preBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((SignupActivity) requireActivity()).moveToStep(0);
+                //((SignupActivity) requireActivity()).onPreButtonClick(v);
+                ((SignupActivity) requireActivity()).onPreButtonClick(v);
+            }
+        });
+
     }
 }
