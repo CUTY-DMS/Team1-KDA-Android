@@ -21,7 +21,7 @@
 
     <EditText
         android:id="@+id/edittext_signup_email"
-        android:layout_width="350"
+        android:layout_width="350dp"
         android:layout_height="50dp"
         android:hint="이메일"
         android:background="@drawable/radious"
@@ -63,5 +63,51 @@
         app:layout_constraintLeft_toLeftOf="@id/edittext_signup_classNumber"
         app:layout_constraintRight_toRightOf="@id/edittext_signup_classNumber"
         app:layout_constraintTop_toBottomOf="@id/edittext_signup_classNumber"/>
+
+    <TextView
+        android:id="@+id/textView_step2_noti"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="정보를 입력해주세요"
+        android:textColor="@color/red"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="15dp"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="@id/edittext_signup_birth"
+        app:layout_constraintTop_toBottomOf="@id/edittext_signup_birth"/>
+
+    <LinearLayout
+        android:id="@+id/buttonsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/button_step2_previous"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/green2"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="이전"
+            android:onClick="onPrevButtonClick" />
+
+        <Button
+            android:id="@+id/button_step2_next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/green2"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="다음"
+            android:onClick="onNextButtonClick" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
