@@ -1,11 +1,13 @@
 package com.example.cmd.api;
 
 
+import com.example.cmd.request.CalendarRequest;
 import com.example.cmd.request.ChangeMyInfoRequest;
 import com.example.cmd.request.ChangePasswordRequest;
 import com.example.cmd.request.LoginRequest;
 import com.example.cmd.request.SignupRequest;
 import com.example.cmd.response.AllNoticeResponse;
+import com.example.cmd.response.CalendarResponse;
 import com.example.cmd.response.LoginResponse;
 import com.example.cmd.response.MypageResponse;
 import com.example.cmd.response.NoticeCheckResponse;
@@ -75,6 +77,12 @@ public interface SeverApi {
             @Query("CLASS_NM") String classNm,
             @Query("ALL_TI_YMD") String date,
             @Query("KEY") String key
+    );
+
+    @GET("/user/schedule") //달력 일정 보기
+    Call<CalendarResponse> calendar (
+            @Header("Authorization") String accessToken,
+            @Body CalendarRequest calendarRequest
     );
 
     @POST("/reissue")  //토큰 재발급
