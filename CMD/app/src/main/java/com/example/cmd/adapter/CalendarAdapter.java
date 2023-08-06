@@ -70,7 +70,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ItemVi
         holder.date.setText(day.toString());
         holder.title.setText(list.get(position).getTitle());
         holder.dateText.setText(dayOfWeek.getDisplayName(TextStyle.NARROW, Locale.KOREAN));
-        
+
     }
 
     @Override
