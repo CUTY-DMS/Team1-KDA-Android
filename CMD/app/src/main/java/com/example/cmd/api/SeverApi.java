@@ -7,6 +7,7 @@ import com.example.cmd.request.LoginRequest;
 import com.example.cmd.request.SignupRequest;
 import com.example.cmd.response.AllNoticeResponse;
 import com.example.cmd.response.CalendarResponse;
+import com.example.cmd.response.GradeClassResponse;
 import com.example.cmd.response.LoginResponse;
 import com.example.cmd.response.MypageResponse;
 import com.example.cmd.response.NoticeCheckResponse;
@@ -83,6 +84,11 @@ public interface SeverApi {
             @Header("Authorization") String accessToken,
             @Path("year") int year,
             @Path("month") int mont
+    );
+
+    @GET("/user/gradeClass")  //학년 반 보기
+    Call<GradeClassResponse> grade (
+            @Header("Authorization") String accessToken
     );
 
     @POST("/reissue")  //토큰 재발급
