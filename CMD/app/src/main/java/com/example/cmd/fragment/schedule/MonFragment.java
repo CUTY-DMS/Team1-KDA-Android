@@ -11,9 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.cmd.activity.LoginActivity;
 import com.example.cmd.adapter.ScheduleListAdapter;
+import com.example.cmd.api.ApiProvider;
 import com.example.cmd.api.SeverApi;
 import com.example.cmd.databinding.FragmentMonBinding;
+import com.example.cmd.response.GradeClassResponse;
 import com.example.cmd.response.ScheduleHisTimetable;
 import com.example.cmd.response.ScheduleItemResponse;
 import com.example.cmd.response.ScheduleResponse;
@@ -37,13 +40,18 @@ public class MonFragment extends Fragment {
     private static final String BASE_URL = "https://open.neis.go.kr/hub/";
     private static final String KEY = "&KEY=513aa74951a64b0793c9a0519e3e4bde";
 
-    private static String grade;
-    private static String classNm;
+    private String grade = "0";
+    private String classNm = "0";
     private static String date;
 
     List<ScheduleItemResponse> scheduleItemResponseList;
     ScheduleListAdapter scheduleListAdapter;
     RecyclerView recyclerView;
+
+    public MonFragment(String grade, String classNm) {
+        this.grade = grade;
+        this.classNm = classNm;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,8 +64,8 @@ public class MonFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentMonBinding.inflate(inflater);
 
-        grade = "1";
-        classNm = "3";
+        //grade = "1";
+        //classNm = "3";
         date = "20230703";
 
         recyclerView = binding.recyclerViewMon;
@@ -70,6 +78,19 @@ public class MonFragment extends Fragment {
         recyclerView.setAdapter(scheduleListAdapter);
 
 
+        gradeSever();
+        scheduleSever();
+
+
+        return binding.getRoot();
+    }
+
+    private void gradeSever() {
+
+    }
+
+
+    private void scheduleSever() {
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
@@ -139,10 +160,5 @@ public class MonFragment extends Fragment {
                 Log.d("TEST", "통신 실패: " + t.getMessage());
             }
         });
-
-
-
-
-        return binding.getRoot();
     }
 }

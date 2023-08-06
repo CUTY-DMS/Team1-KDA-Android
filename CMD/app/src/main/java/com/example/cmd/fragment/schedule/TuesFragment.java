@@ -35,13 +35,18 @@ public class TuesFragment extends Fragment {
     private static final String BASE_URL = "https://open.neis.go.kr/hub/";
     private static final String KEY = "&KEY=513aa74951a64b0793c9a0519e3e4bde";
 
-    private static String grade;
-    private static String classNm;
+    private String grade;
+    private String classNm;
     private static String date;
 
     List<ScheduleItemResponse> scheduleItemResponseList;
     ScheduleListAdapter scheduleListAdapter;
     RecyclerView recyclerView;
+
+    public TuesFragment(String grade, String classNm) {
+        this.grade = grade;
+        this.classNm = classNm;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,8 +59,8 @@ public class TuesFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentTuesBinding.inflate(inflater);
 
-        grade = "1";
-        classNm = "3";
+        //grade = "1";
+        //classNm = "3";
         date = "20230704";
 
         recyclerView = binding.recyclerViewTues;
