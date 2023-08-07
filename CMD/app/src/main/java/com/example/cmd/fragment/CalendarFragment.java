@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
@@ -49,6 +50,8 @@ public class CalendarFragment extends Fragment {
 
 
 
+
+
     public CalendarFragment() {
         // Required empty public constructor
     }
@@ -79,16 +82,6 @@ public class CalendarFragment extends Fragment {
 
             calendarView = binding.calendarViewCalendar;
 
-            calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-                @Override
-                public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                    years = year;
-                    months = month+1;
-
-                    Log.d("TEST","년"+years);
-                    Log.d("TEST","달"+months);
-                }
-            });
 
             SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
             SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
@@ -99,7 +92,31 @@ public class CalendarFragment extends Fragment {
             months = Integer.parseInt(monthFormat.format(date));
             Log.d("TEST","ye"+years);
 
+
+            calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+                @Override
+                public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                    years = year;
+                    months = month+1;
+
+                    Log.d("TEST","년"+years);
+                    Log.d("TEST","달"+months);
+
+
+                    sever();
+                }
+
+
+            });
+
+
+
             sever();
+
+
+
+
+
         }
 
         return binding.getRoot();
@@ -108,11 +125,17 @@ public class CalendarFragment extends Fragment {
     private void sever() {
         SeverApi severApi = ApiProvider.getInstance().create(SeverApi.class);
 
+        Log.d("TEST","yea"+years);
+        Log.d("TEST","mont"+months);
         severApi.calendar(LoginActivity.accessToken, years,months).enqueue(new Callback<List<CalendarResponse>>() {
             @Override
             public void onResponse(Call<List<CalendarResponse>> call, Response<List<CalendarResponse>> response) {
                 if(response.isSuccessful()) {
                     List<CalendarResponse> responsesBody = response.body();
+                    if(responsesBody == null || responsesBody.isEmpty()) {
+                        binding.textviewCalendarNo.setVisibility(View.VISIBLE);
+                        binding.recyclerViewCalendar.setVisibility(View.INVISIBLE);
+                    }
 
                     calendarResponsesList.addAll(responsesBody);
                     adapter.notifyDataSetChanged();
@@ -125,4 +148,5 @@ public class CalendarFragment extends Fragment {
             }
         });
     }
+
 }
