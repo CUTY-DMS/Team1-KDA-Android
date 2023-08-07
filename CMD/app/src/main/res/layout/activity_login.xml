@@ -52,6 +52,17 @@
         app:layout_constraintLeft_toLeftOf="@id/edittext_email_id"
         app:layout_constraintRight_toRightOf="@id/edittext_email_id"
         app:layout_constraintTop_toBottomOf="@id/edittext_email_id"/>
+
+    <TextView
+        android:id="@+id/textView_login_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이메일 또는 비밀번호를 확인해주세요"
+        android:visibility="invisible"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/red"
+        app:layout_constraintLeft_toLeftOf="@id/edittext_login_password"
+        app:layout_constraintTop_toBottomOf="@id/edittext_login_password"/>
     
     
     <Button

@@ -151,7 +151,6 @@
                 android:background="@drawable/radious"
                 android:textColorHint="@color/gray"
                 android:backgroundTint="@color/white_gray"
-                android:inputType="textPassword"
                 android:layout_marginTop="30dp"
                 android:paddingLeft="20dp"
                 app:layout_constraintLeft_toLeftOf="@id/edittext_signup_majorField"
