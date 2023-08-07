@@ -99,6 +99,11 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
+
+                if(response.code() == 500) {
+                    //비번 또는 이메일 확인
+                    binding.textViewLoginCheck.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
