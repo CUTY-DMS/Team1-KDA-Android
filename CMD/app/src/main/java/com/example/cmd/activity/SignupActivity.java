@@ -63,23 +63,34 @@ public class SignupActivity extends AppCompatActivity {
         }else {
             if(!password.equals(passwordCheck)){
                 checkPassword.setVisibility(View.VISIBLE);
+            }else{
+                signupResponse();
             }
-            signupResponse();
+
         }
     }
 
     private void signupResponse() {
-        String username = binding.edittextSignupUsername.getText().toString().trim();
-        String email = binding.edittextSignupEmail.getText().toString().trim();
-        String password = binding.edittextSignupPassword.getText().toString().trim();
+        String username = binding.edittextSignupUsername.getText().toString();
+        String email = binding.edittextSignupEmail.getText().toString();
+        String password = binding.edittextSignupPassword.getText().toString();
+        String classId = binding.edittextSignupClassNumber.getText().toString();
+        String birth = binding.edittextSignupBirth.getText().toString();
+        String majorField = binding.edittextSignupMajorField.getText().toString();
+        String clubName = binding.edittextSignupClubName.getText().toString();
 
-        SignupRequest signupRequest = new SignupRequest(username,email,password);
+        Log.d("TEST","name"+username);
+
+        SignupRequest signupRequest = new SignupRequest(username,email,password,classId,birth,majorField,clubName);
         SeverApi severApi = ApiProvider.getInstance().create(SeverApi.class);
 
         severApi.signup(signupRequest).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Toast.makeText(SignupActivity.this ,"회원가입에 성공했습니다" ,Toast.LENGTH_SHORT).show();
+                if(response.isSuccessful()) {
+                    Toast.makeText(SignupActivity.this ,"회원가입에 성공했습니다" ,Toast.LENGTH_SHORT).show();
+
+                }
             }
 
             @Override
