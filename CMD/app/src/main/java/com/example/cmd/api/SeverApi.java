@@ -93,7 +93,7 @@ public interface SeverApi {
 
     @POST("/reissue")  //토큰 재발급
     Call<ReissueResponse> reissue (
-            @Header("AUTHORIZATION_HEADER ") String refreshToken
+            @Header("AUTHORIZATION_HEADER") String refreshToken
     );
 
 }
