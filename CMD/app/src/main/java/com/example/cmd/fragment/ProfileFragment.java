@@ -30,6 +30,7 @@ import com.example.cmd.api.SeverApi;
 import com.example.cmd.databinding.FragmentProfileBinding;
 import com.example.cmd.databinding.FragmentProfileNoBinding;
 import com.example.cmd.response.MypageResponse;
+import com.example.cmd.response.ReissueResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -112,6 +113,7 @@ public class ProfileFragment extends Fragment {
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String accessToken = sharedPreferences.getString("accessToken",null);
+        String refreshToken = sharedPreferences.getString("refreshToken",null);
 
         SeverApi severApi = ApiProvider.getInstance().create(SeverApi.class);
 
@@ -121,6 +123,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onResponse(Call<MypageResponse> call, Response<MypageResponse> response) {
                 if(response.isSuccessful()){
+                    Log.d("TEST","일반");
                     if(response.body() != null){
                         email.setText(response.body().getEmail());
                         name.setText(response.body().getName());
@@ -149,9 +152,37 @@ public class ProfileFragment extends Fragment {
                         });
 
                     }
-                    if(response.code() == 404){
 
-                    }
+                }
+                if(response.code() == 403 || response.code() == 401) {
+                    Log.d("TEST","엑세스 만료");
+                    Call<ReissueResponse> responseCall = severApi.reissue(refreshToken);
+                    responseCall.enqueue(new Callback<ReissueResponse>() {
+                        @Override
+                        public void onResponse(Call<ReissueResponse> call, Response<ReissueResponse> response) {
+                            if(response.isSuccessful()) {
+                                String newAccessToken;
+                                newAccessToken = response.body().getAccessToken();
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("accessToken",newAccessToken);
+                                editor.apply();
+
+                                if(response.code() == 401 || response.code() == 403) {
+                                    Log.d("TEST","refreshToken 만료");
+                                    Intent intent = new Intent(getActivity(),LoginActivity.class);
+                                    startActivity(intent);
+
+                                    Toast.makeText(getContext(), "다시 로그인 해주세요",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<ReissueResponse> call, Throwable t) {
+                            Log.d("TEST","토큰 실패"+t.getMessage());
+                        }
+                    });
                 }
             }
 
