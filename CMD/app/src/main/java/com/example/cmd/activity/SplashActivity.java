@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.cmd.R;
 import com.example.cmd.animation.ScalableTextView;
 
@@ -14,10 +16,6 @@ public class SplashActivity extends AppCompatActivity {
     private ScalableTextView textViewDescription1;
     private ScalableTextView textViewDescription2;
     private ScalableTextView textViewDescription3;
-
-    private ScalableTextView textViewK;
-    private ScalableTextView textViewD;
-    private ScalableTextView textViewA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +26,9 @@ public class SplashActivity extends AppCompatActivity {
         textViewDescription2 = findViewById(R.id.textview_KDA_description2);
         textViewDescription3 = findViewById(R.id.textview_KDA_description3);
 
-        textViewK = findViewById(R.id.textview_K);
-        textViewD = findViewById(R.id.textview_D);
-        textViewA = findViewById(R.id.textview_A);
+        ScalableTextView textViewK = findViewById(R.id.textview_K);
+        ScalableTextView textViewD = findViewById(R.id.textview_D);
+        ScalableTextView textViewA = findViewById(R.id.textview_A);
 
         textViewK.bringToFront();
         textViewD.bringToFront();
@@ -40,11 +38,9 @@ public class SplashActivity extends AppCompatActivity {
         Animation slideUpAnimation_d = AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slide_d);
         Animation slideUpAnimation_a = AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slide_a);
 
-
         textViewK.startAnimation(slideUpAnimation_k);
         textViewD.startAnimation(slideUpAnimation_d);
         textViewA.startAnimation(slideUpAnimation_a);
-
 
         // 일정 시간 후에 KDA 글씨를 보여주는 애니메이션 완료 후, 나머지 텍스트 표시
         new Handler().postDelayed(new Runnable() {
@@ -77,6 +73,6 @@ public class SplashActivity extends AppCompatActivity {
                     }
                 });
             }
-        }, 800); // 1초 후에 텍스트 표시 애니메이션 실행
+        }, 800);
     }
 }
