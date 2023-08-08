@@ -1,14 +1,11 @@
 package com.example.cmd.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.cmd.R;
 import com.example.cmd.animation.LetterSpacingTextView;
 import com.example.cmd.animation.ScalableTextView;
@@ -40,15 +37,6 @@ public class SplashActivity extends AppCompatActivity {
         textViewK.bringToFront();
         textViewD.bringToFront();
         textViewA.bringToFront();
-
-
-
-        // KDA 글씨를 크게 보이도록 애니메이션 설정
-        //Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
-
-        //textViewKDA.startAnimation(fadeInAnimation);
-
-        //textViewKDA.animateLetterSpacing(1.4f,1000);
 
         Animation slideUpAnimation_k = AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slide_k);
         Animation slideUpAnimation_d = AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slide_d);

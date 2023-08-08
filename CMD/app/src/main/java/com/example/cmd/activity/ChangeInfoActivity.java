@@ -1,7 +1,5 @@
 package com.example.cmd.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,13 +11,11 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.cmd.api.ApiProvider;
 import com.example.cmd.api.SeverApi;
 import com.example.cmd.databinding.ActivityChangeInfoBinding;
-import com.example.cmd.fragment.ProfileFragment;
 import com.example.cmd.request.ChangeMyInfoRequest;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,9 +50,8 @@ public class ChangeInfoActivity extends AppCompatActivity {
                 binding.editTextChangeUserName.setSelection(binding.editTextChangeUserName.getText().length());
 
                 //키보드 올리기
-                InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                 inputMethodManager.showSoftInput(binding.editTextChangeUserName, InputMethodManager.SHOW_IMPLICIT);
-                Log.d("TEST", "클릭");
             }
         });
 
@@ -66,14 +61,12 @@ public class ChangeInfoActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        bringInfo();
         check();
         clear();
 
     }
 
     private void check() {
-
         TextWatcher textWatcher = createTextWatcher();
 
         binding.editTextChangeUserName.addTextChangedListener(textWatcher);
@@ -84,7 +77,6 @@ public class ChangeInfoActivity extends AppCompatActivity {
     }
 
     private TextWatcher createTextWatcher() {
-
 
         return new TextWatcher() {
             @Override
@@ -123,40 +115,25 @@ public class ChangeInfoActivity extends AppCompatActivity {
         }
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        String accessToken = sharedPreferences.getString("accessToken",null);
+        String accessToken = sharedPreferences.getString("accessToken", null);
 
-        Log.d("TEST","학번/"+classIdNum);
-        ChangeMyInfoRequest changeMyInfoRequest = new ChangeMyInfoRequest(name,classIdNum,birthDay,majorField,clubName);
+        ChangeMyInfoRequest changeMyInfoRequest = new ChangeMyInfoRequest(name, classIdNum, birthDay, majorField, clubName);
         SeverApi severApi = ApiProvider.getInstance().create(SeverApi.class);
 
         binding.buttonChangeSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Call<Void> changeInfo = severApi.changeInfo(accessToken,changeMyInfoRequest);
-//                changeInfo.enqueue(new Callback<Void>() {
-//                    @Override
-//                    public void onResponse(Call<Void> call, Response<Void> response) {
-//
-//
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<Void> call, Throwable t) {
-//
-//                    }
-//                });
-
-                severApi.changeInfo(accessToken,changeMyInfoRequest).enqueue(new Callback<Void>() {
+                severApi.changeInfo(accessToken, changeMyInfoRequest).enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
-                        if(response.isSuccessful()){
+                        if (response.isSuccessful()) {
                             Toast.makeText(ChangeInfoActivity.this, "정보가 수정 되었습니다", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-                        Log.e("TAG", "네트워크 요청 실패: "+t.getMessage());
+                        Log.e("TAG", "네트워크 요청 실패: " + t.getMessage());
                     }
                 });
             }
@@ -172,7 +149,7 @@ public class ChangeInfoActivity extends AppCompatActivity {
         binding.imageBtnChangeClub.setOnClickListener(click(binding.editTextChangeUserClub));
     }
 
-    private View.OnClickListener click(EditText id){
+    private View.OnClickListener click(EditText id) {
 
         return new View.OnClickListener() {
             @Override
@@ -191,10 +168,4 @@ public class ChangeInfoActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
-
-    private void bringInfo() {
-
-    }
-
-
 }
