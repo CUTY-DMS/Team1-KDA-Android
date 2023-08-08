@@ -4,7 +4,6 @@ public class WeClassResponse {
 
     private String title;
     private String dateTime;
-
     private String name;
     private Long id;
 

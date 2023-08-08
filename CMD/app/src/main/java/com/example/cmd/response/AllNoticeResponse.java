@@ -1,7 +1,6 @@
 package com.example.cmd.response;
 
 
-
 public class AllNoticeResponse {
     private String title;
     private String dateTime;
@@ -14,7 +13,7 @@ public class AllNoticeResponse {
     }
 
     public String getDateTime() {
-        return  dateTime;
+        return dateTime;
     }
 
     public String getName() {

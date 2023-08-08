@@ -1,11 +1,7 @@
 package com.example.cmd.response;
 
-import androidx.annotation.NonNull;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
 
 public class ScheduleItemResponse {
     @SerializedName("ITRT_CNTNT")
@@ -23,7 +19,6 @@ public class ScheduleItemResponse {
     public String getPerio() {
         return perio;
     }
-
 
     @Override
     public String toString() {
