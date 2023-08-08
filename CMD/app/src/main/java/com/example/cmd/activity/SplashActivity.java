@@ -7,12 +7,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.cmd.R;
-import com.example.cmd.animation.LetterSpacingTextView;
 import com.example.cmd.animation.ScalableTextView;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private LetterSpacingTextView textViewKDA;
     private ScalableTextView textViewDescription1;
     private ScalableTextView textViewDescription2;
     private ScalableTextView textViewDescription3;
