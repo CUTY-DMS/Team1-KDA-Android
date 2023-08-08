@@ -6,20 +6,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.cmd.R;
 import com.example.cmd.activity.ChangeInfoActivity;
@@ -39,13 +35,10 @@ import retrofit2.Response;
 
 public class ProfileFragment extends Fragment {
 
-
+    private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
     FragmentProfileBinding binding;
     FragmentProfileNoBinding noLoginBinding;
-
     private SharedPreferences sharedPreferences;
-
-    private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,15 +50,11 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        String accessToken = sharedPreferences.getString("accessToken",null);
+        String accessToken = sharedPreferences.getString("accessToken", null);
 
-        Log.d("TEST","로그인 상태 "+isLogin());
-        Log.d("TEST","로그인 상태 토큰 : "+ sharedPreferences.getString("accessToken",null));
-
-        if(LoginActivity.accessToken != null) {
+        if (LoginActivity.accessToken != null) {
             binding = FragmentProfileBinding.inflate(inflater);
             bringInfo();
-
 
 
             binding.buttonProfileChangePassword.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +75,7 @@ public class ProfileFragment extends Fragment {
             return binding.getRoot();
 
 
-        }else{
+        } else {
             noLoginBinding = FragmentProfileNoBinding.inflate(inflater);
             noLoginBinding.buttonProfileNoGoLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -112,8 +101,8 @@ public class ProfileFragment extends Fragment {
         TextView clubName = binding.textViewProfileUserClub;
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        String accessToken = sharedPreferences.getString("accessToken",null);
-        String refreshToken = sharedPreferences.getString("refreshToken",null);
+        String accessToken = sharedPreferences.getString("accessToken", null);
+        String refreshToken = sharedPreferences.getString("refreshToken", null);
 
         SeverApi severApi = ApiProvider.getInstance().create(SeverApi.class);
 
@@ -122,9 +111,9 @@ public class ProfileFragment extends Fragment {
         myPage.enqueue(new Callback<MypageResponse>() {
             @Override
             public void onResponse(Call<MypageResponse> call, Response<MypageResponse> response) {
-                if(response.isSuccessful()){
-                    Log.d("TEST","일반");
-                    if(response.body() != null){
+                if (response.isSuccessful()) {
+                    Log.d("TEST", "일반");
+                    if (response.body() != null) {
                         email.setText(response.body().getEmail());
                         name.setText(response.body().getName());
                         userName.setText(response.body().getName());
@@ -133,19 +122,17 @@ public class ProfileFragment extends Fragment {
                         majorField.setText(response.body().getMajorField());
                         clubName.setText(response.body().getClubName());
 
-                        Log.d("TEST","학"+String.valueOf(response.body().getClassId()));
-
 
                         binding.imageBtnProfileEdit.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Intent intent = new Intent(getActivity(),ChangeInfoActivity.class);
+                                Intent intent = new Intent(getActivity(), ChangeInfoActivity.class);
                                 Bundle bundle = new Bundle();
-                                bundle.putString("name",response.body().getName());
-                                bundle.putLong("classId",response.body().getClassId());
-                                bundle.putLong("birth",response.body().getBirth());
-                                bundle.putString("majorField",response.body().getMajorField());
-                                bundle.putString("clubName",response.body().getClubName());
+                                bundle.putString("name", response.body().getName());
+                                bundle.putLong("classId", response.body().getClassId());
+                                bundle.putLong("birth", response.body().getBirth());
+                                bundle.putString("majorField", response.body().getMajorField());
+                                bundle.putString("clubName", response.body().getClubName());
                                 intent.putExtras(bundle);
                                 startActivity(intent);
                             }
@@ -154,25 +141,24 @@ public class ProfileFragment extends Fragment {
                     }
 
                 }
-                if(response.code() == 403 || response.code() == 401) {
-                    Log.d("TEST","엑세스 만료");
+                if (response.code() == 403 || response.code() == 401) {
                     Call<ReissueResponse> responseCall = severApi.reissue(refreshToken);
                     responseCall.enqueue(new Callback<ReissueResponse>() {
                         @Override
                         public void onResponse(Call<ReissueResponse> call, Response<ReissueResponse> response) {
-                            if(response.isSuccessful()) {
+                            if (response.isSuccessful()) {
                                 String newAccessToken;
                                 newAccessToken = response.body().getAccessToken();
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString("accessToken",newAccessToken);
+                                editor.putString("accessToken", newAccessToken);
                                 editor.apply();
 
-                                if(response.code() == 401 || response.code() == 403) {
-                                    Log.d("TEST","refreshToken 만료");
-                                    Intent intent = new Intent(getActivity(),LoginActivity.class);
+                                if (response.code() == 401 || response.code() == 403) {
+                                    Log.d("TEST", "refreshToken 만료");
+                                    Intent intent = new Intent(getActivity(), LoginActivity.class);
                                     startActivity(intent);
 
-                                    Toast.makeText(getContext(), "다시 로그인 해주세요",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "다시 로그인 해주세요", Toast.LENGTH_SHORT).show();
                                 }
                             }
 
@@ -180,7 +166,7 @@ public class ProfileFragment extends Fragment {
 
                         @Override
                         public void onFailure(Call<ReissueResponse> call, Throwable t) {
-                            Log.d("TEST","토큰 실패"+t.getMessage());
+
                         }
                     });
                 }
@@ -214,22 +200,17 @@ public class ProfileFragment extends Fragment {
         builder.setNegativeButton("Log.아웃", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(getActivity(),LoginActivity.class);
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
                 getActivity().finish();
 
-                Toast.makeText(getContext(),"Log.아웃 되었습니다!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Log.아웃 되었습니다!", Toast.LENGTH_SHORT).show();
             }
         });
-
 
         AlertDialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_radious);
         dialog.show();
 
-
-
     }
-
-
 }

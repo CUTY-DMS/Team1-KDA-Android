@@ -1,25 +1,20 @@
 package com.example.cmd.fragment;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.cmd.R;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.cmd.activity.LoginActivity;
 import com.example.cmd.adapter.WeClassAdapter;
 import com.example.cmd.api.ApiProvider;
 import com.example.cmd.api.SeverApi;
 import com.example.cmd.databinding.FragmentWeClassBinding;
-import com.example.cmd.response.AllNoticeResponse;
 import com.example.cmd.response.WeClassResponse;
 
 import java.util.ArrayList;
@@ -33,12 +28,10 @@ import retrofit2.Response;
 public class WeClassFragment extends Fragment {
 
     FragmentWeClassBinding binding;
-
+    List<WeClassResponse> weClassResponsesList;
     private RecyclerView recyclerView;
     private WeClassAdapter adapter;
     private LinearLayoutManager linearLayoutManager;
-
-    List<WeClassResponse> weClassResponsesList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,14 +64,13 @@ public class WeClassFragment extends Fragment {
         severApi.weClass(LoginActivity.accessToken).enqueue(new Callback<List<WeClassResponse>>() {
             @Override
             public void onResponse(Call<List<WeClassResponse>> call, Response<List<WeClassResponse>> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     List<WeClassResponse> responsesBody = response.body();
-                    if(responsesBody == null || responsesBody.isEmpty()) {
+                    if (responsesBody == null || responsesBody.isEmpty()) {
                         binding.textviewWeClassNo.setVisibility(View.VISIBLE);
-                    }else{
+                    } else {
                         weClassResponsesList.addAll(responsesBody);
                         adapter.notifyDataSetChanged();
-                        Log.d("TEST","r/"+responsesBody);
                     }
                 }
             }

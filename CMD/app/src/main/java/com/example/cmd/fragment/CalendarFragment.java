@@ -1,22 +1,17 @@
 package com.example.cmd.fragment;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CalendarView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CalendarView;
-
-import com.example.cmd.R;
 import com.example.cmd.activity.LoginActivity;
 import com.example.cmd.adapter.CalendarAdapter;
 import com.example.cmd.api.ApiProvider;
@@ -36,24 +31,17 @@ import retrofit2.Response;
 public class CalendarFragment extends Fragment {
 
     FragmentCalendarBinding binding;
-
+    List<CalendarResponse> calendarResponsesList;
+    CalendarView calendarView;
     private RecyclerView recyclerView;
     private CalendarAdapter adapter;
     private LinearLayoutManager linearLayoutManager;
-
     private int years;
     private int months;
 
-    List<CalendarResponse> calendarResponsesList;
-
-    CalendarView calendarView;
-
-
-
-
 
     public CalendarFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -68,7 +56,7 @@ public class CalendarFragment extends Fragment {
         binding = FragmentCalendarBinding.inflate(inflater);
 
 
-        if(LoginActivity.accessToken == null)
+        if (LoginActivity.accessToken == null)
             binding.textviewCalendarLogin.setVisibility(View.VISIBLE);
         else {
             calendarResponsesList = new ArrayList<>();
@@ -82,7 +70,6 @@ public class CalendarFragment extends Fragment {
 
             calendarView = binding.calendarViewCalendar;
 
-
             SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
             SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
 
@@ -90,32 +77,20 @@ public class CalendarFragment extends Fragment {
 
             years = Integer.parseInt(yearFormat.format(date));
             months = Integer.parseInt(monthFormat.format(date));
-            Log.d("TEST","ye"+years);
 
 
             calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
                 @Override
                 public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                     years = year;
-                    months = month+1;
-
-                    Log.d("TEST","년"+years);
-                    Log.d("TEST","달"+months);
-
+                    months = month + 1;
 
                     sever();
                 }
 
-
             });
 
-
-
             sever();
-
-
-
-
 
         }
 
@@ -125,14 +100,12 @@ public class CalendarFragment extends Fragment {
     private void sever() {
         SeverApi severApi = ApiProvider.getInstance().create(SeverApi.class);
 
-        Log.d("TEST","yea"+years);
-        Log.d("TEST","mont"+months);
-        severApi.calendar(LoginActivity.accessToken, years,months).enqueue(new Callback<List<CalendarResponse>>() {
+        severApi.calendar(LoginActivity.accessToken, years, months).enqueue(new Callback<List<CalendarResponse>>() {
             @Override
             public void onResponse(Call<List<CalendarResponse>> call, Response<List<CalendarResponse>> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     List<CalendarResponse> responsesBody = response.body();
-                    if(responsesBody == null || responsesBody.isEmpty()) {
+                    if (responsesBody == null || responsesBody.isEmpty()) {
                         binding.textviewCalendarNo.setVisibility(View.VISIBLE);
                         binding.recyclerViewCalendar.setVisibility(View.INVISIBLE);
                     }
@@ -148,5 +121,4 @@ public class CalendarFragment extends Fragment {
             }
         });
     }
-
 }

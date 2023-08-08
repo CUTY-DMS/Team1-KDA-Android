@@ -62,6 +62,7 @@ public class AllNoticeFragment extends Fragment {
 
         recyclerView.setLayoutManager(linearLayoutManager);
 
+        Log.d("TEST","전체 공지 리스트/" + allNoticeResponseList);
         adapter = new AllNoticeAdapter(allNoticeResponseList);
 
         recyclerView.setAdapter(adapter);
