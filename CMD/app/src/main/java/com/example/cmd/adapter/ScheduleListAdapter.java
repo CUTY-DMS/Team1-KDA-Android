@@ -5,13 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.cmd.R;
 import com.example.cmd.response.ScheduleItemResponse;
-
 import java.util.List;
 
 public class ScheduleListAdapter extends RecyclerView.Adapter<ScheduleListAdapter.ViewHolder> {
@@ -20,7 +17,6 @@ public class ScheduleListAdapter extends RecyclerView.Adapter<ScheduleListAdapte
 
     public ScheduleListAdapter(List<ScheduleItemResponse> items) {
         this.items = items;
-        Log.d("TEST","아이/"+items);
     }
 
 
@@ -39,7 +35,6 @@ public class ScheduleListAdapter extends RecyclerView.Adapter<ScheduleListAdapte
 
     @Override
     public int getItemCount() {
-        Log.d("TEST","크기"+items.size());
         return items.size();
     }
 
@@ -47,6 +42,7 @@ public class ScheduleListAdapter extends RecyclerView.Adapter<ScheduleListAdapte
 
         private TextView schedule;
         private TextView time;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -55,7 +51,6 @@ public class ScheduleListAdapter extends RecyclerView.Adapter<ScheduleListAdapte
         }
 
         public void setItem(ScheduleItemResponse item) {
-            Log.d("TEST","시간표 아이템/" + item);
             schedule.setText(item.getItrtCntnt());
             time.setText(item.getPerio());
         }
