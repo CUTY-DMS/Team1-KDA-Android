@@ -1,7 +1,5 @@
 package com.example.cmd.request;
 
-import android.text.Editable;
-
 public class ChangeMyInfoRequest {
 
     private String name;
@@ -10,7 +8,7 @@ public class ChangeMyInfoRequest {
     private String majorField;
     private String clubName;
 
-    public ChangeMyInfoRequest(String name, Long classId, Long birth, String majorField, String clubName){
+    public ChangeMyInfoRequest(String name, Long classId, Long birth, String majorField, String clubName) {
         this.name = name;
         this.classId = classId;
         this.birth = birth;

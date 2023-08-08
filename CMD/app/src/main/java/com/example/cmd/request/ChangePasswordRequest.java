@@ -7,11 +7,10 @@ public class ChangePasswordRequest {
     private String reNewPassword; //비밀번호 확인
 
 
-
-    public ChangePasswordRequest (String oldPassword, String newPassword, String reNewPassword){
+    public ChangePasswordRequest(String oldPassword, String newPassword, String reNewPassword) {
         this.oldPassword = oldPassword;
         this.newPassword = newPassword;
-        this.reNewPassword= reNewPassword;
+        this.reNewPassword = reNewPassword;
     }
 
     public String getOldPassword() {

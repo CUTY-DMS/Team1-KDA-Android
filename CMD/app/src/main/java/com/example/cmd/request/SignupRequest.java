@@ -1,7 +1,5 @@
 package com.example.cmd.request;
 
-import android.util.Log;
-
 public class SignupRequest {
     private String name;
     private String email;
@@ -11,7 +9,7 @@ public class SignupRequest {
     private String majorField;
     private String clubName;
 
-    public SignupRequest(String name, String email, String password, String classId, String birth, String majorField, String clubName){
+    public SignupRequest(String name, String email, String password, String classId, String birth, String majorField, String clubName) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -20,6 +18,4 @@ public class SignupRequest {
         this.majorField = majorField;
         this.clubName = clubName;
     }
-
-
 }
