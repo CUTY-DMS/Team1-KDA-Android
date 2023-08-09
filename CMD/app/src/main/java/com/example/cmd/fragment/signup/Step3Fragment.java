@@ -4,7 +4,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,11 @@ import com.example.cmd.databinding.FragmentStep3Binding;
 public class Step3Fragment extends Fragment {
 
     FragmentStep3Binding binding;
+
+    private String name;
+    private String email;
+    private String classN;
+    private String birth;
     public Step3Fragment() {
         // Required empty public constructor
     }
@@ -26,6 +33,14 @@ public class Step3Fragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Bundle bundle = getArguments();
+        if(bundle != null){
+            Log.d("TEST","sss"+bundle);
+            name = bundle.getString("name");
+            email = bundle.getString("email");
+            classN = bundle.getString("classNumber");
+            birth = bundle.getString("birth");
+        }
     }
 
     @Override
@@ -33,12 +48,8 @@ public class Step3Fragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentStep3Binding.inflate(inflater);
 
-        return binding.getRoot();
-    }
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
 
-    @Override
-    public void onViewCreated(@NonNull View view, @NonNull Bundle savedInstance) {
-        super.onViewCreated(view, savedInstance);
 
         Button nextBtn = binding.buttonStep3Next;
         nextBtn.setOnClickListener(new View.OnClickListener() {
@@ -50,29 +61,32 @@ public class Step3Fragment extends Fragment {
                 if(major.length() == 0 || clubName.length() == 0) {
                     binding.textViewStep3Noti.setVisibility(View.VISIBLE);
                 } else {
-                    Bundle args = getArguments();
-                    String name = args.getString("name");
-                    String email = args.getString("email");
-                    Long classNumber = args.getLong("classNumber");
-                    Long birth = args.getLong("birth");
-
-
                     Bundle bundle = new Bundle();
                     bundle.putString("email",email);
-                    bundle.putLong("classNumber",classNumber);
-                    bundle.putLong("birth",birth);
+                    bundle.putString("classNumber",classN);
+                    bundle.putString("birth",birth);
                     bundle.putString("name",name);
                     bundle.putString("major",major);
                     bundle.putString("clubName",clubName);
 
-                    Step3Fragment step3Fragment = new Step3Fragment();
-                    step3Fragment.setArguments(bundle);
-                    ((SignupActivity) requireActivity()).moveToStep(75);
+                    Step4Fragment step4Fragment = new Step4Fragment();
+                    step4Fragment.setArguments(bundle);
+                    transaction.replace(R.id.frame_layout_signup, step4Fragment);
+                    transaction.commit();
+                    //((SignupActivity) requireActivity()).moveToStep(75);
                 }
 
 
             }
         });
+
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @NonNull Bundle savedInstance) {
+        super.onViewCreated(view, savedInstance);
+
 
 
         Button preBtn = binding.buttonStep3Previous;

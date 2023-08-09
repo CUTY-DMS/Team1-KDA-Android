@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,12 +38,6 @@ public class Step1Fragment extends Fragment {
                              Bundle savedInstanceState) {
 
         binding = FragmentStep1Binding.inflate(inflater, container, false);
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @NonNull Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
         Button nextBtn = binding.buttonStep1Next;
 
@@ -55,16 +50,19 @@ public class Step1Fragment extends Fragment {
                 if(name.length() == 0) {
                     binding.textViewStep1Name.setVisibility(View.VISIBLE);
                 } else {
-                    Step2Fragment step2Fragment = new Step2Fragment();
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
 
                     Bundle bundle = new Bundle();
                     bundle.putString("name",name);
                     Log.d("TEST","df"+name);
 
 
+                    Step2Fragment step2Fragment = new Step2Fragment();
                     step2Fragment.setArguments(bundle);
                     Log.d("TEST","dsf"+bundle);
-                    ((SignupActivity) requireActivity()).moveToStep(25);
+                    transaction.replace(R.id.frame_layout_signup, step2Fragment);
+                    transaction.commit();
+                    //.moveToStep(25);
                 }
 
             }
@@ -81,5 +79,15 @@ public class Step1Fragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @NonNull Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+
     }
 }

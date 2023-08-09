@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import com.example.cmd.databinding.FragmentStep2Binding;
 public class Step2Fragment extends Fragment {
 
     FragmentStep2Binding binding;
+    private String name;
     public Step2Fragment() {
         // Required empty public constructor
     }
@@ -28,11 +30,10 @@ public class Step2Fragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle args = getArguments();
-        if(args != null){
-            Log.d("TEST","sss"+args);
-        }else{
-            Log.d("TEST","ss");
+        Bundle bundle = getArguments();
+        if(bundle != null){
+            Log.d("TEST","sss"+bundle);
+            name = bundle.getString("name");
         }
     }
 
@@ -40,12 +41,8 @@ public class Step2Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentStep2Binding.inflate(inflater);
-        return binding.getRoot();
-    }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @NonNull Bundle savedInstance) {
-        super.onViewCreated(view, savedInstance);
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
 
         Button nextBtn = binding.buttonStep2Next;
 
@@ -59,30 +56,40 @@ public class Step2Fragment extends Fragment {
                 if(email.length() == 0 || classN.length() == 0 || bir.length() == 0) {
                     binding.textViewStep2Noti.setVisibility(View.VISIBLE);
                 } else {
-                    Long classNumber = Long.parseLong(binding.edittextSignupClassNumber.getText().toString());
-                    Long birth = Long.parseLong(binding.edittextSignupBirth.getText().toString());
 
-                    Bundle args = getArguments();
-                    if(args != null) {
-                        Log.d("TEST","d");
-                        String name = args.getString("name");
+                    Bundle bundle = new Bundle();
+                    bundle.putString("email",email);
+                    bundle.putString("classNumber",classN);
+                    bundle.putString("birth",bir);
+                    bundle.putString("name",name);
 
-                        Bundle bundle = new Bundle();
-                        bundle.putString("email",email);
-                        bundle.putLong("classNumber",classNumber);
-                        bundle.putLong("birth",birth);
-                        bundle.putString("name",name);
-
-                        Step3Fragment step3Fragment = new Step3Fragment();
-                        step3Fragment.setArguments(bundle);
-                        ((SignupActivity) requireActivity()).moveToStep(50);
-                    }else {
-                        Log.d("TEST","n");
-                    }
+                    Step3Fragment step3Fragment = new Step3Fragment();
+                    step3Fragment.setArguments(bundle);
+                    transaction.replace(R.id.frame_layout_signup, step3Fragment);
+                    transaction.commit();
+                    //((SignupActivity) requireActivity()).moveToStep(50);
 
                 }
             }
         });
+
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @NonNull Bundle savedInstance) {
+        super.onViewCreated(view, savedInstance);
+
+
+
+//        Bundle bundle = getArguments();
+//        if(bundle != null){
+//            Log.d("TEST","xx"+bundle);
+//        }else{
+//            Log.d("TEST","x");
+//        }
+
+
 
 
 
