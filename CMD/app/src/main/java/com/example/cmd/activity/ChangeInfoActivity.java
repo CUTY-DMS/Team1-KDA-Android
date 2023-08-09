@@ -6,16 +6,18 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.cmd.api.ApiProvider;
 import com.example.cmd.api.SeverApi;
 import com.example.cmd.databinding.ActivityChangeInfoBinding;
 import com.example.cmd.request.ChangeMyInfoRequest;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,6 +33,10 @@ public class ChangeInfoActivity extends AppCompatActivity {
         binding = ActivityChangeInfoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        initViews();
+    }
+
+    private void initViews() {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
@@ -40,30 +46,23 @@ public class ChangeInfoActivity extends AppCompatActivity {
         binding.editTextChangeUserMajor.setText(bundle.getString("majorField"));
         binding.editTextChangeUserClub.setText(bundle.getString("clubName"));
 
+        binding.buttonChangeEdit.setOnClickListener(v -> showSoftKeyboard(binding.editTextChangeUserName));
 
-        binding.buttonChangeEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //커서 포커스 맞추기
-                binding.editTextChangeUserName.requestFocus();
-                //커서 마지막 글씨에 맞추기
-                binding.editTextChangeUserName.setSelection(binding.editTextChangeUserName.getText().length());
+        binding.imageBtnChangeInfoClose.setOnClickListener(v -> onBackPressed());
 
-                //키보드 올리기
-                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                inputMethodManager.showSoftInput(binding.editTextChangeUserName, InputMethodManager.SHOW_IMPLICIT);
-            }
-        });
-
-        binding.imageBtnChangeInfoClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
         check();
         clear();
+    }
 
+    private void showSoftKeyboard(EditText editText) {
+        //커서 포커스 맞추기
+        editText.requestFocus();
+        //커서 마지막 글씨에 맞추기
+        editText.setSelection(editText.getText().length());
+
+        //키보드 올리기
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
     }
 
     private void check() {
@@ -92,12 +91,15 @@ public class ChangeInfoActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                sever();
+                sendDataToSever();
             }
         };
     }
 
-    private void sever() {
+    private void sendDataToSever() {
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String accessToken = sharedPreferences.getString("accessToken", null);
+
         String name = binding.editTextChangeUserName.getText().toString();
         String classIdNumber = binding.editTextChangeUserNumber.getText().toString();
         String birth = binding.editTextChangeUserBirth.getText().toString();
@@ -114,29 +116,23 @@ public class ChangeInfoActivity extends AppCompatActivity {
 
         }
 
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        String accessToken = sharedPreferences.getString("accessToken", null);
-
         ChangeMyInfoRequest changeMyInfoRequest = new ChangeMyInfoRequest(name, classIdNum, birthDay, majorField, clubName);
         SeverApi severApi = ApiProvider.getInstance().create(SeverApi.class);
 
-        binding.buttonChangeSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                severApi.changeInfo(accessToken, changeMyInfoRequest).enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        if (response.isSuccessful()) {
-                            Toast.makeText(ChangeInfoActivity.this, "정보가 수정 되었습니다", Toast.LENGTH_SHORT).show();
-                        }
+        binding.buttonChangeSave.setOnClickListener(v -> {
+            severApi.changeInfo(accessToken, changeMyInfoRequest).enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(ChangeInfoActivity.this, "정보가 수정 되었습니다", Toast.LENGTH_SHORT).show();
                     }
+                }
 
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        Log.e("TAG", "네트워크 요청 실패: " + t.getMessage());
-                    }
-                });
-            }
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Toast.makeText(ChangeInfoActivity.this, "통신 실패", Toast.LENGTH_SHORT).show();
+                }
+            });
         });
     }
 
@@ -150,14 +146,7 @@ public class ChangeInfoActivity extends AppCompatActivity {
     }
 
     private View.OnClickListener click(EditText id) {
-
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                id.setText(null);
-            }
-        };
-
+        return v -> id.setText(null);
     }
 
     @Override
