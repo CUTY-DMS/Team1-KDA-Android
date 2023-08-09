@@ -7,11 +7,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.cmd.api.ApiProvider;
 import com.example.cmd.api.SeverApi;
 import com.example.cmd.databinding.ActivityChangePasswordBinding;
 import com.example.cmd.request.ChangePasswordRequest;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,36 +30,26 @@ public class ChangePasswordActivity extends AppCompatActivity {
         binding = ActivityChangePasswordBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.imageBtnChangePasswordClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        binding.imageBtnChangePasswordClose.setOnClickListener(v -> onBackPressed());
 
         changePassword();
-
     }
 
     private void changePassword() {
         TextView pwCheck = binding.textviewChangePasswordCheck;
         Button change = binding.buttonChangePasswordChange;
 
-        change.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String oldPw = binding.editTextNowPassword.getText().toString();
-                String newPw = binding.editTextNewPassword.getText().toString();
-                String newPwCheck = binding.editTextNewPasswordCheck.getText().toString();
+        change.setOnClickListener(v -> {
+            String oldPw = binding.editTextNowPassword.getText().toString();
+            String newPw = binding.editTextNewPassword.getText().toString();
+            String newPwCheck = binding.editTextNewPasswordCheck.getText().toString();
 
-                if (!newPw.equals(newPwCheck)) {
-                    pwCheck.setVisibility(View.VISIBLE);
-                } else {
-                    sever(oldPw, newPw, newPwCheck);
-                }
+            if (!newPw.equals(newPwCheck)) {
+                pwCheck.setVisibility(View.VISIBLE);
+            } else {
+                sever(oldPw, newPw, newPwCheck);
             }
         });
-
     }
 
     private void sever(String oldPw, String newPw, String newPwCheck) {
@@ -78,7 +71,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-
+                Toast.makeText(ChangePasswordActivity.this, "통신 실패", Toast.LENGTH_SHORT).show();
             }
         });
     }
