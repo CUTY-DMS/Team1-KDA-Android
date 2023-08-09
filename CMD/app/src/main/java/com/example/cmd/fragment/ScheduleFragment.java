@@ -86,20 +86,16 @@ public class ScheduleFragment extends Fragment {
 
             spinnerListener();
 
-            binding.btnScheduleSelect.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    binding.viewPagerSchedule.setVisibility(View.VISIBLE);
-                    binding.textViewScheduleSelect.setVisibility(View.INVISIBLE);
-                    binding.spinnerScheduleGrade.setVisibility(View.INVISIBLE);
-                    binding.spinnerSecheduleClass.setVisibility(View.INVISIBLE);
-                    binding.btnScheduleSelect.setVisibility(View.INVISIBLE);
+            binding.btnScheduleSelect.setOnClickListener(v -> {
+                binding.viewPagerSchedule.setVisibility(View.VISIBLE);
+                binding.textViewScheduleSelect.setVisibility(View.INVISIBLE);
+                binding.spinnerScheduleGrade.setVisibility(View.INVISIBLE);
+                binding.spinnerSecheduleClass.setVisibility(View.INVISIBLE);
+                binding.btnScheduleSelect.setVisibility(View.INVISIBLE);
 
-                    viewPager();
-                }
+                viewPager();
             });
         }
-
 
         return binding.getRoot();
     }
@@ -151,7 +147,6 @@ public class ScheduleFragment extends Fragment {
 
             }
         });
-
     }
 
 

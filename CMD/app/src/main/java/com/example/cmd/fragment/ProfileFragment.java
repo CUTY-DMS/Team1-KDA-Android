@@ -12,7 +12,6 @@ import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -35,7 +34,6 @@ import retrofit2.Response;
 
 public class ProfileFragment extends Fragment {
 
-    private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
     FragmentProfileBinding binding;
     FragmentProfileNoBinding noLoginBinding;
     private SharedPreferences sharedPreferences;
@@ -49,57 +47,33 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        String accessToken = sharedPreferences.getString("accessToken", null);
-
         if (LoginActivity.accessToken != null) {
             binding = FragmentProfileBinding.inflate(inflater);
             bringInfo();
 
 
-            binding.buttonProfileChangePassword.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
-                    startActivity(intent);
-                }
+            binding.buttonProfileChangePassword.setOnClickListener(v -> {
+                Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
+                startActivity(intent);
             });
 
-            binding.buttonProfileLogout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    logOut();
-                }
-            });
+            binding.buttonProfileLogout.setOnClickListener(v -> logOut());
 
             return binding.getRoot();
-
-
         } else {
             noLoginBinding = FragmentProfileNoBinding.inflate(inflater);
-            noLoginBinding.buttonProfileNoGoLogin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(intent);
-                    getActivity().finish();
-                }
+
+            noLoginBinding.buttonProfileNoGoLogin.setOnClickListener(v -> {
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+                getActivity().finish();
             });
 
             return noLoginBinding.getRoot();
         }
-
     }
 
     private void bringInfo() {
-        TextView email = binding.textViewProfileEmail;
-        TextView name = binding.textViewProfileUserName;
-        TextView userName = binding.textViewProfileTopName;
-        TextView classId = binding.textViewProfileUserClassNumber;
-        TextView birth = binding.textViewProfileUserBirth;
-        TextView majorField = binding.textViewProfileUserMajor;
-        TextView clubName = binding.textViewProfileUserClub;
-
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String accessToken = sharedPreferences.getString("accessToken", null);
         String refreshToken = sharedPreferences.getString("refreshToken", null);
@@ -112,32 +86,26 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onResponse(Call<MypageResponse> call, Response<MypageResponse> response) {
                 if (response.isSuccessful()) {
-                    Log.d("TEST", "일반");
                     if (response.body() != null) {
-                        email.setText(response.body().getEmail());
-                        name.setText(response.body().getName());
-                        userName.setText(response.body().getName());
-                        classId.setText(String.valueOf(response.body().getClassId()));
-                        birth.setText(String.valueOf(response.body().getBirth()));
-                        majorField.setText(response.body().getMajorField());
-                        clubName.setText(response.body().getClubName());
+                        binding.textViewProfileEmail.setText(response.body().getEmail());
+                        binding.textViewProfileUserName.setText(response.body().getName());
+                        binding.textViewProfileTopName.setText(response.body().getName());
+                        binding.textViewProfileUserClassNumber.setText(String.valueOf(response.body().getClassId()));
+                        binding.textViewProfileUserBirth.setText(String.valueOf(response.body().getBirth()));
+                        binding.textViewProfileUserMajor.setText(response.body().getMajorField());
+                        binding.textViewProfileUserClub.setText(response.body().getClubName());
 
-
-                        binding.imageBtnProfileEdit.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(getActivity(), ChangeInfoActivity.class);
-                                Bundle bundle = new Bundle();
-                                bundle.putString("name", response.body().getName());
-                                bundle.putLong("classId", response.body().getClassId());
-                                bundle.putLong("birth", response.body().getBirth());
-                                bundle.putString("majorField", response.body().getMajorField());
-                                bundle.putString("clubName", response.body().getClubName());
-                                intent.putExtras(bundle);
-                                startActivity(intent);
-                            }
+                        binding.imageBtnProfileEdit.setOnClickListener(v -> {
+                            Intent intent = new Intent(getActivity(), ChangeInfoActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("name", response.body().getName());
+                            bundle.putLong("classId", response.body().getClassId());
+                            bundle.putLong("birth", response.body().getBirth());
+                            bundle.putString("majorField", response.body().getMajorField());
+                            bundle.putString("clubName", response.body().getClubName());
+                            intent.putExtras(bundle);
+                            startActivity(intent);
                         });
-
                     }
 
                 }
@@ -161,7 +129,6 @@ public class ProfileFragment extends Fragment {
                                     Toast.makeText(getContext(), "다시 로그인 해주세요", Toast.LENGTH_SHORT).show();
                                 }
                             }
-
                         }
 
                         @Override
@@ -178,10 +145,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-    }
-
-    private boolean isLogin() {
-        return sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false);
     }
 
     private void logOut() {
@@ -211,6 +174,5 @@ public class ProfileFragment extends Fragment {
         AlertDialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_radious);
         dialog.show();
-
     }
 }

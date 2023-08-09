@@ -2,15 +2,18 @@ package com.example.cmd.etc;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.view.View;
+
 import androidx.annotation.NonNull;
+
 import com.example.cmd.activity.LoginActivity;
 import com.example.cmd.api.ApiProvider;
 import com.example.cmd.api.SeverApi;
 import com.example.cmd.databinding.ActivityAllNoticeDialogBinding;
 import com.example.cmd.response.NoticeCheckResponse;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,12 +30,7 @@ public class NoticeDialog extends Dialog {
 
         sever(id);
 
-        binding.buttonAllDialogShut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        binding.buttonAllDialogShut.setOnClickListener(v -> dismiss());
     }
 
     private void sever(Long id) {
@@ -61,5 +59,4 @@ public class NoticeDialog extends Dialog {
             }
         });
     }
-
 }

@@ -1,6 +1,5 @@
 package com.example.cmd.fragment;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,6 @@ public class AlarmFragment extends Fragment {
     final int NUM_PAGED = 2;
     FragmentAlarmBinding binding;
     Fragment allFragment, weFragment;
-    private SharedPreferences sharedPreferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,8 +31,6 @@ public class AlarmFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentAlarmBinding.inflate(inflater, container, false);
-        View rootView = binding.getRoot();
-
 
         allFragment = new AllNoticeFragment();
         weFragment = new WeClassFragment();
@@ -42,7 +38,6 @@ public class AlarmFragment extends Fragment {
         ViewPager2 viewPager2 = binding.viewPagerAlarm;
         viewPager2.setAdapter(new AlarmAdapter(this, allFragment, weFragment, (int) NUM_PAGED));
         viewPager2.setCurrentItem(0);
-
 
         TabLayout tabLayout = binding.tabLayoutAlarm;
         TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
@@ -61,7 +56,7 @@ public class AlarmFragment extends Fragment {
             binding.textviewAlarmLogin.setVisibility(View.VISIBLE);
         }
 
-        return rootView;
+        return binding.getRoot();
     }
 
     @Override
