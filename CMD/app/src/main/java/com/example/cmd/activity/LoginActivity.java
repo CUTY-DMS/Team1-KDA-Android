@@ -4,22 +4,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.cmd.api.ApiProvider;
 import com.example.cmd.api.SeverApi;
 import com.example.cmd.databinding.ActivityLoginBinding;
 import com.example.cmd.request.LoginRequest;
 import com.example.cmd.response.LoginResponse;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String KEY_IS_LOGIN = "isLoggedIn";
     public static String accessToken;
     public static String refreshToken;
     private ActivityLoginBinding binding;
@@ -32,22 +34,12 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.buttonLoginLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                login();
-            }
-        });
+        binding.buttonLoginLogin.setOnClickListener(v -> login());
 
-        binding.textviewGotoSignup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
-                startActivity(intent);
-            }
+        binding.textviewGotoSignup.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+            startActivity(intent);
         });
-
-        savePreferences(false);
     }
 
     private void login() {
@@ -69,10 +61,9 @@ public class LoginActivity extends AppCompatActivity {
 
         severApi.login(loginRequest).enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+            public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
                 if (response.isSuccessful()) {
-                    savePreferences(true);
-
+                    assert response.body() != null;
                     accessToken = response.body().getAccessToken();
                     refreshToken = response.body().getRefreshToken();
 
@@ -82,7 +73,6 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("accessToken", accessToken);
                     editor.putString("refreshToken", refreshToken);
                     editor.apply();
-
 
                     Toast.makeText(LoginActivity.this, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -96,18 +86,9 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
                 Toast.makeText(LoginActivity.this, "로그인에 실패했습니다", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
-    private void savePreferences(boolean isLogIn) {
-        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(KEY_IS_LOGIN, isLogIn);
-        editor.apply();
-    }
-
 }

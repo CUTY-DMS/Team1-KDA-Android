@@ -1,16 +1,18 @@
 package com.example.cmd.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.cmd.R;
 import com.example.cmd.etc.NoticeDialog;
 import com.example.cmd.response.WeClassResponse;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -21,7 +23,6 @@ public class WeClassAdapter extends RecyclerView.Adapter<WeClassAdapter.ItemView
 
     public WeClassAdapter(List<WeClassResponse> list) {
         this.list = list;
-        Log.d("TEST", "list/" + list);
     }
 
     @NonNull
@@ -45,16 +46,14 @@ public class WeClassAdapter extends RecyclerView.Adapter<WeClassAdapter.ItemView
         holder.title.setText(list.get(position).getTitle());
         holder.date.setText(outDate);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int clickPosition = holder.getAdapterPosition();
-                NoticeDialog noticeDialog = new NoticeDialog(v.getContext(), list.get(clickPosition).getId());
-                noticeDialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_radious);
-                noticeDialog.show();
+        holder.itemView.setOnClickListener(v -> {
+            int clickPosition = holder.getAdapterPosition();
 
-                holder.linearLayout.setBackgroundResource(R.drawable.item_radious_click);
-            }
+            NoticeDialog noticeDialog = new NoticeDialog(v.getContext(), list.get(clickPosition).getId());
+            noticeDialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_radious);
+            noticeDialog.show();
+
+            holder.linearLayout.setBackgroundResource(R.drawable.item_radious_click);
         });
     }
 

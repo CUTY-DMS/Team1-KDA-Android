@@ -1,14 +1,16 @@
 package com.example.cmd.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.cmd.R;
 import com.example.cmd.response.ScheduleItemResponse;
+
 import java.util.List;
 
 public class ScheduleListAdapter extends RecyclerView.Adapter<ScheduleListAdapter.ViewHolder> {
@@ -19,11 +21,11 @@ public class ScheduleListAdapter extends RecyclerView.Adapter<ScheduleListAdapte
         this.items = items;
     }
 
-
     @NonNull
     @Override
     public ScheduleListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.schedule_item, parent, false);
+
         return new ViewHolder(itemView);
     }
 
@@ -40,8 +42,8 @@ public class ScheduleListAdapter extends RecyclerView.Adapter<ScheduleListAdapte
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView schedule;
-        private TextView time;
+        private final TextView schedule;
+        private final TextView time;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

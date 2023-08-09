@@ -14,7 +14,6 @@ public class AlarmAdapter extends FragmentStateAdapter {
         this.allFragment = allFragment;
         this.weFragment = weFragment;
         this.NUM_PAGED = NUM_PAGED;
-
     }
 
 

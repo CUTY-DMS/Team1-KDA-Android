@@ -11,6 +11,7 @@ public class ScheduleAdapter extends FragmentStateAdapter {
 
     public ScheduleAdapter(Fragment fragment, Fragment monFragment, Fragment tuesFragment, Fragment wednesFragment, Fragment thursFragment, Fragment friFragment, int NUM_PAGED) {
         super(fragment);
+
         this.monFragment = monFragment;
         this.tuesFragment = tuesFragment;
         this.wednesFragment = wednesFragment;

@@ -5,10 +5,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.cmd.R;
 import com.example.cmd.response.CalendarResponse;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
@@ -16,7 +19,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ItemViewHolder> {
-
 
     public List<CalendarResponse> list;
 
@@ -27,7 +29,6 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ItemVi
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.calendar_item, parent, false);
 
         return new ItemViewHolder(view);
@@ -35,7 +36,6 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ItemVi
 
     @Override
     public void onBindViewHolder(@NonNull CalendarAdapter.ItemViewHolder holder, int position) {
-
         Long year = list.get(position).getYear();
         Long month = list.get(position).getMonth();
         Long day = list.get(position).getDay();
@@ -55,7 +55,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ItemVi
         return list.size();
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
+    static class ItemViewHolder extends RecyclerView.ViewHolder {
         public TextView date;
         public TextView title;
         public TextView dateText;
