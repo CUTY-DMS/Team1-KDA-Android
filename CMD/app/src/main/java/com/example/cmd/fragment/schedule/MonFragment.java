@@ -1,15 +1,13 @@
 package com.example.cmd.fragment.schedule;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.cmd.adapter.ScheduleListAdapter;
 import com.example.cmd.api.SeverApi;
@@ -33,17 +31,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MonFragment extends Fragment {
 
-    FragmentMonBinding binding;
     private static final String BASE_URL = "https://open.neis.go.kr/hub/";
     private static final String KEY = "&KEY=513aa74951a64b0793c9a0519e3e4bde";
-
-    private static String grade;
-    private static String classNm;
     private static String date;
-
+    FragmentMonBinding binding;
     List<ScheduleItemResponse> scheduleItemResponseList;
     ScheduleListAdapter scheduleListAdapter;
     RecyclerView recyclerView;
+    private String grade = "0";
+    private String classNm = "0";
+
+    public MonFragment(String grade, String classNm) {
+        this.grade = grade;
+        this.classNm = classNm;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,8 +57,6 @@ public class MonFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentMonBinding.inflate(inflater);
 
-        grade = "1";
-        classNm = "3";
         date = "20230703";
 
         recyclerView = binding.recyclerViewMon;
@@ -66,10 +65,20 @@ public class MonFragment extends Fragment {
 
         scheduleItemResponseList = new ArrayList<>();
         scheduleListAdapter = new ScheduleListAdapter(scheduleItemResponseList);
-        Log.d("TEST","시간표 리스트/" + scheduleItemResponseList);
         recyclerView.setAdapter(scheduleListAdapter);
 
+        gradeSever();
+        scheduleSever();
 
+        return binding.getRoot();
+    }
+
+    private void gradeSever() {
+
+    }
+
+
+    private void scheduleSever() {
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
@@ -81,68 +90,45 @@ public class MonFragment extends Fragment {
 
         SeverApi severApi = retrofit.create(SeverApi.class);
 
-        Call<ScheduleResponse> call = severApi.scheduleList(grade,classNm,date,KEY);
+        Call<ScheduleResponse> call = severApi.scheduleList(grade, classNm, date, KEY);
 
-        call.enqueue(new Callback <ScheduleResponse>() {
+        call.enqueue(new Callback<ScheduleResponse>() {
             @Override
             public void onResponse(Call<ScheduleResponse> call, Response<ScheduleResponse> response) {
                 if (response.isSuccessful()) {
-                    //List<ScheduleResponse> scheduleList = response.body();
 
                     // JSON 배열을 JSON 객체로 래핑
                     JsonObject jsonObject = new JsonObject();
                     JsonArray jsonArray = new JsonArray();
 
-                    Log.d("TEST","응답/"+response.body());
                     ScheduleResponse scheduleResponse = response.body();
 
                     if (scheduleResponse != null) {
                         List<ScheduleHisTimetable> scheduleItems = scheduleResponse.getHisTimetable();
-                        //List<ScheduleItemResponse> itemResponseList = response.body();
-                        //List<ScheduleResponse> responsesBody = response.body();
+
                         for (ScheduleHisTimetable item : scheduleItems) {
                             JsonObject scheduleObject = new JsonObject();
-                            //scheduleObject.addProperty("ITRT_CNTNT", item.getScheduleItems().toString());
-                            Log.d("TEST","d/"+response.body().getHisTimetable());
-                            Log.d("TEST","아이템/"+item.getScheduleItems());
-                            //String itrtCntnt = item.getItrtCntnt();
-                            Log.d("TEST","f/"+scheduleItems);
-                            //Log.d("TEST", "ITRT_CNTNT: " + itrtCntnt);
                             jsonArray.add(scheduleObject);
 
-                            if(item.getScheduleItems() != null){
+                            if (item.getScheduleItems() != null) {
                                 scheduleItemResponseList.addAll(item.getScheduleItems());
                             }
 
-
                         }
-
                         scheduleListAdapter.notifyDataSetChanged();
                     }
                     jsonObject.add("items", jsonArray);
 
-                    // 결과 출력
-                    Gson gson = new Gson();
-                    String jsonObjectString = gson.toJson(jsonObject);
-                    //Log.d("TEST","시단표/"+response.body().getPerio());
-                    Log.d("TEST","시간표 url/ "+ response.raw().request().url().url());
-                    Log.d("TEST", "시간표 JSON: " + jsonObjectString);
                 } else {
                     // API 호출 실패 처리
-                    Log.d("TEST", "API 호출 실패 코드: " + response.code());
-                    Log.d("TEST", "연결 주소 확인: " + response.raw().request().url().url());
+
                 }
             }
 
             @Override
             public void onFailure(Call<ScheduleResponse> call, Throwable t) {
-                Log.d("TEST", "통신 실패: " + t.getMessage());
+
             }
         });
-
-
-
-
-        return binding.getRoot();
     }
 }

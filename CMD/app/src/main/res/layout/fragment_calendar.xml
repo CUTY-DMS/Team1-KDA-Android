@@ -19,72 +19,66 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_calendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_gravity="center"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_calendar">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:layout_gravity="center">
-
-            <CalendarView
-                android:id="@+id/calendarView_calendar"
-                android:layout_width="match_parent"
-                android:layout_height="350dp" />
-
-        </androidx.cardview.widget.CardView>
-
-
-
-
-        <androidx.recyclerview.widget.RecyclerView
+        <CalendarView
+            android:id="@+id/calendarView_calendar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"/>
+            android:layout_height="350dp" />
 
-        <TextView
-            android:id="@+id/textview_calendar_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="로그인을 하시면 더 많은 정보를\n 얻으실수 있습니다"
-            android:textColor="@color/gray"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:textSize="20sp"
-            android:visibility="invisible"/>
-
-    </LinearLayout>
-
-
-    <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/icon_plus"
-        android:backgroundTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+    </androidx.cardview.widget.CardView>
 
 
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_calendar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="60dp"
+        tools:listitem="@layout/calendar_item"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardView_calendar"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-<!--    <Button-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="+ 일정 추가하기"-->
-<!--        android:backgroundTint="@color/green3"-->
-<!--        android:layout_marginLeft="30dp"-->
-<!--        android:layout_marginTop="30dp"-->
-<!--        app:layout_constraintLeft_toLeftOf="@id/calendarView_calendar"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/calendarView_calendar"/>-->
+    <TextView
+        android:id="@+id/textview_calendar_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="로그인을 하시면 더 많은 정보를\n 얻으실수 있습니다"
+        android:textColor="@color/gray"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardView_calendar"/>
 
-
+    <TextView
+        android:id="@+id/textview_calendar_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="등록된 정보가 없습니다"
+        android:textColor="@color/gray"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardView_calendar"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

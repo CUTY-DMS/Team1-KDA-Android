@@ -36,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="60dp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -59,5 +60,52 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView_schedule_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="학년 반을 선택해주세요"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginTop="100dp"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_schedule_schedule"/>
+
+    <Spinner
+        android:id="@+id/spinner_schedule_grade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="80dp"
+        android:visibility="invisible"
+        android:entries="@array/spinner_grade_array"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_schedule_select"/>
+
+    <Spinner
+        android:id="@+id/spinner_sechedule_class"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="80dp"
+        android:visibility="invisible"
+        android:entries="@array/spinner_class_array"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_schedule_select"/>
+
+    <Button
+        android:id="@+id/btn_schedule_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="불러오기"
+        android:layout_marginTop="100dp"
+        android:backgroundTint="@color/green2"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_schedule_select"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

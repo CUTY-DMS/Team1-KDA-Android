@@ -2,4 +2,15 @@
     <string name="app_name">KDA</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="spinner_grade_array">
+        <item>1학년</item>
+        <item>2학년</item>
+        <item>3학년</item>
+    </string-array>
+    <string-array name="spinner_class_array">
+        <item>1반</item>
+        <item>2반</item>
+        <item>3반</item>
+        <item>4반</item>
+    </string-array>
 </resources>

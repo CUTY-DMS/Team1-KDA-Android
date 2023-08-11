@@ -6,43 +6,29 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class AlarmAdapter extends FragmentStateAdapter {
 
-    Fragment allFragment,weFragment;
+    Fragment allFragment, weFragment;
     int NUM_PAGED = 2;
 
-    public AlarmAdapter(Fragment fragment, Fragment allFragment, Fragment weFragment, int NUM_PAGED){
+    public AlarmAdapter(Fragment fragment, Fragment allFragment, Fragment weFragment, int NUM_PAGED) {
         super(fragment);
         this.allFragment = allFragment;
         this.weFragment = weFragment;
         this.NUM_PAGED = NUM_PAGED;
-
     }
 
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        if(position == 0){
+        if (position == 0) {
             return allFragment;
-        }else{
+        } else {
             return weFragment;
         }
-        //return fragmentList.get(position);
     }
-
-//    @NonNull
-//    @Override
-//    public Fragment getItem(int position) {
-//        return fragmentList.get(position);
-//    }
-
-//    @Override
-//    public int getCount() {
-//        return fragmentList.size();
-//    }
 
     @Override
     public int getItemCount() {
         return NUM_PAGED;
-        //return fragmentList.size();
     }
 }

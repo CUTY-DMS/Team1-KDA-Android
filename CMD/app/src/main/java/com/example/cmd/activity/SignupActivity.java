@@ -1,5 +1,6 @@
 package com.example.cmd.activity;
 
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -11,15 +12,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.cmd.R;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.cmd.api.ApiProvider;
 import com.example.cmd.api.SeverApi;
-import com.example.cmd.databinding.ActivityLoginBinding;
 import com.example.cmd.databinding.ActivitySignupBinding;
 import com.example.cmd.fragment.signup.Step1Fragment;
 import com.example.cmd.fragment.signup.Step2Fragment;
@@ -45,6 +48,7 @@ public class SignupActivity extends AppCompatActivity {
 
         binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
 
         progressBar = binding.progressBar;
         progressBar.setMax(100);
@@ -111,6 +115,7 @@ public class SignupActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout_signup, fragment);
         fragmentTransaction.commit();
+
     }
 
 

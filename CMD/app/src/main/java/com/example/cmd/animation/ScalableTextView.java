@@ -3,7 +3,6 @@ package com.example.cmd.animation;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 public class ScalableTextView extends androidx.appcompat.widget.AppCompatTextView {
 

@@ -2,8 +2,6 @@ package com.example.cmd.etc;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.util.Log;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 
@@ -22,9 +20,7 @@ import retrofit2.Response;
 
 public class NoticeDialog extends Dialog {
 
-
     ActivityAllNoticeDialogBinding binding;
-
 
     public NoticeDialog(@NonNull Context context, Long id) {
         super(context);
@@ -32,16 +28,9 @@ public class NoticeDialog extends Dialog {
         binding = ActivityAllNoticeDialogBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Log.d("TEST","id"+id);
         sever(id);
 
-
-        binding.buttonAllDialogShut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        binding.buttonAllDialogShut.setOnClickListener(v -> dismiss());
     }
 
     private void sever(Long id) {
@@ -50,13 +39,11 @@ public class NoticeDialog extends Dialog {
         severApi.check(LoginActivity.accessToken, id).enqueue(new Callback<NoticeCheckResponse>() {
             @Override
             public void onResponse(Call<NoticeCheckResponse> call, Response<NoticeCheckResponse> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     String inputDateString = response.body().getDateTime();
-
-
                     DateTimeFormatter input = DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm:ss");
 
-                    LocalDateTime dateTime = LocalDateTime.parse(inputDateString,input);
+                    LocalDateTime dateTime = LocalDateTime.parse(inputDateString, input);
                     String outDate = dateTime.format(DateTimeFormatter.ofPattern("yy.MM.dd"));
 
                     binding.textviewAllDialogUserTitle.setText(response.body().getTitle());
@@ -72,6 +59,4 @@ public class NoticeDialog extends Dialog {
             }
         });
     }
-
-
 }
