@@ -50,33 +50,26 @@ public class Step3Fragment extends Fragment {
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
 
+        binding.buttonStep3Next.setOnClickListener(v -> {
+            String major = binding.edittextSignupMajorField.getText().toString();
+            String clubName = binding.edittextSignupClubName.getText().toString();
 
-        Button nextBtn = binding.buttonStep3Next;
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String major = binding.edittextSignupMajorField.getText().toString();
-                String clubName = binding.edittextSignupClubName.getText().toString();
+            if(major.length() == 0 || clubName.length() == 0) {
+                binding.textViewStep3Noti.setVisibility(View.VISIBLE);
+            } else {
+                Bundle bundle = new Bundle();
+                bundle.putString("email",email);
+                bundle.putString("classNumber",classN);
+                bundle.putString("birth",birth);
+                bundle.putString("name",name);
+                bundle.putString("major",major);
+                bundle.putString("clubName",clubName);
 
-                if(major.length() == 0 || clubName.length() == 0) {
-                    binding.textViewStep3Noti.setVisibility(View.VISIBLE);
-                } else {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("email",email);
-                    bundle.putString("classNumber",classN);
-                    bundle.putString("birth",birth);
-                    bundle.putString("name",name);
-                    bundle.putString("major",major);
-                    bundle.putString("clubName",clubName);
-
-                    Step4Fragment step4Fragment = new Step4Fragment();
-                    step4Fragment.setArguments(bundle);
-                    transaction.replace(R.id.frame_layout_signup, step4Fragment);
-                    transaction.commit();
-                    //((SignupActivity) requireActivity()).moveToStep(75);
-                }
-
-
+                Step4Fragment step4Fragment = new Step4Fragment();
+                step4Fragment.setArguments(bundle);
+                transaction.replace(R.id.frame_layout_signup, step4Fragment);
+                transaction.commit();
+                //((SignupActivity) requireActivity()).moveToStep(75);
             }
         });
 
