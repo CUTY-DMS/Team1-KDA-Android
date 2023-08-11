@@ -1,8 +1,20 @@
 package com.example.cmd.activity;
 
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,6 +24,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.cmd.api.ApiProvider;
 import com.example.cmd.api.SeverApi;
 import com.example.cmd.databinding.ActivitySignupBinding;
+import com.example.cmd.fragment.signup.Step1Fragment;
+import com.example.cmd.fragment.signup.Step2Fragment;
+import com.example.cmd.fragment.signup.Step3Fragment;
+import com.example.cmd.fragment.signup.Step4Fragment;
 import com.example.cmd.request.SignupRequest;
 
 import retrofit2.Call;
@@ -22,6 +38,10 @@ public class SignupActivity extends AppCompatActivity {
 
     ActivitySignupBinding binding;
 
+    private ProgressBar progressBar;
+    private int progressStatus = 0;
+    private Handler handler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,60 +49,75 @@ public class SignupActivity extends AppCompatActivity {
         binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.textviewGotoLogin.setOnClickListener(v -> {
-            Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-            startActivity(intent);
-        });
 
-        binding.buttonSignupSignup.setOnClickListener(v -> signup());
+        progressBar = binding.progressBar;
+        progressBar.setMax(100);
+        handler = new Handler() {
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+
+                if(msg.what == 0) {
+                    if(progressStatus < 100) {
+                        progressStatus++;
+                        progressBar.setProgress(progressStatus);
+                    } else{
+                        progressBar.setVisibility(View.GONE);
+                    }
+                }
+            }
+        };
+
+        showFragment(new Step1Fragment());
     }
 
-    private void signup() {
-        String name = binding.edittextSignupUsername.getText().toString();
-        String email = binding.edittextSignupEmail.getText().toString();
-        String password = binding.edittextSignupPassword.getText().toString();
-        String passwordCheck = binding.edittextSignupPasswordCheck.getText().toString();
-        TextView checkPassword = binding.textviewSignupCheck;
-
-        if (name.length() == 0) {
-            Toast.makeText(SignupActivity.this, "이름을 입력해주세요", Toast.LENGTH_SHORT).show();
-        } else if (email.length() == 0) {
-            Toast.makeText(SignupActivity.this, "이메일을 입력해주세요", Toast.LENGTH_SHORT).show();
-        } else if (password.length() == 0) {
-            Toast.makeText(SignupActivity.this, "비밀번호를 입력해주세요", Toast.LENGTH_SHORT).show();
-        } else {
-            if (!password.equals(passwordCheck)) {
-                checkPassword.setVisibility(View.VISIBLE);
-            } else {
-                signupResponse();
-            }
+    public void onPreButtonClick(View view) {
+        if(progressStatus > 0) {
+            progressBar.setVisibility(View.VISIBLE);
+            progressStatus -= 25;
+            progressBar.setProgress(progressStatus);
+            moveToStep(progressStatus);
         }
     }
 
-    private void signupResponse() {
-        String username = binding.edittextSignupUsername.getText().toString();
-        String email = binding.edittextSignupEmail.getText().toString();
-        String password = binding.edittextSignupPassword.getText().toString();
-        String classId = binding.edittextSignupClassNumber.getText().toString();
-        String birth = binding.edittextSignupBirth.getText().toString();
-        String majorField = binding.edittextSignupMajorField.getText().toString();
-        String clubName = binding.edittextSignupClubName.getText().toString();
-
-        SignupRequest signupRequest = new SignupRequest(username, email, password, classId, birth, majorField, clubName);
-        SeverApi severApi = ApiProvider.getInstance().create(SeverApi.class);
-
-        severApi.signup(signupRequest).enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(SignupActivity.this, "회원가입에 성공했습니다", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
-                Toast.makeText(SignupActivity.this, "회원가입에 실패했습니다", Toast.LENGTH_SHORT).show();
-            }
-        });
+    public void onNextButton(View view) {
+        if(progressStatus < 100) {
+            progressBar.setVisibility(View.VISIBLE);
+            progressStatus +=25;
+            progressBar.setProgress(progressStatus);
+            moveToStep(progressStatus);
+        }
     }
+
+    public void moveToStep(int progress) {
+        switch (progress) {
+            case 0:
+                showFragment(new Step1Fragment());
+                break;
+            case 25:
+                showFragment(new Step2Fragment());
+                break;
+            case 50:
+                showFragment(new Step3Fragment());
+                break;
+            case 75:
+                showFragment(new Step4Fragment());
+                break;
+            default:
+
+                break;
+        }
+    }
+
+    private void showFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout_signup, fragment);
+        fragmentTransaction.commit();
+
+    }
+
+
+
 }

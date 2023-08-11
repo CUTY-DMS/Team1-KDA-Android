@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.signup.Step2Fragment">
+
+    <TextView
+        android:id="@+id/textView_step3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="전공 정보를 입력해주세요"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText
+        android:id="@+id/edittext_signup_majorField"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:hint="전공 분야"
+        android:background="@drawable/radious"
+        android:textColorHint="@color/gray"
+        android:backgroundTint="@color/white_gray"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_step3"/>
+
+    <EditText
+        android:id="@+id/edittext_signup_clubName"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:hint="동아리 이름"
+        android:background="@drawable/radious"
+        android:textColorHint="@color/gray"
+        android:backgroundTint="@color/white_gray"
+        android:inputType="textPassword"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="20dp"
+        app:layout_constraintLeft_toLeftOf="@id/edittext_signup_majorField"
+        app:layout_constraintRight_toRightOf="@id/edittext_signup_majorField"
+        app:layout_constraintTop_toBottomOf="@id/edittext_signup_majorField"/>
+
+    <TextView
+        android:id="@+id/textView_step3_noti"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="동아리 정보를 입력해주세요"
+        android:textColor="@color/red"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="15dp"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="@id/edittext_signup_clubName"
+        app:layout_constraintTop_toBottomOf="@id/edittext_signup_clubName"/>
+
+    <LinearLayout
+        android:id="@+id/buttonsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/button_step3_previous"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/green2"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="이전"
+            android:onClick="onPrevButtonClick" />
+
+        <Button
+            android:id="@+id/button_step3_next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/green2"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="다음"
+            android:onClick="onNextButtonClick" />
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
